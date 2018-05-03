@@ -60,15 +60,15 @@ class App extends Component {
     render(){
       return (<div className="App">
         <div className="wrapper">
-          <h1>Johan is love, Johan is life</h1>
+          <h1>Time For Quiz!</h1>
           {
             this.state.user
-              ? <button onClick={this.logout}>Leave Johan</button>
-              : <button onClick={this.login}>Enter Johan</button>
+              ? <button className="btnGoogleLogout" onClick={this.logout}>Logout from Google</button>
+              : <button className="btnGoogleLogin" onClick={this.login}>Login with Google</button>
           }
         </div>
 
-        <button onClick={this.loginFb}>Enter with facebook</button>
+        <button className="btnFb" onClick={this.loginFb}>Enter with facebook</button>
         <div className='container'>
           <section className='add-item'>
             <form onSubmit={this.handleSubmit}>
