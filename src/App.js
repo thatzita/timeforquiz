@@ -53,7 +53,9 @@ class App extends Component {
     auth.signInWithPopup(authfb)
     .then((result) =>{
 
-      console.log(result)
+      const user = result.user
+      this.setState({user})
+      console.log(this.state.user)
 
     })
   }
