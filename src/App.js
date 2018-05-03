@@ -48,42 +48,39 @@ class App extends Component {
         email: user.email,
         uid: user.uid
       }
-      
+
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
         let keys = Object.keys(data);
-        // console.log(keys)
-        // console.log(data)
-
+        console.log(data)
+        console.log(keys)
       });
       this.setState({user});
     })
   }
   loginFb() {
     auth.signInWithPopup(authfb).then((result) => {
-      console.log(result)
+      const user = result.user
+      this.setState({user})
+      console.log(this.state.user)
     })
   }
   render() {
     return (<div className="App">
       <div className="wrapper">
-        <h1>Johan is love, Johan is life</h1>
+        <h1>Time For Quiz!</h1>
         {
           this.state.user
-            ? <button onClick={this.logout}>Leave Johan</button>
-            : <button onClick={this.loginGoogle}>Enter Johan</button>
-        }
-        {
-          this.state.user
-            ? <button onClick={this.logout}>Leave facebook</button>
-            : <button onClick={this.loginFb}>Enter with facebook</button>
+            ? <button className="btnGoogleLogout" onClick={this.logout}>Logout from Google</button>
+            : <button className="btnGoogleLogin" onClick={this.loginGoogle}>Login with Google</button>
         }
       </div>
+      <button className="btnFb" onClick={this.loginFb}>Enter with facebook</button>
       <div className='container'>
         <section className='add-item'>
           <form onSubmit={this.handleSubmit}>
             <input type="text" name="nickname" placeholder="thatzita" onChange={this.handleChange} value={this.state.nickname}/>
-            <input type="text" name="email" placeholder="that's it isn't it?" onChange={this.handleChange} value={this.state.email}/>
+            <input type="text" name="something" placeholder="that's it isn't it?" onChange={this.handleChange} value={this.state.something}/>
             <button >Add it</button>
           </form>
         </section>
