@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './App.css';
-import firebase, {auth, provider} from './firebase.js';
+import firebase, {auth, provider, authfb} from './firebase.js';
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +14,7 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
+    this.loginFb = this.loginFb.bind(this);
   }
   handleChange(e) {
     this.setState({
@@ -47,6 +48,15 @@ class App extends Component {
       this.setState({user});
     })
   }
+
+  loginFb(){
+    auth.signInWithPopup(authfb)
+    .then((result) =>{
+
+      console.log(result)
+
+    })
+  }
     render(){
       return (<div className="App">
         <div className="wrapper">
@@ -57,6 +67,8 @@ class App extends Component {
               : <button onClick={this.login}>Enter Johan</button>
           }
         </div>
+
+        <button onClick={this.loginFb}>Enter with facebook</button>
         <div className='container'>
           <section className='add-item'>
             <form onSubmit={this.handleSubmit}>
