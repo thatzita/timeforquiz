@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import firebase, {auth, provider, authfb} from './firebase.js';
+import ProfileComponent from './ProfileComponent.js';
 
 class App extends Component {
   constructor(props) {
@@ -58,8 +59,8 @@ class App extends Component {
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
         let keys = Object.keys(data);
-        console.log(data)
-        console.log(keys)
+        // console.log(data)
+        // console.log(keys)
       });
       this.setState({
         profile:{
@@ -69,9 +70,26 @@ class App extends Component {
   }
   loginFb() {
     auth.signInWithPopup(authfb).then((result) => {
-      const user = result.user
+      const userRef = firebase.database().ref('users/');
+      const user = result.user;
+
+      let currentlyLoggedIn = firebase.auth().currentUser;
+
+      let currentUser = {
+        nickname: user.displayName,
+        email: user.email,
+        uid: user.uid
+      }
+
+      userRef.once("value", function(snapshot) {
+        let data = snapshot.val();
+        let keys = Object.keys(data);
+        console.log(data)
+        console.log(keys)
+      });
+
       this.setState({user})
-      console.log(this.state.user)
+      // console.log(this.state.user)
     })
   }
   render() {
@@ -82,28 +100,25 @@ class App extends Component {
             <profileComp profile={this.state.profile}/>
           </div>
       )
+
     }
 
     return (<div className="App">
 
-        <div className="ruta">
+      <div className="ruta"></div>
 
-        </div>
-
-        <div className="info">
-          <span>Time for quiz</span>
-
-        </div>
-        <div className="wrapper">
-          <div>
-            <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
-
-            <i className="fab fa-facebook btnFb" onClick={this.loginFb} ></i>
-          </div>
+      <div className="info">
+        <span>Time for quiz</span>
 
       </div>
+      <div className="wrapper">
+        <div>
+          <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
 
+          <i className="fab fa-facebook btnFb" onClick={this.loginFb}></i>
+        </div>
 
+      </div>
 
     </div>)
   }
