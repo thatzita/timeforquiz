@@ -3,9 +3,10 @@ import React, {Component} from 'react';
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
+    console.log(props)
   }
   render() {
-    return (<div>This will be starting page</div>)
+    return (<div><img src={this.props.profile.photo}/></div>)
   }
 }
 
