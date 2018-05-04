@@ -5,8 +5,23 @@ class ProfileComponent extends Component {
     super(props)
     console.log(props)
   }
+
+  componentWillMount(){
+
+    console.log(this.props.profile.nickname)
+  }
   render() {
-    return (<div><img src={this.props.profile.photo}/></div>)
+    return (
+
+      <div >
+
+        <div className="profile">
+        <img src={this.props.profile.picture + "?width=999"} />
+        <h3>{this.props.profile.nickname}</h3>
+        </div>
+
+
+    </div>)
   }
 }
 
