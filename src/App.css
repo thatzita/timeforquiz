@@ -1,8 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100');
 body {
-  background-color: rgb(130, 91, 91);
-  color: white;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#693a3a+0,693a3a+100&1+0,0.77+51,1+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#693a3a+0,693a3a+100&1+0,0.87+51,1+100 */
+background: -moz-linear-gradient(top, rgba(105,58,58,1) 0%, rgba(105,58,58,0.87) 51%, rgba(105,58,58,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, rgba(105,58,58,1) 0%,rgba(105,58,58,0.87) 51%,rgba(105,58,58,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, rgba(105,58,58,1) 0%,rgba(105,58,58,0.87) 51%,rgba(105,58,58,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#693a3a', endColorstr='#693a3a',GradientType=0 ); /* IE6-9 */
+color:rgba(255,255,255,0.8);
   margin: 30px;
+  height: 100vh;
   font-family: 'Montserrat', sans-serif;
   font-weight: 100;
 }
@@ -11,10 +17,24 @@ body {
   font-size: 3em;
 }
 
+.profile{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile img {
+  width: 200px;
+  height: 200px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+  border-radius: 100%;
+  margin-top: 50px;
+}
 .ruta {
   width: 70%;
   height: 30px;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   margin: 0 auto;
   -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
   clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
@@ -28,7 +48,7 @@ body {
   justify-content: space-around;
   height: 50px;
   /* border-radius: 30px 0px; */
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5);
   width: 65%;
   margin-top: 80px;
   align-items: center;
@@ -58,21 +78,23 @@ body {
   font-size: 3em;
 }
 
-.info div {
-  margin-top: 20px;
+.socialamedierLogIn{
+  position: relative;
+  top:40px;
   cursor: pointer;
 }
 
-.info div i {
+.socialamedierLogIn i {
+  color:rgba(255,255,255,0.8);
   transition-property: transform;
   transition-duration: 0.3s;
 }
 
-.info div i:hover {
+.socialamedierLogIn i:hover {
   transform: rotate(3deg);
 }
 
-.info div i:last-child {
+.socialamedierLogIn i:last-child {
   margin-left: 20px;
 }
 
