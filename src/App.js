@@ -93,13 +93,14 @@ class App extends Component {
         <div className="info">
           <span>Time for quiz</span>
 
-        </div>
-        <div className="wrapper">
           <div>
             <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
 
             <i className="fab fa-facebook btnFb" onClick={this.loginFb} ></i>
           </div>
+        </div>
+        <div className="wrapper">
+
 
       </div>
 
