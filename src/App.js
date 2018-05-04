@@ -40,7 +40,7 @@ class App extends Component {
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
       const userRef = firebase.database().ref('users/');
-      let existingUsers = [];
+      // let existingUsers = [];
       let doesItNotExist = true;
 
       console.log(user)
@@ -63,7 +63,6 @@ class App extends Component {
           loggedIn: true
         }
       });
-
 
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
@@ -91,9 +90,9 @@ class App extends Component {
       const user = result.user;
 
       const userRef = firebase.database().ref('users/');
-      let existingUsers = [];
+      // let existingUsers = [];
       let doesItNotExist = true;
-      
+
       let currentlyLoggedIn = firebase.auth().currentUser;
       let currentUser = {
         profile: {
@@ -133,14 +132,12 @@ class App extends Component {
     })
   }
 
-  componentWillMount(){
-    console.log(this.state.profile)
-  }
+  componentWillMount() {}
   render() {
     if (this.state.profile.loggedIn !== false) {
       return (<div>
         <ProfileComponent profile={this.state.profile}/>
-        
+
       </div>)
     }
 
@@ -150,7 +147,6 @@ class App extends Component {
 
       <div className="info">
         <span>Time for quiz</span>
-
 
       </div>
       <div className="wrapper"></div>
