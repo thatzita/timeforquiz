@@ -5,10 +5,12 @@ import Quiz from './quiz.js';
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
+
       this.state = {
         clicked: true
         
       }
+
   }
     
     startQuiz = () => {
@@ -20,8 +22,8 @@ class ProfileComponent extends Component {
     
     }
   render() {
-      
-      if(!this.state.clicked) {
+
+     if(!this.state.clicked) {
           return (
               <div>
                   <Quiz/>
@@ -36,6 +38,7 @@ class ProfileComponent extends Component {
         
     )
             
+
   }
 }
 

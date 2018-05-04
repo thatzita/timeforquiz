@@ -12,7 +12,9 @@ class App extends Component {
         nickname: '',
         email: '',
         uid: '',
-        loggedIn: false
+        loggedIn: false,
+        picture: ""
+
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -31,76 +33,108 @@ class App extends Component {
         profile: {
           user: null
         }
-
       });
-
     });
   }
   loginGoogle() {
     auth.signInWithPopup(provider).then((result) => {
-      const userRef = firebase.database().ref('users/');
       const user = result.user;
-      let currentlyLoggedIn = firebase.auth().currentUser;
+      const userRef = firebase.database().ref('users/');
+      let existingUsers = [];
+      let doesItNotExist = true;
 
+      console.log(user)
       let currentUser = {
         profile: {
-          nickname: user.displayName
-        },
+          nickname: user.displayName,
+          mail: user.email,
+          uid: user.uid,
 
-        profile: {
-          mail: user.email
-        },
-        profile: {
-          uid: user.uid
+          photo: user.photoURL
         }
-      }
+      };
+
+      this.setState({
+        profile: {
+          nickname: user.displayName,
+          mail: user.email,
+          uid: user.uid,
+          photo: user.photoURL,
+          loggedIn: true
+        }
+      });
+
 
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
         let keys = Object.keys(data);
-        // console.log(data)
-        // console.log(keys)
-      });
-      this.setState({
-        profile: {
-          loggedIn: true
+
+        for (let key in data) {
+          if (data[key].profile.uid === user.uid) {
+            console.log("snelhest")
+            doesItNotExist = false;
+            break;
+          }
+        }
+
+        if (doesItNotExist) {
+          console.log("user does not exist")
+          userRef.push(currentUser)
+
         }
       });
+
     })
   }
   loginFb() {
     auth.signInWithPopup(authfb).then((result) => {
-      const userRef = firebase.database().ref('users/');
       const user = result.user;
 
+      const userRef = firebase.database().ref('users/');
+      let existingUsers = [];
+      let doesItNotExist = true;
+      
       let currentlyLoggedIn = firebase.auth().currentUser;
-
       let currentUser = {
         profile: {
-          nickname: user.displayName
-        },
-
-        profile: {
-          mail: user.email
-        },
-        profile: {
-          uid: user.uid
+          nickname: user.displayName,
+          mail: user.email,
+          uid: user.uid,
+          photo: user.photoURL
         }
-      }
+      };
+
+      this.setState({
+        profile: {
+          nickname: user.displayName,
+          mail: user.email,
+          uid: user.uid,
+          photo: user.photoURL,
+          loggedIn: true
+        }
+      });
 
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
         let keys = Object.keys(data);
-        console.log(data)
-        console.log(keys)
-      });
-
-      this.setState({
-        profile: {
-          loggedIn: true
+        for (let key in data) {
+          if (data[key].profile.uid === user.uid) {
+            console.log("snelhest")
+            doesItNotExist = false;
+            break;
+          }
+        }
+        if (doesItNotExist) {
+          console.log("user does not exist")
+          userRef.push(currentUser)
         }
       });
+
     })
+  }
+
+  componentWillMount(){
+    console.log(this.state.profile)
   }
   render() {
     if (this.state.profile.loggedIn !== false) {
@@ -117,14 +151,14 @@ class App extends Component {
       <div className="info">
         <span>Time for quiz</span>
 
-        <div>
-          <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
 
-          <i className="fab fa-facebook btnFb" onClick={this.loginFb}></i>
-        </div>
       </div>
       <div className="wrapper"></div>
+      <div className="socialamedierLogIn">
+        <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
 
+        <i className="fab fa-facebook btnFb" onClick={this.loginFb}></i>
+      </div>
     </div>)
   }
 }
