@@ -60,6 +60,7 @@ clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
 
 
 .wrapper div i{
+  cursor: pointer;
   transition-property: transform;
   transition-duration: 0.3s;
 }
