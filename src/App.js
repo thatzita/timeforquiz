@@ -66,6 +66,15 @@ class App extends Component {
     })
   }
   render() {
+
+    if(this.state.user !== null){
+      return (
+          <div>
+            <profileComp/>
+          </div>
+      )
+    }
+
     return (<div className="App">
 
         <div className="ruta">
