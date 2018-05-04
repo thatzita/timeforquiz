@@ -78,9 +78,9 @@ class App extends Component {
         </div>
         <div className="wrapper">
           <div>
-            <i className="fab fa-google-plus-square btnFb"></i>
+            <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
 
-            <i className="fab fa-facebook btnFb" ></i>
+            <i className="fab fa-facebook btnFb" onClick={this.loginFb} ></i>
           </div>
 
       </div>
