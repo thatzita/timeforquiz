@@ -7,12 +7,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      profile : {
+      profile: {
         user: null,
         nickname: '',
         email: '',
         uid: '',
-        loggedIn: false,
+        loggedIn: false
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -25,11 +25,10 @@ class App extends Component {
       [e.target.name]: e.target.value
     })
   }
-
   logout() {
     auth.signOut().then(() => {
       this.setState({
-        profile:{
+        profile: {
           user: null
         }
 
@@ -44,14 +43,14 @@ class App extends Component {
       let currentlyLoggedIn = firebase.auth().currentUser;
 
       let currentUser = {
-        profile:{
-          nickname: user.displayName,
+        profile: {
+          nickname: user.displayName
         },
 
-        profile:{
-          mail:user.email,
+        profile: {
+          mail: user.email
         },
-        profile:{
+        profile: {
           uid: user.uid
         }
       }
@@ -63,9 +62,10 @@ class App extends Component {
         // console.log(keys)
       });
       this.setState({
-        profile:{
-        loggedIn: true,
-      }});
+        profile: {
+          loggedIn: true
+        }
+      });
     })
   }
   loginFb() {
@@ -76,9 +76,16 @@ class App extends Component {
       let currentlyLoggedIn = firebase.auth().currentUser;
 
       let currentUser = {
-        nickname: user.displayName,
-        email: user.email,
-        uid: user.uid
+        profile: {
+          nickname: user.displayName
+        },
+
+        profile: {
+          mail: user.email
+        },
+        profile: {
+          uid: user.uid
+        }
       }
 
       userRef.once("value", function(snapshot) {
@@ -88,19 +95,18 @@ class App extends Component {
         console.log(keys)
       });
 
-      this.setState({user})
-      // console.log(this.state.user)
+      this.setState({
+        profile: {
+          loggedIn: true
+        }
+      });
     })
   }
   render() {
-
-    if(this.state.profile.loggedIn !== false){
-      return (
-          <div>
-            <profileComp profile={this.state.profile}/>
-          </div>
-      )
-
+    if (this.state.profile.loggedIn !== false) {
+      return (<div>
+        <ProfileComponent profile={this.state.profile}/>
+      </div>)
     }
 
     return (<div className="App">
@@ -110,15 +116,13 @@ class App extends Component {
       <div className="info">
         <span>Time for quiz</span>
 
-      </div>
-      <div className="wrapper">
         <div>
           <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
 
           <i className="fab fa-facebook btnFb" onClick={this.loginFb}></i>
         </div>
-
       </div>
+      <div className="wrapper"></div>
 
     </div>)
   }
