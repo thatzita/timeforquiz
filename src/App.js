@@ -6,13 +6,15 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
-      nickname: '',
-      email: '',
-      uid: ''
+      profile : {
+        user: null,
+        nickname: '',
+        email: '',
+        uid: '',
+        loggedIn: false,
+      }
     }
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
     this.logout = this.logout.bind(this);
     this.loginFb = this.loginFb.bind(this);
@@ -22,19 +24,16 @@ class App extends Component {
       [e.target.name]: e.target.value
     })
   }
-  handleSubmit(e) {
-    e.preventDefault();
-    const userRef = firebase.database().ref('users');
-    const currentUser = {
-      nickname: this.state.nickname,
-      email: this.state.email
-    }
-    userRef.push(currentUser);
-    this.setState({nickname: '', email: ''});
-  }
+
   logout() {
     auth.signOut().then(() => {
-      this.setState({user: null});
+      this.setState({
+        profile:{
+          user: null
+        }
+
+      });
+
     });
   }
   loginGoogle() {
@@ -44,9 +43,16 @@ class App extends Component {
       let currentlyLoggedIn = firebase.auth().currentUser;
 
       let currentUser = {
-        nickname: user.displayName,
-        email: user.email,
-        uid: user.uid
+        profile:{
+          nickname: user.displayName,
+        },
+
+        profile:{
+          mail:user.email,
+        },
+        profile:{
+          uid: user.uid
+        }
       }
 
       userRef.once("value", function(snapshot) {
@@ -55,7 +61,10 @@ class App extends Component {
         console.log(data)
         console.log(keys)
       });
-      this.setState({user});
+      this.setState({
+        profile:{
+        loggedIn: true,
+      }});
     })
   }
   loginFb() {
@@ -67,10 +76,10 @@ class App extends Component {
   }
   render() {
 
-    if(this.state.user !== null){
+    if(this.state.profile.loggedIn !== false){
       return (
           <div>
-            <profileComp/>
+            <profileComp profile={this.state.profile}/>
           </div>
       )
     }
