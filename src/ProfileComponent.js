@@ -11,6 +11,9 @@ class ProfileComponent extends Component {
         
       }
 
+
+    console.log(this.props.profile.picture)
+
   }
     
     startQuiz = () => {
@@ -23,6 +26,7 @@ class ProfileComponent extends Component {
     }
   render() {
 
+
      if(!this.state.clicked) {
           return (
               <div>
@@ -33,6 +37,13 @@ class ProfileComponent extends Component {
       return (
         <div>This will be starting page
               <button onClick={ this.startQuiz}>Click to start the quiz</button>
+
+      <div >
+
+        <div className="profile">
+        <img src={this.props.profile.photo + "?width=999"} />
+        <h3>{this.props.profile.nickname}</h3>
+
         </div>
         
         
