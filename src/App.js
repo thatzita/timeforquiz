@@ -140,6 +140,7 @@ class App extends Component {
     if (this.state.profile.loggedIn !== false) {
       return (<div>
         <ProfileComponent profile={this.state.profile}/>
+        
       </div>)
     }
 
