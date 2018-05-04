@@ -8,7 +8,7 @@ class ProfileComponent extends Component {
 
   componentWillMount(){
 
-    console.log(this.props.profile.nickname)
+    console.log(this.props.profile.picture)
   }
   render() {
     return (
@@ -16,7 +16,7 @@ class ProfileComponent extends Component {
       <div >
 
         <div className="profile">
-        <img src={this.props.profile.picture + "?width=999"} />
+        <img src={this.props.profile.photo + "?width=999"} />
         <h3>{this.props.profile.nickname}</h3>
         </div>
 
