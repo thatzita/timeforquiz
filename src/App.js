@@ -33,16 +33,15 @@ class App extends Component {
         profile: {
           user: null
         }
-
       });
-
     });
   }
   loginGoogle() {
     auth.signInWithPopup(provider).then((result) => {
-      const userRef = firebase.database().ref('users/');
       const user = result.user;
-      let currentlyLoggedIn = firebase.auth().currentUser;
+      const userRef = firebase.database().ref('users/');
+      let existingUsers = [];
+      let doesItNotExist = true;
 
       console.log(user)
       let currentUser = {
@@ -50,68 +49,87 @@ class App extends Component {
           nickname: user.displayName,
           mail: user.email,
           uid: user.uid,
-          loggedIn:true,
-          picture: user.photoURL
-        },
 
+          photo: user.photoURL
+        }
+      };
 
-      }
-
-      userRef.once("value", function(snapshot) {
-        let data = snapshot.val();
-        let keys = Object.keys(data);
-        // console.log(data)
-        // console.log(keys)
-      });
       this.setState({
         profile: {
           nickname: user.displayName,
           mail: user.email,
           uid: user.uid,
-          loggedIn: true,
-          picture: user.photoURL
-
+          photo: user.photoURL,
+          loggedIn: true
         }
       });
-    })
-  }
-  loginFb() {
-    auth.signInWithPopup(authfb).then((result) => {
-      const userRef = firebase.database().ref('users/');
-      const user = result.user;
 
-      for(let us in userRef){
-
-        console.log(us)
-      }
-      let currentlyLoggedIn = firebase.auth().currentUser;
-      let currentUser = {
-        profile: {
-          nickname: user.displayName,
-            mail: user.email,
-            uid: user.uid,
-            loggedIn:true,
-            picture : user.photoURL
-
-        }
-      }
 
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
         let keys = Object.keys(data);
-        console.log(data)
-        console.log(keys)
+
+        for (let key in data) {
+          if (data[key].profile.uid === user.uid) {
+            console.log("snelhest")
+            doesItNotExist = false;
+            break;
+          }
+        }
+
+        if (doesItNotExist) {
+          console.log("user does not exist")
+          userRef.push(currentUser)
+
+        }
       });
+
+    })
+  }
+  loginFb() {
+    auth.signInWithPopup(authfb).then((result) => {
+      const user = result.user;
+
+      const userRef = firebase.database().ref('users/');
+      let existingUsers = [];
+      let doesItNotExist = true;
+      
+      let currentlyLoggedIn = firebase.auth().currentUser;
+      let currentUser = {
+        profile: {
+          nickname: user.displayName,
+          mail: user.email,
+          uid: user.uid,
+          photo: user.photoURL
+        }
+      };
 
       this.setState({
         profile: {
           nickname: user.displayName,
-            mail: user.email,
-            uid: user.uid,
-            loggedIn:true,
-            picture : user.photoURL
+          mail: user.email,
+          uid: user.uid,
+          photo: user.photoURL,
+          loggedIn: true
         }
       });
+
+      userRef.once("value", function(snapshot) {
+        let data = snapshot.val();
+        let keys = Object.keys(data);
+        for (let key in data) {
+          if (data[key].profile.uid === user.uid) {
+            console.log("snelhest")
+            doesItNotExist = false;
+            break;
+          }
+        }
+        if (doesItNotExist) {
+          console.log("user does not exist")
+          userRef.push(currentUser)
+        }
+      });
+
     })
   }
 
