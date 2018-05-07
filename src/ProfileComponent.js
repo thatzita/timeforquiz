@@ -49,6 +49,7 @@ class ProfileComponent extends Component {
           <h3>{profile.nickname}</h3>
           <h4>Stats</h4>
           <ul>
+            <li>Ranking: {profile.ranking}</li>
             <li>Correct answers: {profile.correctAnswers}</li>
             <li>Wrong answers: {profile.failedAnswers}</li>
           </ul>
