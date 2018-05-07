@@ -3,13 +3,15 @@ import './quiz.css';
 import './App.css';
 import ProfileComponent from './ProfileComponent.js';
 import Questions from './questions.js';
+import SportQuestions from './sportQuestions.js';
 
 class Quiz extends Component {
   constructor(props) {
     super(props)
     this.state = {
       clicked: true,
-      clickedQuiz: true
+//      clickedQuiz: true,
+      clickedSport: true
     }
   }
 
@@ -29,7 +31,7 @@ class Quiz extends Component {
 
   sportQuiz = () => {
     console.log("this is a quiz a bout sport");
-    this.setState({clickedQuiz: false})
+    this.setState({clickedSport: false})
   }
 
   render() {
@@ -41,9 +43,15 @@ class Quiz extends Component {
       </div>)
     }
 
-    if (!this.state.clickedQuiz) {
+//    if (!this.state.clickedQuiz) {
+//      return (<div>
+//        <Questions profile={profile}/>
+//      </div>)
+//    }
+      
+     if (!this.state.clickedSport) {
       return (<div>
-        <Questions profile={profile}/>
+        <SportQuestions profile={profile}/>
       </div>)
     }
     return (<div>Quiz Menu

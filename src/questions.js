@@ -27,6 +27,7 @@ class Questions extends Component {
     return (<div>QUESTIONS HERE
       <br/>
       <button onClick={this.goBack}>Back to Quiz Menu</button>
+      <sportQuestions/>
     </div>)
 
   }
