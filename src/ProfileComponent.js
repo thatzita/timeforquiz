@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Quiz from './quiz.js';
 import App from './App.js';
+import Highscore from './Highscore.js';
 import firebase, {auth} from './firebase.js';
 
 class ProfileComponent extends Component {
@@ -8,6 +9,7 @@ class ProfileComponent extends Component {
     super(props)
     this.state = {
       clicked: true,
+      score: true,
       profile: {
         loggedIn: true
       }
@@ -29,6 +31,9 @@ class ProfileComponent extends Component {
   startQuiz = () => {
     this.setState({clicked: false})
   }
+  highscore = () => {
+    this.setState({score: false})
+  }
   render() {
     // this.signOut;
     const profile = this.props.profile;
@@ -41,9 +46,14 @@ class ProfileComponent extends Component {
       return (<div>
         <App profile={profile}/>
       </div>)
+    } else if (!this.state.score) {
+      return (<div>
+        <Highscore profile={profile}/>
+      </div>)
     } else {
       return (<div>
         <button onClick={this.startQuiz}>Click to start the quiz</button>
+        <button onClick={this.highscore}>Highscore</button>
         <div className="profile">
           <img src={profile.photo + "?width=999"}/>
           <h3>{profile.nickname}</h3>
