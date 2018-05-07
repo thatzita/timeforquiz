@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './quiz.css';
+import './App.css';
 import ProfileComponent from './ProfileComponent.js';
 import Questions from './questions.js';
 
@@ -32,16 +33,17 @@ class Quiz extends Component {
   }
 
   render() {
-
+    const profile = this.props.profile;
+    console.log(profile)
     if (!this.state.clicked) {
       return (<div>
-        <ProfileComponent profile={this.props.profile}/>
+        <ProfileComponent profile={profile}/>
       </div>)
     }
 
     if (!this.state.clickedQuiz) {
       return (<div>
-        <Questions profile={this.props.profile}/>
+        <Questions profile={profile}/>
       </div>)
     }
     return (<div>Quiz Menu
@@ -56,8 +58,10 @@ class Quiz extends Component {
         <br/>
         <button className="btnQuiz" onClick={this.sportQuiz}>Sport</button>
       </div>
-      <div className="quizDiv">
-        DETTA ÄR EN STOR GRÖN DIV</div>
+      <div className="profile">
+        <img src={profile.photo + "?width=999"}/>
+        <h3>{profile.nickname}</h3>
+      </div>
     </div>)
 
   }
