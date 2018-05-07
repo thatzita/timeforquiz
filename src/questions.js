@@ -16,10 +16,11 @@ class Questions extends Component {
   }
 
   render() {
-
+    const profile = this.props.profile;
+    console.log(profile)
     if (!this.state.clicked) {
       return (<div>
-        <Quiz profile={this.props.profile}/>
+        <Quiz profile={profile}/>
       </div>)
     }
 

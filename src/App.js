@@ -14,27 +14,16 @@ class App extends Component {
         uid: '',
         loggedIn: false,
         picture: ""
-
       }
     }
     this.handleChange = this.handleChange.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
-    this.logout = this.logout.bind(this);
     this.loginFb = this.loginFb.bind(this);
   }
   handleChange(e) {
     this.setState({
       [e.target.name]: e.target.value
     })
-  }
-  logout() {
-    auth.signOut().then(() => {
-      this.setState({
-        profile: {
-          user: null
-        }
-      });
-    });
   }
   loginGoogle() {
     auth.signInWithPopup(provider).then((result) => {
@@ -70,7 +59,6 @@ class App extends Component {
 
         for (let key in data) {
           if (data[key].profile.uid === user.uid) {
-            console.log("snelhest")
             doesItNotExist = false;
             break;
           }
@@ -118,7 +106,7 @@ class App extends Component {
         let keys = Object.keys(data);
         for (let key in data) {
           if (data[key].profile.uid === user.uid) {
-            console.log("snelhest")
+            console.log(this.state.profile.loggedIn)
             doesItNotExist = false;
             break;
           }
@@ -134,25 +122,21 @@ class App extends Component {
 
   componentWillMount() {}
   render() {
+    // const profile = this.props.profile;
+
     if (this.state.profile.loggedIn !== false) {
       return (<div>
         <ProfileComponent profile={this.state.profile}/>
-
       </div>)
     }
-
     return (<div className="App">
-
       <div className="ruta"></div>
-
       <div className="info">
         <span>Time for quiz</span>
-
       </div>
       <div className="wrapper"></div>
       <div className="socialamedierLogIn">
         <i className="fab fa-google-plus-square btnFb" onClick={this.loginGoogle}></i>
-
         <i className="fab fa-facebook btnFb" onClick={this.loginFb}></i>
       </div>
     </div>)
