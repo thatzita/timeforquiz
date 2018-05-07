@@ -22,7 +22,6 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
     this.loginFb = this.loginFb.bind(this);
-    // this.updateVal = this.updateVal.bind(this)
   }
   handleChange(e) {
     this.setState({
@@ -47,7 +46,8 @@ class App extends Component {
           photo: user.photoURL,
           correctAnswers: 0,
           failedAnswers: 0,
-          ranking: 0
+          ranking: 0,
+          place:0,
         }
       };
 
@@ -59,8 +59,58 @@ class App extends Component {
         } else {
           let keys = Object.keys(data);
           for (let key in data) {
+
+
             if (data[key].profile.uid === user.uid) {
-              console.log(data[key].profile)
+
+
+
+              let rank;
+              if(data[key].profile.correctAnswers ===0 && data[key].profile.failedAnswers ===0){
+                  rank = 0;
+              }else{
+                let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                rank = (data[key].profile.correctAnswers/plus) * 100
+              }
+
+              let arr= []
+              for(let key in data){
+
+                  let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                  let newVal= (data[key].profile.correctAnswers/plus)*100
+                  if(isNaN(newVal)){
+                    console.log(0)
+                  }else {
+                    console.log(newVal.toFixed(2))
+                     arr.push({
+                       nickname: data[key].profile.nickname,
+                      ranking: Number(newVal.toFixed(2)),
+                      numberOfQuestions:plus,
+                    })
+                  }
+              }
+
+
+
+              arr.sort(function(a, b){
+                return a.ranking-b.ranking
+              })
+
+              let newArr = arr.reverse();
+              console.log(newArr)
+              let place =0 ;
+              for(let i=0; i < newArr.length;i++){
+
+                if(newArr[i].nickname === data[key].profile.nickname){
+                  console.log(data[key].profile.nickname)
+
+                  console.log(i+1)
+                  place = i+1
+
+                }
+              }
+
+
               currentUser = {
                 profile: {
                   nickname: data[key].profile.nickname,
@@ -69,7 +119,8 @@ class App extends Component {
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
-                  ranking: data[key].profile.ranking
+                  ranking: rank.toFixed(2) + "%",
+                  place: place,
                 }
               }
               doesItNotExist = false;
@@ -103,12 +154,12 @@ class App extends Component {
             loggedIn: true,
             correctAnswers: currentUser.profile.correctAnswers,
             failedAnswers: currentUser.profile.failedAnswers,
-            ranking: currentUser.profile.ranking
+            ranking: currentUser.profile.ranking,
+            place: currentUser.profile.place
           }
         });
       }
 
-      console.log("self ", self)
 
     }) //signInWithPopup
   } //loginGoogle
@@ -130,7 +181,8 @@ class App extends Component {
           photo: user.photoURL,
           correctAnswers: 0,
           failedAnswers: 0,
-          ranking: 0
+          ranking: 0,
+          place:"Last",
         }
       };
 
@@ -142,8 +194,54 @@ class App extends Component {
         } else {
           let keys = Object.keys(data);
           for (let key in data) {
+
             if (data[key].profile.uid === user.uid) {
-              console.log(data[key].profile)
+
+
+                            let rank;
+                            if(data[key].profile.correctAnswers ===0 && data[key].profile.failedAnswers ===0){
+                                rank = 0;
+                            }else{
+                              let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                              rank = (data[key].profile.correctAnswers/plus) * 100
+                            }
+
+                            let arr= []
+                            for(let key in data){
+
+                                let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                                let newVal= (data[key].profile.correctAnswers/plus)*100
+                                if(isNaN(newVal)){
+                                  console.log(0)
+                                }else {
+                                  console.log(newVal.toFixed(2))
+                                   arr.push({
+                                     nickname: data[key].profile.nickname,
+                                    ranking: Number(newVal.toFixed(2)),
+                                    numberOfQuestions:plus,
+                                  })
+                                }
+                            }
+
+
+
+                            arr.sort(function(a, b){
+                              return a.ranking-b.ranking
+                            })
+
+                            let newArr = arr.reverse();
+                            console.log(newArr)
+                            let place =0 ;
+                            for(let i=0; i < newArr.length;i++){
+
+                              if(newArr[i].nickname === data[key].profile.nickname){
+                                console.log(data[key].profile.nickname)
+
+                                console.log(i+1)
+                                place = i+1
+
+                              }
+                            }
               currentUser = {
                 profile: {
                   nickname: data[key].profile.nickname,
@@ -152,7 +250,8 @@ class App extends Component {
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
-                  ranking: data[key].profile.ranking
+                  ranking: rank.toFixed(2) + "%",
+                  place: place,
                 }
               }
               doesItNotExist = false;
@@ -186,15 +285,17 @@ class App extends Component {
             loggedIn: true,
             correctAnswers: currentUser.profile.correctAnswers,
             failedAnswers: currentUser.profile.failedAnswers,
-            ranking: currentUser.profile.ranking
+            ranking: currentUser.profile.ranking,
+            place: currentUser.profile.place
           }
         });
       }
 
-      console.log("self ", self)
 
     })
   }
+
+
   render() {
     // const profile = this.props.profile;
 
