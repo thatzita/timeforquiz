@@ -16,7 +16,7 @@ class App extends Component {
         picture: "",
         correctAnswers: 0,
         failedAnswers: 0,
-        ranking: 0,
+        ranking: 0
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -47,18 +47,16 @@ class App extends Component {
           photo: user.photoURL,
           correctAnswers: 0,
           failedAnswers: 0,
-          ranking: 0,
+          ranking: 0
         }
       };
 
-
-
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
-        if(data === null){
+        if (data === null) {
           userRef.push(currentUser)
 
-        }else{
+        } else {
           let keys = Object.keys(data);
           for (let key in data) {
             if (data[key].profile.uid === user.uid) {
@@ -71,7 +69,7 @@ class App extends Component {
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
-                  ranking: data[key].profile.ranking,
+                  ranking: data[key].profile.ranking
                 }
               }
               doesItNotExist = false;
@@ -83,10 +81,7 @@ class App extends Component {
             console.log("user does not exist")
             userRef.push(currentUser)
 
-          }else{
-
-          }
-
+          } else {}
 
         }
 
@@ -94,7 +89,7 @@ class App extends Component {
       }) //userReef.once
 
       //this
-      function updateVal(){
+      function updateVal() {
 
         //this fel
         console.log(this)
@@ -108,75 +103,98 @@ class App extends Component {
             loggedIn: true,
             correctAnswers: currentUser.profile.correctAnswers,
             failedAnswers: currentUser.profile.failedAnswers,
-            ranking: currentUser.profile.ranking,
+            ranking: currentUser.profile.ranking
           }
         });
       }
 
       console.log("self ", self)
 
-
-
-
-      })//signInWithPopup
-  }//loginGoogle
-
-
-
-
+    }) //signInWithPopup
+  } //loginGoogle
 
   loginFb() {
+    const self = this;
     auth.signInWithPopup(authfb).then((result) => {
       const user = result.user;
-
       const userRef = firebase.database().ref('users/');
       // let existingUsers = [];
       let doesItNotExist = true;
 
-      let currentlyLoggedIn = firebase.auth().currentUser;
+      console.log(user)
       let currentUser = {
         profile: {
           nickname: user.displayName,
           mail: user.email,
           uid: user.uid,
-          photo: user.photoURL
+          photo: user.photoURL,
+          correctAnswers: 0,
+          failedAnswers: 0,
+          ranking: 0
         }
       };
 
-      this.setState({
-        profile: {
-          nickname: user.displayName,
-          mail: user.email,
-          uid: user.uid,
-          photo: user.photoURL,
-          loggedIn: true
-        }
-      });
-
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
-        let keys = Object.keys(data);
-        for (let key in data) {
-          if (data[key].profile.uid === user.uid) {
-            console.log(this.state.profile.loggedIn)
-            doesItNotExist = false;
-            break;
-          }
-        }
-        if (doesItNotExist) {
-          console.log("user does not exist")
+        if (data === null) {
           userRef.push(currentUser)
+
+        } else {
+          let keys = Object.keys(data);
+          for (let key in data) {
+            if (data[key].profile.uid === user.uid) {
+              console.log(data[key].profile)
+              currentUser = {
+                profile: {
+                  nickname: data[key].profile.nickname,
+                  mail: data[key].profile.mail,
+                  uid: data[key].profile.uid,
+                  photo: data[key].profile.photo,
+                  correctAnswers: data[key].profile.correctAnswers,
+                  failedAnswers: data[key].profile.failedAnswers,
+                  ranking: data[key].profile.ranking
+                }
+              }
+              doesItNotExist = false;
+              break;
+            }
+          }
+
+          if (doesItNotExist) {
+            console.log("user does not exist")
+            userRef.push(currentUser)
+
+          } else {}
+
         }
-      });
+
+        updateVal()
+      }) //userReef.once
+
+      //this
+      function updateVal() {
+
+        //this fel
+        console.log(this)
+
+        self.setState({
+          profile: {
+            nickname: currentUser.profile.nickname,
+            mail: currentUser.profile.mail,
+            uid: currentUser.profile.uid,
+            photo: currentUser.profile.photo,
+            loggedIn: true,
+            correctAnswers: currentUser.profile.correctAnswers,
+            failedAnswers: currentUser.profile.failedAnswers,
+            ranking: currentUser.profile.ranking
+          }
+        });
+      }
+
+      console.log("self ", self)
 
     })
   }
-
-  componentDidUpdate() {
-
-  }
-
-  componentWillMount() {}
   render() {
     // const profile = this.props.profile;
 
