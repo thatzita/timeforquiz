@@ -22,6 +22,7 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
     this.loginFb = this.loginFb.bind(this);
+    // this.updateVal = this.updateVal.bind(this)
   }
   handleChange(e) {
     this.setState({
@@ -29,6 +30,8 @@ class App extends Component {
     })
   }
   loginGoogle() {
+    const self = this;
+
     auth.signInWithPopup(provider).then((result) => {
       const user = result.user;
       const userRef = firebase.database().ref('users/');
@@ -48,18 +51,7 @@ class App extends Component {
         }
       };
 
-      this.setState({
-        profile: {
-          nickname: user.displayName,
-          mail: user.email,
-          uid: user.uid,
-          photo: user.photoURL,
-          loggedIn: true,
-          correctAnswers: 0,
-          failedAnswers: 0,
-          ranking: 0,
-        }
-      });
+
 
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
@@ -71,6 +63,17 @@ class App extends Component {
           for (let key in data) {
             if (data[key].profile.uid === user.uid) {
               console.log(data[key].profile)
+              currentUser = {
+                profile: {
+                  nickname: data[key].profile.nickname,
+                  mail: data[key].profile.mail,
+                  uid: data[key].profile.uid,
+                  photo: data[key].profile.photo,
+                  correctAnswers: data[key].profile.correctAnswers,
+                  failedAnswers: data[key].profile.failedAnswers,
+                  ranking: data[key].profile.ranking,
+                }
+              }
               doesItNotExist = false;
               break;
             }
@@ -80,17 +83,48 @@ class App extends Component {
             console.log("user does not exist")
             userRef.push(currentUser)
 
+          }else{
+
           }
+
 
         }
 
+        updateVal()
+      }) //userReef.once
+
+      //this
+      function updateVal(){
+
+        //this fel
+        console.log(this)
+
+        self.setState({
+          profile: {
+            nickname: currentUser.profile.nickname,
+            mail: currentUser.profile.mail,
+            uid: currentUser.profile.uid,
+            photo: currentUser.profile.photo,
+            loggedIn: true,
+            correctAnswers: currentUser.profile.correctAnswers,
+            failedAnswers: currentUser.profile.failedAnswers,
+            ranking: currentUser.profile.ranking,
+          }
+        });
+      }
+
+      console.log("self ", self)
 
 
 
-      });
 
-    })
-  }
+      })//signInWithPopup
+  }//loginGoogle
+
+
+
+
+
   loginFb() {
     auth.signInWithPopup(authfb).then((result) => {
       const user = result.user;
@@ -136,6 +170,10 @@ class App extends Component {
       });
 
     })
+  }
+
+  componentDidUpdate() {
+
   }
 
   componentWillMount() {}
