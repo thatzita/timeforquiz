@@ -13,7 +13,10 @@ class App extends Component {
         email: '',
         uid: '',
         loggedIn: false,
-        picture: ""
+        picture: "",
+        correctAnswers: 0,
+        failedAnswers: 0,
+        ranking: 0,
       }
     }
     this.handleChange = this.handleChange.bind(this);
@@ -38,8 +41,10 @@ class App extends Component {
           nickname: user.displayName,
           mail: user.email,
           uid: user.uid,
-
-          photo: user.photoURL
+          photo: user.photoURL,
+          correctAnswers: 0,
+          failedAnswers: 0,
+          ranking: 0,
         }
       };
 
@@ -49,26 +54,39 @@ class App extends Component {
           mail: user.email,
           uid: user.uid,
           photo: user.photoURL,
-          loggedIn: true
+          loggedIn: true,
+          correctAnswers: 0,
+          failedAnswers: 0,
+          ranking: 0,
         }
       });
 
       userRef.once("value", function(snapshot) {
         let data = snapshot.val();
-        let keys = Object.keys(data);
-
-        for (let key in data) {
-          if (data[key].profile.uid === user.uid) {
-            doesItNotExist = false;
-            break;
-          }
-        }
-
-        if (doesItNotExist) {
-          console.log("user does not exist")
+        if(data === null){
           userRef.push(currentUser)
 
+        }else{
+          let keys = Object.keys(data);
+          for (let key in data) {
+            if (data[key].profile.uid === user.uid) {
+              console.log(data[key].profile)
+              doesItNotExist = false;
+              break;
+            }
+          }
+
+          if (doesItNotExist) {
+            console.log("user does not exist")
+            userRef.push(currentUser)
+
+          }
+
         }
+
+
+
+
       });
 
     })
