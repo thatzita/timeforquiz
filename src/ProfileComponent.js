@@ -30,9 +30,11 @@ class ProfileComponent extends Component {
     this.setState({clicked: false})
   }
   render() {
+
+
     // this.signOut;
     const profile = this.props.profile;
-    console.log(this.state.profile.loggedIn)
+    console.log(profile.place)
     if (!this.state.clicked) {
       return (<div>
         <Quiz profile={profile}/>
@@ -49,6 +51,7 @@ class ProfileComponent extends Component {
           <h3>{profile.nickname}</h3>
           <h4>Stats</h4>
           <ul>
+            <li>Place: {profile.place}</li>
             <li>Ranking: {profile.ranking}</li>
             <li>Correct answers: {profile.correctAnswers}</li>
             <li>Wrong answers: {profile.failedAnswers}</li>
