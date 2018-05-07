@@ -49,8 +49,8 @@ class ProfileComponent extends Component {
           <h3>{profile.nickname}</h3>
           <h4>Stats</h4>
           <ul>
-            <li>Total score: 0</li>
-            <li>Ranking: 83</li>
+            <li>Correct answers: {profile.correctAnswers}</li>
+            <li>Wrong answers: {profile.failedAnswers}</li>
           </ul>
           <button onClick={this.logout}>Logout</button>
         </div>
