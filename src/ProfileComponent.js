@@ -39,7 +39,7 @@ class ProfileComponent extends Component {
 
     // this.signOut;
     const profile = this.props.profile;
-    console.log(profile.place)
+    const list= this.props.list;
     if (!this.state.clicked) {
       return (<div>
         <Quiz profile={profile}/>
@@ -50,7 +50,7 @@ class ProfileComponent extends Component {
       </div>)
     } else if (!this.state.score) {
       return (<div>
-        <Highscore profile={profile}/>
+        <Highscore profile={profile} list={list}/>
       </div>)
     } else {
       return (<div>

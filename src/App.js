@@ -52,6 +52,8 @@ class App extends Component {
       };
 
       userRef.once("value", function(snapshot) {
+
+        let newArr;
         let data = snapshot.val();
         if (data === null) {
           userRef.push(currentUser)
@@ -96,8 +98,9 @@ class App extends Component {
                 return a.ranking-b.ranking
               })
 
-              let newArr = arr.reverse();
+               newArr = arr.reverse();
               console.log(newArr)
+
               let place =0 ;
               for(let i=0; i < newArr.length;i++){
 
@@ -136,14 +139,14 @@ class App extends Component {
 
         }
 
-        updateVal()
+        updateVal(newArr)
       }) //userReef.once
 
       //this
-      function updateVal() {
+      function updateVal(newArr) {
 
         //this fel
-        console.log(this)
+        console.log(newArr)
 
         self.setState({
           profile: {
@@ -156,7 +159,8 @@ class App extends Component {
             failedAnswers: currentUser.profile.failedAnswers,
             ranking: currentUser.profile.ranking,
             place: currentUser.profile.place
-          }
+          },
+          list:newArr
         });
       }
 
@@ -183,10 +187,12 @@ class App extends Component {
           failedAnswers: 0,
           ranking: 0,
           place:"Last",
-        }
+        },
+        list: []
       };
 
       userRef.once("value", function(snapshot) {
+        let newArr;
         let data = snapshot.val();
         if (data === null) {
           userRef.push(currentUser)
@@ -229,7 +235,8 @@ class App extends Component {
                               return a.ranking-b.ranking
                             })
 
-                            let newArr = arr.reverse();
+                             newArr = arr.reverse();
+
                             console.log(newArr)
                             let place =0 ;
                             for(let i=0; i < newArr.length;i++){
@@ -267,11 +274,11 @@ class App extends Component {
 
         }
 
-        updateVal()
+        updateVal(newArr)
       }) //userReef.once
 
       //this
-      function updateVal() {
+      function updateVal(newArr) {
 
         //this fel
         console.log(this)
@@ -287,7 +294,8 @@ class App extends Component {
             failedAnswers: currentUser.profile.failedAnswers,
             ranking: currentUser.profile.ranking,
             place: currentUser.profile.place
-          }
+          },
+          list: newArr
         });
       }
 
@@ -301,7 +309,7 @@ class App extends Component {
 
     if (this.state.profile.loggedIn !== false) {
       return (<div>
-        <ProfileComponent profile={this.state.profile}/>
+        <ProfileComponent profile={this.state.profile} list={this.state.list} />
       </div>)
     }
     return (<div className="App">

@@ -15,30 +15,33 @@ class Highscore extends Component {
     this.setState({clicked: false})
   }
   componentDidMount() {
+    console.log(this.props.list)
     let highScoreList = [];
-    firebase.database().ref('users/').once("value", snapshot => {
-      snapshot.forEach(function(childSnapshot) {
-        let childKey = childSnapshot.key;
-        let childData = childSnapshot.val();
-        let highScoreUser = {
-          nickname: childData.profile.nickname,
-          ranking: childData.profile.ranking
-        }
-        highScoreList.push(highScoreUser);
-      })
-      function compare(a, b) {
-        if (a.ranking < b.ranking) 
-          return -1;
-        if (a.ranking > b.ranking) 
-          return 1;
-        return 0;
-      }
-      highScoreList.sort(compare);
-      this.setState({topPlayers: highScoreList})
-    });
+    // firebase.database().ref('users/').once("value", snapshot => {
+    //   snapshot.forEach(function(childSnapshot) {
+    //     let childKey = childSnapshot.key;
+    //     let childData = childSnapshot.val();
+    //     let highScoreUser = {
+    //       nickname: childData.profile.nickname,
+    //       ranking: childData.profile.ranking
+    //     }
+    //     highScoreList.push(highScoreUser);
+    //   })
+    //   function compare(a, b) {
+    //     if (a.ranking < b.ranking)
+    //       return -1;
+    //     if (a.ranking > b.ranking)
+    //       return 1;
+    //     return 0;
+    //   }
+    //   highScoreList.sort(compare);
+    //   this.setState({topPlayers: highScoreList})
+    // });
+
   }
   render() {
     const profile = this.props.profile;
+    console.log(this.props.list)
     let topTen = [];
     for (let i = 0; i < this.state.topPlayers.length; i++) {
       topTen.push(this.state.topPlayers[i])
@@ -46,12 +49,12 @@ class Highscore extends Component {
 
     if (!this.state.clicked) {
       return (<div>
-        <ProfileComponent profile={profile}/>
+        <ProfileComponent profile={profile} list={this.props.list}/>
       </div>)
     } else {
       return (<div>
         <ol className="topPlayers">
-          {this.state.topPlayers.map(d => <li key={d.nickname}>{d.nickname}</li>)}
+          {this.props.list.map(d => <li key={d.nickname}>{d.nickname + " " + d.ranking + " " + d.numberOfQuestions}</li>)}
         </ol>
         <button onClick={this.goBack}>Back to ProfilePage</button>
       </div>)
