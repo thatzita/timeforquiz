@@ -9,7 +9,8 @@ class SportQuestions extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            clicked: true
+            clicked: true,
+            sportQuestions: [],
         }
     }
 
@@ -18,19 +19,19 @@ class SportQuestions extends Component {
             clicked: false
         })
 
-        const questionRef = firebase.database().ref('questions/genre/History/');
+        const questionRef = firebase.database().ref('questions/genre/sport/');
 
-        let theQuestions = [{
-                Question1: "What year did the Titanic sink?",
+        let theQuestions = {
+                Question: "In 2002 on the same day as the World Cup final, 'The Other Final' took place between the world's two lowest ranking nations. Who won the game?",
                 answers: {
-                    a: "1909",
-                    b: "1912",
-                    c: "1913",
-                    d: "1911"
+                    a: "Bhutan",
+                    b: "Eritrea",
+                    c: "Montserrat",
+                    d: "Solomon Islands"
                 },
-                correctAnswer: "b"
+                correctAnswer: "a"
           }
-    ]
+
 
         questionRef.once("value", function (snapshot) {
             questionRef.push(theQuestions)
@@ -43,9 +44,18 @@ class SportQuestions extends Component {
         })
 
 
-        var ref = firebase.database().ref();
-        ref.on("value", function (snapshot) {
-            console.log(snapshot.val().questions.genre);
+        var ref = firebase.database().ref("questions/genre/sport/");
+        ref.once("value", function (snapshot) {
+          let obj = snapshot.val()
+          for(let element in obj){
+
+            console.log(obj[element])
+            
+
+          }
+            console.log(snapshot.key)
+
+            // console.log(snapshot.val().questions.genre);
 
         }, function (error) {
             console.log("Error: " + error.code);
