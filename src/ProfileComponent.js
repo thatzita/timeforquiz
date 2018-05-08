@@ -10,12 +10,15 @@ class ProfileComponent extends Component {
     this.state = {
       clicked: true,
       score: true,
+      inputField: false,
       profile: {
         loggedIn: true
-      }
+      },
+      nickname: this.props.profile.nickname
     }
     // let signOut = false;
     this.logout = this.logout.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
   logout = () => {
     // this.signOut = true;
@@ -34,12 +37,26 @@ class ProfileComponent extends Component {
   highscore = () => {
     this.setState({score: false})
   }
+  changeType = () => {
+    console.log(firebase.auth().currentUser.uid)
+
+    console.log(this.state)
+    if (this.state.inputField === false) {
+      console.log("on")
+      this.setState({inputField: true})
+    } else {
+      console.log("off")
+      this.setState({inputField: false})
+    }
+  }
+  handleChange(e) {
+    this.setState({nickname: e.target.value})
+
+  }
   render() {
-
-
     // this.signOut;
     const profile = this.props.profile;
-    const list= this.props.list;
+    const list = this.props.list;
     if (!this.state.clicked) {
       return (<div>
         <Quiz profile={profile}/>
@@ -53,24 +70,44 @@ class ProfileComponent extends Component {
         <Highscore profile={profile} list={list}/>
       </div>)
     } else {
-      return (<div>
-        <button onClick={this.startQuiz}>Click to start the quiz</button>
-        <button onClick={this.highscore}>Highscore</button>
-        <div className="profile">
-          <img src={profile.photo + "?width=999"}/>
-          <h3>{profile.nickname}</h3>
-          <h4>Stats</h4>
-          <ul>
-            <li>Place: {profile.place}</li>
-            <li>Ranking: {profile.ranking}</li>
-            <li>Correct answers: {profile.correctAnswers}</li>
-            <li>Wrong answers: {profile.failedAnswers}</li>
-          </ul>
-          <button onClick={this.logout}>Logout</button>
-        </div>
-      </div>)
+      if (this.state.inputField === true) {
+        return (<div>
+          <button onClick={this.startQuiz}>Click to start the quiz</button>
+          <button onClick={this.highscore}>Highscore</button>
+          <div className="profile">
+            <img src={profile.photo + "?width=999"}/>
+            <input type="text" onChange={this.handleChange}/>
+            <button onClick={this.changeType}>Make the change</button>
+            <h4>Stats</h4>
+            <ul>
+              <li>Place: {profile.place}</li>
+              <li>Ranking: {profile.ranking}</li>
+              <li>Correct answers: {profile.correctAnswers}</li>
+              <li>Wrong answers: {profile.failedAnswers}</li>
+            </ul>
+            <button onClick={this.logout}>Logout</button>
+          </div>
+        </div>)
+      } else {
+        return (<div>
+          <button onClick={this.startQuiz}>Click to start the quiz</button>
+          <button onClick={this.highscore}>Highscore</button>
+          <div className="profile">
+            <img src={profile.photo + "?width=999"}/>
+            <h3>{this.state.nickname}</h3>
+            <button onClick={this.changeType}>Edit</button>
+            <h4>Stats</h4>
+            <ul>
+              <li>Place: {profile.place}</li>
+              <li>Ranking: {profile.ranking}</li>
+              <li>Correct answers: {profile.correctAnswers}</li>
+              <li>Wrong answers: {profile.failedAnswers}</li>
+            </ul>
+            <button onClick={this.logout}>Logout</button>
+          </div>
+        </div>)
+      }
     }
-
   }
 }
 
