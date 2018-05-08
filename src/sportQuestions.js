@@ -10,7 +10,7 @@ class SportQuestions extends Component {
         super(props);
         this.state = {
             clicked: true,
-            sportQuestions: [],
+            tenQuestions:[],
         }
     }
 
@@ -43,54 +43,96 @@ class SportQuestions extends Component {
             clicked: false
         })
 
-
+        let sportQuestions = [];
+        let ten = [];
+        let self = this;
         var ref = firebase.database().ref("questions/genre/sport/");
         ref.once("value", function (snapshot) {
           let obj = snapshot.val()
           for(let element in obj){
 
-            console.log(obj[element])
-            
-
+            sportQuestions.push(obj[element])
           }
-            console.log(snapshot.key)
+
+
+          shuffleArray(sportQuestions)
+          function shuffleArray(sportQuestions) {
+
+              for (let i = sportQuestions.length - 1; i > 0; i--) {
+                  let j = Math.floor(Math.random() * (i + 1));
+                  [sportQuestions[i], sportQuestions[j]] = [sportQuestions[j], sportQuestions[i]];
+              }
+          }
+
+          for(let y=0;y<10;y++){
+            ten.push(sportQuestions[y])
+          }
+
 
             // console.log(snapshot.val().questions.genre);
+
+
+            putState(ten)
 
         }, function (error) {
             console.log("Error: " + error.code);
         });
 
+        function putState(ten){
+          self.setState({
+           tenQuestions: ten
+          })
+
+          console.log(self.state.tenQuestions)
+        }
 
     }
 
 
+    componentDidUpdate(){
+
+      if(this.state.tenQuestions.length !== 0){
+        console.log(this.state.tenQuestions[0].Question)
+      }
+    }
     render() {
         let sportQuestions = [];
 
 
-
-
-
-
         return (
 
-            <
-            div className = "sportQuestion" > Lets see how much you know about sport!
-            <
-            button className = "btnQuestionSport"
-            onClick = {
-                this.sendQuestion
-            } > Send question! < /button> <
-            br / > < button className = "btnGetQuestions"
-            onClick = {
-                this.getQuestions
-            } > Get Sport Questions! < /button> <
-            div className = "sportDiv" > list goes here < /div>
+            <div className = "sportQuestion" > Lets see how much you know about sport!
+            <button className = "btnQuestionSport" onClick = {this.sendQuestion} > Send question!< /button> <br / >
+
+            <button className = "btnGetQuestions" onClick = {this.getQuestions} > Get Sport Questions! </button>
+            <div className = "sportDiv" > list goes here </div>
+
+              <div>
+                { //Check if message failed
+                  (this.state.tenQuestions[0] !== undefined)
+                  ? <div className="question">
+
+                      <h2>{this.state.tenQuestions[0].Question}</h2>
+                      <ul>
+
+                        <div className="Row">
+                          <li>{this.state.tenQuestions[0].answers.a}</li>
+                          <li>{this.state.tenQuestions[0].answers.b}</li>
+                        </div>
+                        <div className="Row">
+                          <li>{this.state.tenQuestions[0].answers.c}</li>
+                          <li>{this.state.tenQuestions[0].answers.d}</li>
+                        </div>
+                      </ul>
 
 
-            <
-            /div>
+                    </div>
+                  : <h2>Loading</h2>
+                }
+
+              </div>
+
+            </div>
         )
     }
 
