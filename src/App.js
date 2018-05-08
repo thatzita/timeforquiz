@@ -17,7 +17,8 @@ class App extends Component {
         correctAnswers: 0,
         failedAnswers: 0,
         ranking: 0
-      }
+      },
+      key: ''
     }
     this.handleChange = this.handleChange.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
@@ -29,6 +30,7 @@ class App extends Component {
     })
   }
   loginGoogle() {
+
     const self = this;
 
     auth.signInWithPopup(provider).then((result) => {
@@ -47,7 +49,7 @@ class App extends Component {
           correctAnswers: 0,
           failedAnswers: 0,
           ranking: 0,
-          place:0,
+          place: 0
         }
       };
 
@@ -55,64 +57,65 @@ class App extends Component {
 
         let newArr;
         let data = snapshot.val();
+        let userKey;
+
+        // console.log(userRef.getKey())
+
         if (data === null) {
           userRef.push(currentUser)
-
+          console.log(data.key)
         } else {
           let keys = Object.keys(data);
           for (let key in data) {
-
-
+            // console.log(data[key])
+            // console.log(data)
             if (data[key].profile.uid === user.uid) {
-
-
+              console.log(key)
+              userKey = key;
 
               let rank;
-              if(data[key].profile.correctAnswers ===0 && data[key].profile.failedAnswers ===0){
-                  rank = 0;
-              }else{
-                let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
-                rank = (data[key].profile.correctAnswers/plus) * 100
+              if (data[key].profile.correctAnswers === 0 && data[key].profile.failedAnswers === 0) {
+                rank = 0;
+              } else {
+                let plus = data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                rank = (data[key].profile.correctAnswers / plus) * 100
               }
 
-              let arr= []
-              for(let key in data){
+              let arr = []
+              for (let key in data) {
 
-                  let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
-                  let newVal= (data[key].profile.correctAnswers/plus)*100
-                  if(isNaN(newVal)){
-                    console.log(0)
-                  }else {
-                    console.log(newVal.toFixed(2))
-                     arr.push({
-                       nickname: data[key].profile.nickname,
-                      ranking: Number(newVal.toFixed(2)),
-                      numberOfQuestions:plus,
-                    })
-                  }
-              }
-
-
-
-              arr.sort(function(a, b){
-                return a.ranking-b.ranking
-              })
-
-               newArr = arr.reverse();
-              console.log(newArr)
-
-              let place =0 ;
-              for(let i=0; i < newArr.length;i++){
-
-                if(newArr[i].nickname === data[key].profile.nickname){
-                  console.log(data[key].profile.nickname)
-
-                  console.log(i+1)
-                  place = i+1
-
+                let plus = data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                let newVal = (data[key].profile.correctAnswers / plus) * 100
+                if (isNaN(newVal)) {
+                  console.log(0)
+                } else {
+                  console.log(newVal.toFixed(2))
+                  arr.push({
+                    nickname: data[key].profile.nickname,
+                    ranking: Number(newVal.toFixed(2)),
+                    numberOfQuestions: plus
+                  })
                 }
               }
 
+              arr.sort(function(a, b) {
+                return a.ranking - b.ranking
+              })
+
+              newArr = arr.reverse();
+              console.log(newArr)
+
+              let place = 0;
+              for (let i = 0; i < newArr.length; i++) {
+
+                if (newArr[i].nickname === data[key].profile.nickname) {
+                  console.log(data[key].profile.nickname)
+
+                  console.log(i + 1)
+                  place = i + 1
+
+                }
+              }
 
               currentUser = {
                 profile: {
@@ -123,7 +126,7 @@ class App extends Component {
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
                   ranking: rank.toFixed(2) + "%",
-                  place: place,
+                  place: place
                 }
               }
               doesItNotExist = false;
@@ -133,17 +136,21 @@ class App extends Component {
 
           if (doesItNotExist) {
             console.log("user does not exist")
-            userRef.push(currentUser)
+            console.log(currentUser)
+            let user = userRef.push(currentUser);
+            userKey = user.getKey()
+            console.log(user.getKey())
+            // this.setState({key: userKey})
 
           } else {}
 
         }
 
-        updateVal(newArr)
+        updateVal(newArr, userKey)
       }) //userReef.once
 
       //this
-      function updateVal(newArr) {
+      function updateVal(newArr, fbKey) {
 
         //this fel
         console.log(newArr)
@@ -160,10 +167,12 @@ class App extends Component {
             ranking: currentUser.profile.ranking,
             place: currentUser.profile.place
           },
-          list:newArr
+          list: newArr,
+          key: fbKey
         });
-      }
 
+        console.log(self.state)
+      }
 
     }) //signInWithPopup
   } //loginGoogle
@@ -186,7 +195,7 @@ class App extends Component {
           correctAnswers: 0,
           failedAnswers: 0,
           ranking: 0,
-          place:"Last",
+          place: "Last"
         },
         list: []
       };
@@ -194,61 +203,60 @@ class App extends Component {
       userRef.once("value", function(snapshot) {
         let newArr;
         let data = snapshot.val();
+        let userKey;
         if (data === null) {
           userRef.push(currentUser)
 
         } else {
           let keys = Object.keys(data);
           for (let key in data) {
-
             if (data[key].profile.uid === user.uid) {
+              userKey = key;
 
+              let rank;
+              if (data[key].profile.correctAnswers === 0 && data[key].profile.failedAnswers === 0) {
+                rank = 0;
+              } else {
+                let plus = data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                rank = (data[key].profile.correctAnswers / plus) * 100
+              }
 
-                            let rank;
-                            if(data[key].profile.correctAnswers ===0 && data[key].profile.failedAnswers ===0){
-                                rank = 0;
-                            }else{
-                              let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
-                              rank = (data[key].profile.correctAnswers/plus) * 100
-                            }
+              let arr = []
+              for (let key in data) {
 
-                            let arr= []
-                            for(let key in data){
+                let plus = data[key].profile.correctAnswers + data[key].profile.failedAnswers;
+                let newVal = (data[key].profile.correctAnswers / plus) * 100
+                if (isNaN(newVal)) {
+                  console.log(0)
+                } else {
+                  console.log(newVal.toFixed(2))
+                  arr.push({
+                    nickname: data[key].profile.nickname,
+                    ranking: Number(newVal.toFixed(2)),
+                    numberOfQuestions: plus
+                  })
+                }
+              }
 
-                                let plus =  data[key].profile.correctAnswers + data[key].profile.failedAnswers;
-                                let newVal= (data[key].profile.correctAnswers/plus)*100
-                                if(isNaN(newVal)){
-                                  console.log(0)
-                                }else {
-                                  console.log(newVal.toFixed(2))
-                                   arr.push({
-                                     nickname: data[key].profile.nickname,
-                                    ranking: Number(newVal.toFixed(2)),
-                                    numberOfQuestions:plus,
-                                  })
-                                }
-                            }
+              arr.sort(function(a, b) {
+                return a.ranking - b.ranking
+              })
 
+              newArr = arr.reverse();
 
+              console.log(newArr)
+              let place = 0;
+              for (let i = 0; i < newArr.length; i++) {
 
-                            arr.sort(function(a, b){
-                              return a.ranking-b.ranking
-                            })
+                if (newArr[i].nickname === data[key].profile.nickname) {
+                  console.log(data[key].profile.nickname)
 
-                             newArr = arr.reverse();
+                  console.log(i + 1)
+                  place = i + 1
 
-                            console.log(newArr)
-                            let place =0 ;
-                            for(let i=0; i < newArr.length;i++){
-
-                              if(newArr[i].nickname === data[key].profile.nickname){
-                                console.log(data[key].profile.nickname)
-
-                                console.log(i+1)
-                                place = i+1
-
-                              }
-                            }
+                }
+              }
+              console.log(userKey)
               currentUser = {
                 profile: {
                   nickname: data[key].profile.nickname,
@@ -258,7 +266,7 @@ class App extends Component {
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
                   ranking: rank.toFixed(2) + "%",
-                  place: place,
+                  place: place
                 }
               }
               doesItNotExist = false;
@@ -268,20 +276,21 @@ class App extends Component {
 
           if (doesItNotExist) {
             console.log("user does not exist")
-            userRef.push(currentUser)
-
+            console.log(currentUser)
+            let user = userRef.push(currentUser);
+            userKey = user.getKey()
+            console.log(user.getKey())
           } else {}
 
         }
 
-        updateVal(newArr)
+        updateVal(newArr, userKey)
       }) //userReef.once
 
       //this
-      function updateVal(newArr) {
+      function updateVal(newArr, fbKey) {
 
         //this fel
-        console.log(this)
 
         self.setState({
           profile: {
@@ -295,21 +304,20 @@ class App extends Component {
             ranking: currentUser.profile.ranking,
             place: currentUser.profile.place
           },
-          list: newArr
+          list: newArr,
+          key: fbKey
         });
       }
 
-
     })
   }
-
 
   render() {
     // const profile = this.props.profile;
 
     if (this.state.profile.loggedIn !== false) {
       return (<div>
-        <ProfileComponent profile={this.state.profile} list={this.state.list} />
+        <ProfileComponent profile={this.state.profile} list={this.state.list} firebaseKey={this.state.key}/>
       </div>)
     }
     return (<div className="App">
