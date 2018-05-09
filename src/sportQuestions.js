@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import firebase from './firebase.js';
 
-
+import AddQuestions from './AddQuestions.js';
 
 class SportQuestions extends Component {
     constructor(props) {
@@ -20,6 +20,7 @@ class SportQuestions extends Component {
             totalAnswers:[],
             totalCorrectAnswers:0,
             totalFailedAnswers:0,
+            
 
         }
         this.clickedButton = this.clickedButton.bind(this)
@@ -237,12 +238,28 @@ class SportQuestions extends Component {
 
     }
 
+    writeQuestion = () => {
+        
+        this.setState({clicked: false})
+        
+    }
+
+        
+
 
 
     render() {
+        
+     
         let sportQuestions = [];
 
         console.log(this.state.tenQuestions[this.state.currentQuestion])
+        
+           if (!this.state.clicked) {
+                return (<div>
+                        <AddQuestions/>
+                    </div>)
+    }
 
         return (
 
@@ -287,6 +304,8 @@ class SportQuestions extends Component {
                 }
 
               </div>
+                
+              <br/><button onClick={this.writeQuestion}>Add your own sport question to the quiz!</button>
 
             </div>
         )
