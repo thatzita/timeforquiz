@@ -10,8 +10,10 @@ class Quiz extends Component {
     super(props)
     this.state = {
       clicked: true,
-//      clickedQuiz: true,
-      clickedSport: true
+      //      clickedQuiz: true,
+      clickedSport: true,
+      nickname: this.props.nickname,
+      key: this.props.firebaseKey
     }
 
   }
@@ -40,17 +42,12 @@ class Quiz extends Component {
     console.log(profile)
     if (!this.state.clicked) {
       return (<div>
-        <ProfileComponent profile={profile}/>
+        <ProfileComponent profile={profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
 
-//    if (!this.state.clickedQuiz) {
-//      return (<div>
-//        <Questions profile={profile}/>
-//      </div>)
-//    }
 
-     if (!this.state.clickedSport) {
+    if (!this.state.clickedSport) {
       return (<div>
         <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile}/>
       </div>)
@@ -69,7 +66,7 @@ class Quiz extends Component {
       </div>
       <div className="profile">
         <img src={profile.photo + "?width=999"}/>
-        <h3>{profile.nickname}</h3>
+        <h3>{this.state.nickname}</h3>
       </div>
     </div>)
 

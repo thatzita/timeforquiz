@@ -7,10 +7,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      nickname: '',
       profile: {
         user: null,
         nickname: '',
-        email: '',
+        // email: '',
         uid: '',
         loggedIn: false,
         picture: "",
@@ -41,9 +42,10 @@ class App extends Component {
 
       console.log(user)
       let currentUser = {
+        nickname: user.displayName,
         profile: {
           nickname: user.displayName,
-          mail: user.email,
+          // mail: user.email,
           uid: user.uid,
           photo: user.photoURL,
           correctAnswers: 0,
@@ -118,9 +120,10 @@ class App extends Component {
               }
 
               currentUser = {
+                nickname: data[key].profile.nickname,
                 profile: {
                   nickname: data[key].profile.nickname,
-                  mail: data[key].profile.mail,
+                  // mail: data[key].profile.mail,
                   uid: data[key].profile.uid,
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
@@ -150,15 +153,16 @@ class App extends Component {
       }) //userReef.once
 
       //this
-      function updateVal(newArr, fbKey) {
+      function updateVal(newArr, firebaseKey) {
 
         //this fel
         console.log(newArr)
 
         self.setState({
+          nickname: currentUser.profile.nickname,
           profile: {
             nickname: currentUser.profile.nickname,
-            mail: currentUser.profile.mail,
+            // mail: currentUser.profile.mail,
             uid: currentUser.profile.uid,
             photo: currentUser.profile.photo,
             loggedIn: true,
@@ -168,7 +172,7 @@ class App extends Component {
             place: currentUser.profile.place
           },
           list: newArr,
-          key: fbKey
+          key: firebaseKey
         });
 
         console.log(self.state)
@@ -187,9 +191,10 @@ class App extends Component {
 
       console.log(user)
       let currentUser = {
+        nickname: user.displayName,
         profile: {
           nickname: user.displayName,
-          mail: user.email,
+          // mail: user.email,
           uid: user.uid,
           photo: user.photoURL,
           correctAnswers: 0,
@@ -260,7 +265,7 @@ class App extends Component {
               currentUser = {
                 profile: {
                   nickname: data[key].profile.nickname,
-                  mail: data[key].profile.mail,
+                  // mail: data[key].profile.mail,
                   uid: data[key].profile.uid,
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
@@ -288,14 +293,14 @@ class App extends Component {
       }) //userReef.once
 
       //this
-      function updateVal(newArr, fbKey) {
+      function updateVal(newArr, firebaseKey) {
 
         //this fel
 
         self.setState({
           profile: {
             nickname: currentUser.profile.nickname,
-            mail: currentUser.profile.mail,
+            // mail: currentUser.profile.mail,
             uid: currentUser.profile.uid,
             photo: currentUser.profile.photo,
             loggedIn: true,
@@ -305,7 +310,7 @@ class App extends Component {
             place: currentUser.profile.place
           },
           list: newArr,
-          key: fbKey
+          key: firebaseKey
         });
       }
 
@@ -317,7 +322,7 @@ class App extends Component {
 
     if (this.state.profile.loggedIn !== false) {
       return (<div>
-        <ProfileComponent profile={this.state.profile} list={this.state.list} firebaseKey={this.state.key}/>
+        <ProfileComponent profile={this.state.profile} list={this.state.list} firebaseKey={this.state.key} nickname={this.state.nickname}/>
       </div>)
     }
     return (<div className="App">
