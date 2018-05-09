@@ -49,7 +49,7 @@ class Quiz extends Component {
 
     if (!this.state.clickedSport) {
       return (<div>
-        <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile}/>
+        <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
       </div>)
     }
     return (<div>Quiz Menu
