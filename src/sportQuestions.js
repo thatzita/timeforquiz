@@ -123,9 +123,66 @@ class SportQuestions extends Component {
         console.log(Obj)
 
 
+
+        function loopFunc(){
+          firebase.database().ref('users/').once("value", function(snapshot) {
+
+            let helaDatabasen = snapshot.val()
+            let newArr;
+            let arr = []
+
+            for (let element in helaDatabasen) {
+              let namn= helaDatabasen[element].profile.nickname
+              let profilen = helaDatabasen[element].profile.ranking
+              let length = helaDatabasen[element].profile.ranking.length
+              console.log(profilen)
+              console.log(length)
+              if(length !==undefined){
+
+
+                arr.push({
+                  nickname:namn,
+                  ranking:Number(profilen)
+                })
+              }
+
+            }
+
+            arr.sort(function(a, b) {
+              return a.ranking - b.ranking
+            })
+
+            newArr = arr.reverse();
+
+            console.log(newArr)
+            let place = 0;
+
+            for (let element in helaDatabasen) {
+
+              for (let i = 0; i < newArr.length; i++) {
+
+                if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
+
+                  console.log(i + 1)
+                  place = i + 1
+
+                }
+              }
+
+            }
+
+            return place
+          })
+
+        }
+
+
         if (databaseCorrect === 0 && databaseWrong === 0) {
           let plus = correct + wrong;
           rank = (correct / plus) * 100
+
+          console.log(loopFunc())
+
           firebase.database().ref('users/' + self.props.firebaseKey).set({
             profile: {
               nickname: self.props.profile.nickname,
@@ -133,10 +190,11 @@ class SportQuestions extends Component {
               correctAnswers: databaseCorrect + correct,
               failedAnswers: databaseWrong + wrong,
               uid: self.props.profile.uid,
-              ranking: rank.toFixed(2) + "%",
+              ranking: rank.toFixed(2),
             }
           });
         }else {
+          loopFunc()
 
             let totalCorrect = databaseCorrect + correct;
             let totalFail = databaseWrong + wrong;
@@ -151,7 +209,7 @@ class SportQuestions extends Component {
                 correctAnswers: databaseCorrect + correct,
                 failedAnswers: databaseWrong + wrong,
                 uid: self.props.profile.uid,
-                ranking: rank.toFixed(2) + "%",
+                ranking: rank.toFixed(2) ,
               }
             });
           // let plus = databaseCorrect + databaseWrong;
