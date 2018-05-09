@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
+import AddQuestions from './AddQuestions.js';
 
 import AddQuestions from './AddQuestions.js';
 
@@ -31,6 +32,7 @@ class SportQuestions extends Component {
     super(props);
     this.state = {
       clicked: true,
+      writeQuestion: true,
       tenQuestions: [],
       backgroundA: "",
       backgroundB: "",
@@ -148,9 +150,7 @@ class SportQuestions extends Component {
         databaseWrong = Obj.profile.failedAnswers;
         console.log(Obj)
 
-
-
-        function loopFunc(){
+        function loopFunc() {
           firebase.database().ref('users/').once("value", function(snapshot) {
 
             let helaDatabasen = snapshot.val()
@@ -158,18 +158,14 @@ class SportQuestions extends Component {
             let arr = []
 
             for (let element in helaDatabasen) {
-              let namn= helaDatabasen[element].profile.nickname
+              let namn = helaDatabasen[element].profile.nickname
               let profilen = helaDatabasen[element].profile.ranking
               let length = helaDatabasen[element].profile.ranking.length
               console.log(profilen)
               console.log(length)
-              if(length !==undefined){
+              if (length !== undefined) {
 
-
-                arr.push({
-                  nickname:namn,
-                  ranking:Number(profilen)
-                })
+                arr.push({nickname: namn, ranking: Number(profilen)})
               }
 
             }
@@ -202,7 +198,6 @@ class SportQuestions extends Component {
 
         }
 
-
         if (databaseCorrect === 0 && databaseWrong === 0) {
           let plus = correct + wrong;
           rank = (correct / plus) * 100
@@ -216,28 +211,28 @@ class SportQuestions extends Component {
               correctAnswers: databaseCorrect + correct,
               failedAnswers: databaseWrong + wrong,
               uid: self.props.profile.uid,
-              ranking: rank.toFixed(2),
+              ranking: rank.toFixed(2)
             }
           });
-        }else {
+        } else {
           loopFunc()
 
-            let totalCorrect = databaseCorrect + correct;
-            let totalFail = databaseWrong + wrong;
-            let plus = totalCorrect + totalFail;
-            rank = (totalCorrect/plus) * 100
-            console.log(self.state)
-            console.log(self.props)
-            firebase.database().ref('users/' + self.props.firebaseKey).set({
-              profile: {
-                nickname: self.props.nickname,
-                photo: self.props.profile.photo,
-                correctAnswers: databaseCorrect + correct,
-                failedAnswers: databaseWrong + wrong,
-                uid: self.props.profile.uid,
-                ranking: rank.toFixed(2) ,
-              }
-            });
+          let totalCorrect = databaseCorrect + correct;
+          let totalFail = databaseWrong + wrong;
+          let plus = totalCorrect + totalFail;
+          rank = (totalCorrect / plus) * 100
+          console.log(self.state)
+          console.log(self.props)
+          firebase.database().ref('users/' + self.props.firebaseKey).set({
+            profile: {
+              nickname: self.props.nickname,
+              photo: self.props.profile.photo,
+              correctAnswers: databaseCorrect + correct,
+              failedAnswers: databaseWrong + wrong,
+              uid: self.props.profile.uid,
+              ranking: rank.toFixed(2)
+            }
+          });
 
           // let plus = databaseCorrect + databaseWrong;
           // rank = (databaseCorrect / plus) * 100
@@ -327,22 +322,30 @@ class SportQuestions extends Component {
 
       }
     }
-
   }
-
+  writeQuestion = () => {
+    console.log("enter")
+    console.log(this.state.writeQuestion)
+    this.setState({writeQuestion: false})
+    console.log(this.state.writeQuestion)
+  }
   render() {
     let sportQuestions = [];
 
     console.log(this.state.tenQuestions[this.state.currentQuestion])
-
+    if (!this.state.writeQuestion) {
+      console.log("hejsan")
+      return (<div>
+        <AddQuestions/>
+      </div>)
+    }
     return (<div className="sportQuestion">
       Lets see how much you know about sport!
-      <button className="btnQuestionSport" onClick={this.sendQuestion}>
-        Create a sport question</button>
-      <br/>
       <button className="btnGetQuestions" onClick={this.getQuestions}>
         Get Sport Questions!
       </button>
+      <br/>
+      <button onClick={this.writeQuestion}>Click to write your own sport questions!</button>
       <div>
         {
           //Check if message failed
