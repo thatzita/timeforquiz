@@ -2,31 +2,6 @@ import React, {Component} from 'react';
 import firebase from './firebase.js';
 import AddQuestions from './AddQuestions.js';
 
-import AddQuestions from './AddQuestions.js';
-
-class SportQuestions extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            clicked: true,
-            tenQuestions:[],
-            backgroundA: "",
-            backgroundB: "",
-            backgroundC: "",
-            backgroundD: "",
-            currentQuestion:0,
-            lastVal:"",
-            totalAnswers:[],
-            totalCorrectAnswers:0,
-            totalFailedAnswers:0,
-            
-
-        }
-        this.clickedButton = this.clickedButton.bind(this)
-        console.log(this.props.firebaseKey)
-        console.log(this.props.profile)
-
-
 class SportQuestions extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +39,6 @@ class SportQuestions extends Component {
         d: "Solomon Islands"
       },
       correctAnswer: "a"
-
     }
 
     questionRef.once("value", function(snapshot) {
@@ -240,41 +214,16 @@ class SportQuestions extends Component {
 
       })
 
-
-    writeQuestion = () => {
-        
-        this.setState({clicked: false})
-        
-    }
-
-        
-
-
       console.log("correctAnswers:  " + correct)
       console.log("failedAnswers:  " + wrong)
       console.log(this.state.totalAnswers)
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
 
-
-    }
-
-    render() {
-        
-     
-        let sportQuestions = [];
-
-        console.log(this.state.tenQuestions[this.state.currentQuestion])
-        
-           if (!this.state.clicked) {
-                return (<div>
-                        <AddQuestions/>
-                    </div>)
     }
 
   }
 
   clickedButton(val, correctAnswer) {
-
 
     switch (val) {
 
@@ -306,9 +255,6 @@ class SportQuestions extends Component {
         } else {
           this.state.totalAnswers.push(false)
 
-              </div>
-                
-              <br/><button onClick={this.writeQuestion}>Add your own sport question to the quiz!</button>
         }
         console.log(correctAnswer)
         this.setState({
@@ -318,7 +264,6 @@ class SportQuestions extends Component {
           backgroundC: "",
           backgroundD: ""
         })
-
 
       }
     }
