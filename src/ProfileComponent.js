@@ -16,6 +16,7 @@ class ProfileComponent extends Component {
       },
       nickname: this.props.nickname
     }
+    console.log(this.state)
     console.log(this.props)
 
     // let signOut = false;
@@ -74,8 +75,7 @@ class ProfileComponent extends Component {
     const list = this.props.list;
     if (!this.state.clicked) {
       return (<div>
-
-        <Quiz profile={profile} nickname={this.state.nickname} firebaseKey={this.state.key}/>
+        <Quiz profile={profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     } else if (!this.state.profile.loggedIn) {
       return (<div>
