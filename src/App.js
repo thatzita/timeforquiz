@@ -65,7 +65,7 @@ class App extends Component {
 
         if (data === null) {
           userRef.push(currentUser)
-          console.log(data.key)
+          // console.log(data.key)
         } else {
           let keys = Object.keys(data);
           for (let key in data) {
@@ -111,9 +111,8 @@ class App extends Component {
               for (let i = 0; i < newArr.length; i++) {
 
                 if (newArr[i].nickname === data[key].profile.nickname) {
-                  console.log(data[key].profile.nickname)
-
-                  console.log(i + 1)
+                  // console.log(data[key].profile.nickname)
+                  // console.log(i + 1)
                   place = i + 1
 
                 }
@@ -138,11 +137,11 @@ class App extends Component {
           }
 
           if (doesItNotExist) {
-            console.log("user does not exist")
-            console.log(currentUser)
+            // console.log("user does not exist")
+            // console.log(currentUser)
             let user = userRef.push(currentUser);
             userKey = user.getKey()
-            console.log(user.getKey())
+            // console.log(user.getKey())
             // this.setState({key: userKey})
 
           } else {}
@@ -175,7 +174,7 @@ class App extends Component {
           key: firebaseKey
         });
 
-        console.log(self.state)
+        // console.log(self.state)
       }
 
     }) //signInWithPopup
@@ -200,7 +199,7 @@ class App extends Component {
           correctAnswers: 0,
           failedAnswers: 0,
           ranking: 0,
-          place: "Last"
+          place: 0
         },
         list: []
       };
@@ -254,14 +253,14 @@ class App extends Component {
               for (let i = 0; i < newArr.length; i++) {
 
                 if (newArr[i].nickname === data[key].profile.nickname) {
-                  console.log(data[key].profile.nickname)
-
-                  console.log(i + 1)
+                  // console.log(data[key].profile.nickname)
+                  //
+                  // console.log(i + 1)
                   place = i + 1
 
                 }
               }
-              console.log(userKey)
+              // console.log(userKey)
               currentUser = {
                 profile: {
                   nickname: data[key].profile.nickname,
@@ -280,11 +279,11 @@ class App extends Component {
           }
 
           if (doesItNotExist) {
-            console.log("user does not exist")
-            console.log(currentUser)
+            // console.log("user does not exist")
+            // console.log(currentUser)
             let user = userRef.push(currentUser);
             userKey = user.getKey()
-            console.log(user.getKey())
+            // console.log(user.getKey())
           } else {}
 
         }
@@ -298,6 +297,7 @@ class App extends Component {
         //this fel
 
         self.setState({
+          nickname: currentUser.profile.nickname,
           profile: {
             nickname: currentUser.profile.nickname,
             // mail: currentUser.profile.mail,

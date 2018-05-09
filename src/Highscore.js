@@ -9,7 +9,10 @@ class Highscore extends Component {
     this.state = {
       clicked: true,
       topPlayers: '',
-      key: this.props.firebaseKey
+      key: this.props.firebaseKey,
+      // profile: {
+      //   place: this.props.place
+      // }
     }
     console.log(this.state)
     console.log(this.props)
@@ -21,9 +24,27 @@ class Highscore extends Component {
     console.log(this.props.list)
     let highScoreList = [];
     firebase.database().ref('users/').on("value", snapshot => {
+      console.log(snapshot.val())
+      let self = this;
       snapshot.forEach(function(childSnapshot) {
+        console.log(self.props.firebaseKey)
         let childKey = childSnapshot.key;
         let childData = childSnapshot.val();
+        // console.log(childKey)
+        // console.log(childData)
+        // if (childKey === self.props.firebaseKey) {
+        //    console.log("found something")
+        //   console.log(childData);
+        //
+        //   console.log(self.props.firebaseKey);
+        //   console.log(self.state)
+        //   self.setState({
+        //     profile: {
+        //       place: self.state.profile.place
+        //     }
+        //   })
+        //   console.log(self.state)
+        // }
         let highScoreUser = {
           nickname: childData.profile.nickname,
           ranking: childData.profile.ranking,
@@ -41,9 +62,9 @@ class Highscore extends Component {
       }
       console.log(highScoreList)
       highScoreList.sort(compare);
+      highScoreList.reverse()
       this.setState({topPlayers: highScoreList})
       // console.log(this.state.topPlayers)
-      console.log(highScoreList)
     });
 
   }
@@ -55,10 +76,10 @@ class Highscore extends Component {
     for (let i = 0; i < this.state.topPlayers.length; i++) {
       topTen.push(this.state.topPlayers[i])
     }
-
+    // topTen.reverse();
     if (!this.state.clicked) {
       return (<div>
-        <ProfileComponent profile={profile} list={this.props.list} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
+        <ProfileComponent profile={profile} list={this.state.topPlayers} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
     } else {
       return (<div>

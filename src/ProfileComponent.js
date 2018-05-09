@@ -70,6 +70,7 @@ class ProfileComponent extends Component {
 
   }
   render() {
+
     // this.signOut;
     const profile = this.props.profile;
     const list = this.props.list;
