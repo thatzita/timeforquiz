@@ -74,6 +74,7 @@ class ProfileComponent extends Component {
     const list = this.props.list;
     if (!this.state.clicked) {
       return (<div>
+
         <Quiz profile={profile} nickname={this.state.nickname} firebaseKey={this.state.key}/>
       </div>)
     } else if (!this.state.profile.loggedIn) {
