@@ -122,7 +122,6 @@ class SportQuestions extends Component {
         databaseWrong = Obj.profile.failedAnswers;
         console.log(Obj)
 
-
         if (databaseCorrect === 0 && databaseWrong === 0) {
           let plus = correct + wrong;
           rank = (correct / plus) * 100
@@ -133,33 +132,32 @@ class SportQuestions extends Component {
               correctAnswers: databaseCorrect + correct,
               failedAnswers: databaseWrong + wrong,
               uid: self.props.profile.uid,
-              ranking: rank.toFixed(2) + "%",
+              ranking: rank.toFixed(2) + "%"
             }
           });
-        }else {
+        } else {
 
-            let totalCorrect = databaseCorrect + correct;
-            let totalFail = databaseWrong + wrong;
-            let plus = totalCorrect + totalFail;
-            rank = (totalCorrect/plus) * 100
-            console.log(self.state)
-            console.log(self.props)
-            firebase.database().ref('users/' + self.props.firebaseKey).set({
-              profile: {
-                nickname: self.props.nickname,
-                photo: self.props.profile.photo,
-                correctAnswers: databaseCorrect + correct,
-                failedAnswers: databaseWrong + wrong,
-                uid: self.props.profile.uid,
-                ranking: rank.toFixed(2) + "%",
-              }
-            });
+          let totalCorrect = databaseCorrect + correct;
+          let totalFail = databaseWrong + wrong;
+          let plus = totalCorrect + totalFail;
+          rank = (totalCorrect / plus) * 100
+          console.log(self.state)
+          console.log(self.props)
+          firebase.database().ref('users/' + self.props.firebaseKey).set({
+            profile: {
+              nickname: self.props.nickname,
+              photo: self.props.profile.photo,
+              correctAnswers: databaseCorrect + correct,
+              failedAnswers: databaseWrong + wrong,
+              uid: self.props.profile.uid,
+              ranking: rank.toFixed(2) + "%"
+            }
+          });
           // let plus = databaseCorrect + databaseWrong;
           // rank = (databaseCorrect / plus) * 100
         }
 
       })
-
 
       console.log("correctAnswers:  " + correct)
       console.log("failedAnswers:  " + wrong)
@@ -252,6 +250,8 @@ class SportQuestions extends Component {
 
                 <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>
                   Next question</button>
+                <br/>
+                <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
               </div>
             : <h2></h2>
         }
