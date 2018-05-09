@@ -14,8 +14,10 @@ class ProfileComponent extends Component {
       profile: {
         loggedIn: true
       },
-      nickname: this.props.profile.nickname
+      nickname: this.props.nickname
     }
+    console.log(this.props)
+
     // let signOut = false;
     this.logout = this.logout.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -38,15 +40,28 @@ class ProfileComponent extends Component {
     this.setState({score: false})
   }
   changeType = () => {
-    console.log(firebase.auth().currentUser.uid)
-
-    console.log(this.state)
+    // console.log(firebase.auth().currentUser.uid)
+    // console.log(this.props.firebaseKey)
+    let userId = this.props.firebaseKey
+    // console.log(this.state)
     if (this.state.inputField === false) {
-      console.log("on")
+      // console.log("on")
       this.setState({inputField: true})
     } else {
-      console.log("off")
+      // console.log("off")
       this.setState({inputField: false})
+      firebase.database().ref('users/' + userId).set({
+        profile: {
+          nickname: this.state.nickname,
+          // mail: this.props.profile.mail,
+          uid: this.props.profile.uid,
+          photo: this.props.profile.photo,
+          place: this.props.profile.place,
+          correctAnswers: this.props.profile.correctAnswers,
+          failedAnswers: this.props.profile.failedAnswers,
+          ranking: this.props.profile.ranking
+        }
+      });
     }
   }
   handleChange(e) {
@@ -59,7 +74,7 @@ class ProfileComponent extends Component {
     const list = this.props.list;
     if (!this.state.clicked) {
       return (<div>
-        <Quiz profile={profile}/>
+        <Quiz profile={profile} nickname={this.state.nickname} firebaseKey={this.state.key}/>
       </div>)
     } else if (!this.state.profile.loggedIn) {
       return (<div>
@@ -67,7 +82,7 @@ class ProfileComponent extends Component {
       </div>)
     } else if (!this.state.score) {
       return (<div>
-        <Highscore profile={profile} list={list}/>
+        <Highscore profile={profile} list={list} firebaseKey={this.props.firebaseKey} nickname={this.state.nickname}/>
       </div>)
     } else {
       if (this.state.inputField === true) {
