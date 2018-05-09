@@ -212,12 +212,12 @@ class SportQuestions extends Component {
                 ranking: rank.toFixed(2) ,
               }
             });
+
           // let plus = databaseCorrect + databaseWrong;
           // rank = (databaseCorrect / plus) * 100
         }
 
       })
-
 
       console.log("correctAnswers:  " + correct)
       console.log("failedAnswers:  " + wrong)
@@ -310,6 +310,8 @@ class SportQuestions extends Component {
 
                 <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>
                   Next question</button>
+                <br/>
+                <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
               </div>
             : <h2></h2>
         }
