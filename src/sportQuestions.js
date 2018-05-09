@@ -53,6 +53,8 @@ class SportQuestions extends Component {
         this.setState({
             clicked: false,
             currentQuestion:0,
+            totalCorrectAnswers: 0,
+            totalFailedAnswers: 0,
         })
 
         let sportQuestions = [];
@@ -128,6 +130,7 @@ class SportQuestions extends Component {
           totalFailedAnswers: wrong,
           totalAnswers: [],
         })
+
       }
 
 
