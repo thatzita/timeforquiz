@@ -13,6 +13,7 @@ class Quiz extends Component {
 //      clickedQuiz: true,
       clickedSport: true
     }
+
   }
 
   goBack = () => {
@@ -48,10 +49,10 @@ class Quiz extends Component {
 //        <Questions profile={profile}/>
 //      </div>)
 //    }
-      
+
      if (!this.state.clickedSport) {
       return (<div>
-        <SportQuestions profile={profile}/>
+        <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile}/>
       </div>)
     }
     return (<div>Quiz Menu
