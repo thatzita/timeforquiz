@@ -272,6 +272,7 @@ class SportQuestions extends Component {
 
                       <button onClick={e => this.clickedButton("next",this.state.tenQuestions[this.state.currentQuestion].correctAnswer) }>
                       Next question</button>
+                      <br/><div>Currently On Question:  {this.state.currentQuestion}/10</div>
                     </div>
                   : <h2></h2>
                 }
