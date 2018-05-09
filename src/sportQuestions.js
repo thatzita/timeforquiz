@@ -23,6 +23,9 @@ class SportQuestions extends Component {
 
         }
         this.clickedButton = this.clickedButton.bind(this)
+        console.log(this.props.firebaseKey)
+        console.log(this.props.profile)
+
     }
 
     sendQuestion = () => {
@@ -122,6 +125,27 @@ class SportQuestions extends Component {
             wrong++
           }
         }
+
+        let databaseCorrect = ""
+        let databaseWrong
+        firebase.database().ref('users/' + this.props.firebaseKey).once("value",function(snapshot){
+            console.log(snapshot.val())
+            let Obj = snapshot.val();
+            databaseCorrect = Obj.profile.correctAnswers;
+            databaseWrong = Obj.profile.failedAnswers;
+
+        })
+        firebase.database().ref('users/' + this.props.firebaseKey).set({
+          profile: {
+           nickname: this.props.profile.nickname,
+           photo: this.props.profile.photo,
+           correctAnswers:databaseCorrect + correct,
+           failedAnswers: databaseWrong + wrong,
+           uid: this.props.profile.uid,
+
+          }
+        });
+
         console.log("correctAnswers:  " + correct)
         console.log("failedAnswers:  " + wrong)
         console.log(this.state.totalAnswers)
