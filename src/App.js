@@ -128,7 +128,7 @@ class App extends Component {
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
-                  ranking: rank.toFixed(2) + "%",
+                  ranking: rank.toFixed(2),
                   place: place
                 }
               }
@@ -270,7 +270,7 @@ class App extends Component {
                   photo: data[key].profile.photo,
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
-                  ranking: rank.toFixed(2) + "%",
+                  ranking: rank.toFixed(2),
                   place: place
                 }
               }
