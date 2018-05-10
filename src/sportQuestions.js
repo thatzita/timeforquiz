@@ -193,6 +193,7 @@ class SportQuestions extends Component {
 
             }
 
+            console.log(place)
               if(val === "finnsInte"){
                 let plus = correct + wrong;
                 rank = (correct / plus) * 100;
@@ -382,7 +383,6 @@ class SportQuestions extends Component {
                   correct answers. And {this.state.totalFailedAnswers}
                   wronged ones.</h2>
                 <h2>Everything will be updated at your profile</h2>
-                <button onClick={this.backToProfile}>Go back to your profile</button>
               </div>
             : <div></div>
 
