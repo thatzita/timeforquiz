@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
 import AddQuestions from './AddQuestions.js';
+import ProfileComponent from './ProfileComponent.js';
 
 class SportQuestions extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class SportQuestions extends Component {
     this.state = {
       clicked: true,
       writeQuestion: true,
+      backToProfile: true,
       tenQuestions: [],
       backgroundA: "",
       backgroundB: "",
@@ -274,10 +276,22 @@ class SportQuestions extends Component {
     this.setState({writeQuestion: false})
     console.log(this.state.writeQuestion)
   }
+  
+  backToProfile = () => {
+      this.setState({backToProfile: false})
+      
+  }
   render() {
     let sportQuestions = [];
-
+    
     console.log(this.state.tenQuestions[this.state.currentQuestion])
+    if (!this.state.backToProfile) {
+      console.log("PROFILEN")
+      return (<div>
+        <ProfileComponent/>
+      </div>)
+    }
+      
     if (!this.state.writeQuestion) {
       console.log("hejsan")
       return (<div>
@@ -325,6 +339,7 @@ class SportQuestions extends Component {
                   correct answers. And {this.state.totalFailedAnswers}
                   wronged ones.</h2>
                 <h2>Everything will be updated at your profile</h2>
+                <button onClick={this.backToProfile}>Go back to your profile</button>
               </div>
             : <div></div>
 
