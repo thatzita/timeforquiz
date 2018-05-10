@@ -9,10 +9,12 @@ class AddQuestions extends Component {
       goBack: true,
       answers: {},
       question: {},
-      correctAnswer: {}
+      correctAnswer: {},
+      sendMessage: '',
+      divId: ''
 
     }
-
+      console.log(this.state)
   }
 
   goBack = () => {
@@ -51,11 +53,12 @@ class AddQuestions extends Component {
   }
 
   sendQuestion = () => {
+      
+      let self = this;
+      let form = document.getElementById("theForm");
 
     firebase.database().ref('questions/genre/sport/').push({
-
       Question: this.state.question,
-
       answers: {
         a: this.state.a,
         b: this.state.b,
@@ -63,9 +66,21 @@ class AddQuestions extends Component {
         d: this.state.d
       },
       correctAnswer: this.state.correctAnswer
-
     })
 
+     form.reset();
+    
+      this.setState({
+          sendMessage: 'Your question have been sent, sir!',
+          divId: 'itHasBeenSent'
+      })
+
+      setInterval(function(){
+        self.setState({
+          sendMessage: '',
+          divId: ''
+          }) 
+      }, 4000);
   }
 
   render() {
@@ -80,7 +95,7 @@ class AddQuestions extends Component {
       <br/>
       <button onClick={this.goBack}>Back to SportPage</button>
 
-      <form>
+      <form id="theForm">
         <br/>What sport question do you want to add?
         <input type="text" onChange={this.handleChangeQuestion}/>
         <br/>Answer A:<label><input type="text" onChange={this.handleChangeA}/><input type="radio" id="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
@@ -91,6 +106,7 @@ class AddQuestions extends Component {
 
       <br/>
       <button onClick={this.sendQuestion}>Send Question!</button>
+      <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
 
