@@ -188,6 +188,7 @@ class SportQuestions extends Component {
 
             function hej(){
               self.setState({
+                handleChange:true,
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -209,6 +210,7 @@ class SportQuestions extends Component {
                 rank = (correct / plus) * 100;
                 console.log(self.state.nickname)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
+
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -377,7 +379,7 @@ class SportQuestions extends Component {
         <AddQuestions/>
       </div>)
     }
-
+    console.log(this.state.handleChange)
     return (<div className="sportQuestion">
       Lets see how much you know about sport!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
@@ -385,7 +387,13 @@ class SportQuestions extends Component {
       </button>
       <br/>
       <button onClick={this.writeQuestion}>Click to write your own sport questions!</button>
-      <button onClick={this.backToProfile}>Go back to your profile</button>
+        {(this.state.handleChange === true)
+          ?
+          <button onClick={this.backToProfile}>Go back to your profile</button>
+          :
+          <div></div>
+
+        }
       <div>
         {
           //Check if message failed
