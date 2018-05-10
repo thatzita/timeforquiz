@@ -21,6 +21,7 @@ class SportQuestions extends Component {
       totalCorrectAnswers: 0,
       totalFailedAnswers: 0,
       nickname: this.props.nickname,
+      handleChange:true,
       profile : {
 
       },
@@ -53,7 +54,7 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
-    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0})
+    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false})
 
     let sportQuestions = [];
     let ten = [];
@@ -104,6 +105,11 @@ class SportQuestions extends Component {
       console.log(this.state.tenQuestions[this.state.currentQuestion].Question)
     }
 
+    console.log(this.state.profile)
+    console.log(this.props.profile)
+
+
+
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
       console.log("updated")
       let correct = 0;
@@ -146,10 +152,10 @@ class SportQuestions extends Component {
               let length = helaDatabasen[element].profile.ranking.length
               console.log(profilen)
               console.log(length)
-              if (length !== undefined) {
+              // if (length !== undefined) {
 
                 arr.push({nickname: namn, ranking: Number(profilen)})
-              }
+              // }
 
             }
 
@@ -164,9 +170,13 @@ class SportQuestions extends Component {
 
             for (let element in helaDatabasen) {
 
+              console.log("element: ", helaDatabasen[element])
+              console.log("newArr: ", newArr)
               for (let i = 0; i < newArr.length; i++) {
 
+
                 if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
+
 
                   console.log(i + 1)
                   place = i + 1
@@ -220,6 +230,7 @@ class SportQuestions extends Component {
                 console.log(self.state)
                 console.log(self.props)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
+
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -260,6 +271,10 @@ class SportQuestions extends Component {
       console.log("failedAnswers:  " + wrong)
       console.log(this.state.totalAnswers)
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
+
+    }else{
+
+
 
     }
 
@@ -319,7 +334,29 @@ class SportQuestions extends Component {
 
 
   backToProfile = () => {
-      this.setState({backToProfile: false})
+
+    if(this.state.handleChange){
+      this.setState({
+        backToProfile: false,
+        nickname: this.props.nickname,
+        profile: {
+          nickname: this.props.profile.nickname,
+          photo: this.props.profile.photo,
+          correctAnswers: this.props.profile.correctAnswers,
+          failedAnswers: this.props.profile.failedAnswers,
+          uid: this.props.profile.uid,
+          ranking: this.props.profile.ranking,
+          place: this.props.profile.place,
+        }
+      })
+    }else{
+      this.setState({
+        backToProfile: false,
+
+      })
+    }
+
+
 
   }
   render() {
