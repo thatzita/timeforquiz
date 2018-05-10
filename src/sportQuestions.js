@@ -23,6 +23,7 @@ class SportQuestions extends Component {
       totalCorrectAnswers: 0,
       totalFailedAnswers: 0,
       nickname: this.props.nickname,
+      handleChange:true,
       profile : {
 
       },
@@ -50,8 +51,8 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
-      this.startTimer();    
-    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0})
+    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false})
+
 
     let sportQuestions = [];
     let ten = [];
@@ -102,6 +103,11 @@ class SportQuestions extends Component {
       // // console.log(this.state.tenQuestions[this.state.currentQuestion].Question)
     }
 
+    console.log(this.state.profile)
+    console.log(this.props.profile)
+
+
+
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
        // console.log("updated")
       let correct = 0;
@@ -142,12 +148,12 @@ class SportQuestions extends Component {
               let namn = helaDatabasen[element].profile.nickname
               let profilen = helaDatabasen[element].profile.ranking
               let length = helaDatabasen[element].profile.ranking.length
-               // console.log(profilen)
-               // console.log(length)
-              if (length !== undefined) {
 
-                arr.push({nickname: namn, ranking: Number(profilen)})
-              }
+              console.log(profilen)
+              console.log(length)
+              // if (length !== undefined) {
+              arr.push({nickname: namn, ranking: Number(profilen)})
+              // }
 
             }
 
@@ -162,11 +168,14 @@ class SportQuestions extends Component {
 
             for (let element in helaDatabasen) {
 
+              console.log("element: ", helaDatabasen[element])
+              console.log("newArr: ", newArr)
               for (let i = 0; i < newArr.length; i++) {
+
 
                 if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
 
-                   // console.log(i + 1)
+
                   place = i + 1
 
                 }
@@ -176,6 +185,7 @@ class SportQuestions extends Component {
 
             function hej(){
               self.setState({
+                handleChange:true,
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -191,11 +201,13 @@ class SportQuestions extends Component {
 
             }
 
+            console.log(place)
               if(val === "finnsInte"){
                 let plus = correct + wrong;
                 rank = (correct / plus) * 100;
                  // console.log(self.state.nickname)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
+
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -217,6 +229,7 @@ class SportQuestions extends Component {
                  // console.log(self.state)
                  // console.log(self.props)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
+
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -257,6 +270,10 @@ class SportQuestions extends Component {
        // console.log("failedAnswers:  " + wrong)
        // console.log(this.state.totalAnswers)
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
+
+    }else{
+
+
 
     }
 
@@ -348,7 +365,29 @@ resetTimer() {
 
 
   backToProfile = () => {
-      this.setState({backToProfile: false})
+
+    if(this.state.handleChange){
+      this.setState({
+        backToProfile: false,
+        nickname: this.props.nickname,
+        profile: {
+          nickname: this.props.profile.nickname,
+          photo: this.props.profile.photo,
+          correctAnswers: this.props.profile.correctAnswers,
+          failedAnswers: this.props.profile.failedAnswers,
+          uid: this.props.profile.uid,
+          ranking: this.props.profile.ranking,
+          place: this.props.profile.place,
+        }
+      })
+    }else{
+      this.setState({
+        backToProfile: false,
+
+      })
+    }
+
+
 
   }
   render() {
@@ -370,7 +409,7 @@ resetTimer() {
         <AddQuestions/>
       </div>)
     }
-
+    console.log(this.state.handleChange)
     return (<div className="sportQuestion">
       Lets see how much you know about sport!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
@@ -378,7 +417,13 @@ resetTimer() {
       </button>
       <br/>
       <button onClick={this.writeQuestion}>Click to write your own sport questions!</button>
-      <button onClick={this.backToProfile}>Go back to your profile</button>
+        {(this.state.handleChange === true)
+          ?
+          <button onClick={this.backToProfile}>Go back to your profile</button>
+          :
+          <div></div>
+
+        }
       <div>
         {
           //Check if message failed
@@ -414,7 +459,6 @@ resetTimer() {
                   correct answers. And {this.state.totalFailedAnswers}
                   wronged ones.</h2>
                 <h2>Everything will be updated at your profile</h2>
-                <button onClick={this.backToProfile}>Go back to your profile</button>
               </div>
             : <div></div>
 
