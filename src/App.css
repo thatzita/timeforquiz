@@ -47,6 +47,11 @@ body {
   border:2px solid rgba(0,0,0,0.4);
   text-align: center;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
 .btnFb {
   font-size: 3em;
 }
