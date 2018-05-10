@@ -101,6 +101,7 @@ class SportQuestions extends Component {
     }
 
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
+      console.log("updated")
       let correct = 0;
       let wrong = 0;
 
@@ -122,11 +123,13 @@ class SportQuestions extends Component {
       firebase.database().ref('users/' + this.props.firebaseKey).once("value", function(snapshot) {
         console.log(snapshot.val())
         let Obj = snapshot.val();
+        console.log(Obj)
+
         databaseCorrect = Obj.profile.correctAnswers;
         databaseWrong = Obj.profile.failedAnswers;
         console.log(Obj)
 
-        function loopFunc() {
+        function loopFunc(val) {
           firebase.database().ref('users/').once("value", function(snapshot) {
 
             let helaDatabasen = snapshot.val()
@@ -169,46 +172,55 @@ class SportQuestions extends Component {
 
             }
 
-            return place
+              if(val === "finnsInte"){
+                let plus = correct + wrong;
+                rank = (correct / plus) * 100
+                firebase.database().ref('users/' + self.props.firebaseKey).set({
+                  profile: {
+                    nickname: self.props.profile.nickname,
+                    photo: self.props.profile.photo,
+                    correctAnswers: databaseCorrect + correct,
+                    failedAnswers: databaseWrong + wrong,
+                    uid: self.props.profile.uid,
+                    ranking: rank.toFixed(2),
+                    place: place,
+                  }
+                });
+              }else{
+                let totalCorrect = databaseCorrect + correct;
+                let totalFail = databaseWrong + wrong;
+                let plus = totalCorrect + totalFail;
+                rank = (totalCorrect / plus) * 100
+                console.log(self.state)
+                console.log(self.props)
+                firebase.database().ref('users/' + self.props.firebaseKey).set({
+                  profile: {
+                    nickname: self.props.nickname,
+                    photo: self.props.profile.photo,
+                    correctAnswers: databaseCorrect + correct,
+                    failedAnswers: databaseWrong + wrong,
+                    uid: self.props.profile.uid,
+                    ranking: rank.toFixed(2),
+                    place: place,
+                  }
+                });
+              }
           })
 
         }
 
         if (databaseCorrect === 0 && databaseWrong === 0) {
-          let plus = correct + wrong;
-          rank = (correct / plus) * 100
 
-          console.log(loopFunc())
+          console.log("användare finns inte")
 
-          firebase.database().ref('users/' + self.props.firebaseKey).set({
-            profile: {
-              nickname: self.props.profile.nickname,
-              photo: self.props.profile.photo,
-              correctAnswers: databaseCorrect + correct,
-              failedAnswers: databaseWrong + wrong,
-              uid: self.props.profile.uid,
-              ranking: rank.toFixed(2)
-            }
-          });
+          loopFunc("finnsInte")
+
+
         } else {
-          loopFunc()
 
-          let totalCorrect = databaseCorrect + correct;
-          let totalFail = databaseWrong + wrong;
-          let plus = totalCorrect + totalFail;
-          rank = (totalCorrect / plus) * 100
-          console.log(self.state)
-          console.log(self.props)
-          firebase.database().ref('users/' + self.props.firebaseKey).set({
-            profile: {
-              nickname: self.props.nickname,
-              photo: self.props.profile.photo,
-              correctAnswers: databaseCorrect + correct,
-              failedAnswers: databaseWrong + wrong,
-              uid: self.props.profile.uid,
-              ranking: rank.toFixed(2)
-            }
-          });
+          console.log("användare finns")
+
+          loopFunc()
 
           // let plus = databaseCorrect + databaseWrong;
           // rank = (databaseCorrect / plus) * 100
@@ -276,6 +288,7 @@ class SportQuestions extends Component {
     this.setState({writeQuestion: false})
     console.log(this.state.writeQuestion)
   }
+
   
   backToProfile = () => {
       this.setState({backToProfile: false})
