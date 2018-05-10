@@ -24,13 +24,13 @@ class SportQuestions extends Component {
       totalFailedAnswers: 0,
       nickname: this.props.nickname,
       handleChange:true,
-      profile : {
-
-      },
+        class: "Row",
+      profile : {},
     }
     this.clickedButton = this.clickedButton.bind(this);
     this.startTimer = this.startTimer.bind(this);
       this.resetTimer = this.resetTimer.bind(this);
+      this.stopTimer = this.stopTimer.bind(this);
       
 //     // console.log(this.props.firebaseKey)
 //     // console.log(this.props.profile)
@@ -104,8 +104,8 @@ class SportQuestions extends Component {
       // // console.log(this.state.tenQuestions[this.state.currentQuestion].Question)
     }
 
-    console.log(this.state.profile)
-    console.log(this.props.profile)
+//    console.log(this.state.profile)
+//    console.log(this.props.profile)
 
 
 
@@ -306,10 +306,21 @@ class SportQuestions extends Component {
 
       default:
     }
-
+if(this.state.timeLeft === 0){
+         console.log("hejsan")
+            this.setState({
+          currentQuestion: this.state.currentQuestion + 1,
+          backgroundA: "",
+          backgroundB: "",
+          backgroundC: "",
+          backgroundD: "",
+          class: "Row"
+        })
+    
+        }
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
       if (val === "next") {
-         // console.log(this.state.lastVal)
+         
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
@@ -333,7 +344,12 @@ class SportQuestions extends Component {
       timeLeft: this.state.timeLeft - 1
     });
     if(this.state.timeLeft === 0) {
-    alert("You ran out of time")
+        console.log(this.state)
+      this.setState({
+          class: "Row li, disabled"
+      })
+     this.stopTimer();
+     this.state.totalAnswers.push(false)
     }
       
   }
@@ -354,7 +370,12 @@ resetTimer() {
       timeLeft: 6
     });
 }
-
+stopTimer() {
+  clearInterval(this.timerID);
+    this.setState({
+      isPlaying: false
+    });
+}
 
 
   writeQuestion = () => {
@@ -410,7 +431,7 @@ resetTimer() {
         <AddQuestions/>
       </div>)
     }
-    console.log(this.state.handleChange)
+//    console.log(this.state.handleChange)  
     return (<div className="sportQuestion">
       Lets see how much you know about sport!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
@@ -434,12 +455,12 @@ resetTimer() {
                 <h2>{this.state.tenQuestions[this.state.currentQuestion].Question}</h2>
                 <ul>
 
-                  <div className="Row">
+                  <div className={this.state.class}>
                     <li id={this.state.backgroundA} onClick={e => this.clickedButton('a', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.a}</li>
                     <li id={this.state.backgroundB} onClick={e => this.clickedButton('b', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.b}</li>
 
                   </div>
-                  <div className="Row">
+                  <div className={this.state.class}>
                     <li id={this.state.backgroundC} onClick={e => this.clickedButton('c', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.c}</li>
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
