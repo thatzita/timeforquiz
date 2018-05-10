@@ -10,6 +10,8 @@ class SportQuestions extends Component {
       clicked: true,
       writeQuestion: true,
       backToProfile: true,
+      timeLeft: 6,
+      isPlaying: false,
       tenQuestions: [],
       backgroundA: "",
       backgroundB: "",
@@ -25,9 +27,13 @@ class SportQuestions extends Component {
 
       },
     }
-    this.clickedButton = this.clickedButton.bind(this)
-    console.log(this.props.firebaseKey)
-    console.log(this.props.profile)
+    this.clickedButton = this.clickedButton.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+      this.resetTimer = this.resetTimer.bind(this);
+      
+//     // console.log(this.props.firebaseKey)
+//     // console.log(this.props.profile)
+   
 
   }
 
@@ -36,16 +42,7 @@ class SportQuestions extends Component {
 
     const questionRef = firebase.database().ref('questions/genre/sport/');
 
-    let theQuestions = {
-      Question: "In 2002 on the same day as the World Cup final, 'The Other Final' took place between the world's two lowest ranking nations. Who won the game?",
-      answers: {
-        a: "Bhutan",
-        b: "Eritrea",
-        c: "Montserrat",
-        d: "Solomon Islands"
-      },
-      correctAnswer: "a"
-    }
+    let theQuestions;
 
     questionRef.once("value", function(snapshot) {
       questionRef.push(theQuestions)
@@ -53,6 +50,7 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
+      this.startTimer();    
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0})
 
     let sportQuestions = [];
@@ -83,29 +81,29 @@ class SportQuestions extends Component {
         ten.push(sportQuestions[y])
       }
 
-      // console.log(snapshot.val().questions.genre);
+      //  // console.log(snapshot.val().questions.genre);
 
       putState(ten)
 
     }, function(error) {
-      console.log("Error: " + error.code);
+       // console.log("Error: " + error.code);
     });
 
     function putState(ten) {
       self.setState({tenQuestions: ten})
 
-      console.log(self.state.tenQuestions)
+       // console.log(self.state.tenQuestions)
     }
 
   }
 
   componentDidUpdate() {
     if (this.state.tenQuestions.length !== 0 && this.state.currentQuestion !== 10) {
-      console.log(this.state.tenQuestions[this.state.currentQuestion].Question)
+      // // console.log(this.state.tenQuestions[this.state.currentQuestion].Question)
     }
 
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
-      console.log("updated")
+       // console.log("updated")
       let correct = 0;
       let wrong = 0;
 
@@ -125,13 +123,13 @@ class SportQuestions extends Component {
       let databaseWrong = ""
       let self = this;
       firebase.database().ref('users/' + this.props.firebaseKey).once("value", function(snapshot) {
-        console.log(snapshot.val())
+         // console.log(snapshot.val())
         let Obj = snapshot.val();
-        console.log(Obj)
+         // console.log(Obj)
 
         databaseCorrect = Obj.profile.correctAnswers;
         databaseWrong = Obj.profile.failedAnswers;
-        console.log(Obj)
+         // console.log(Obj)
 
         function loopFunc(val) {
           firebase.database().ref('users/').once("value", function(snapshot) {
@@ -144,8 +142,8 @@ class SportQuestions extends Component {
               let namn = helaDatabasen[element].profile.nickname
               let profilen = helaDatabasen[element].profile.ranking
               let length = helaDatabasen[element].profile.ranking.length
-              console.log(profilen)
-              console.log(length)
+               // console.log(profilen)
+               // console.log(length)
               if (length !== undefined) {
 
                 arr.push({nickname: namn, ranking: Number(profilen)})
@@ -159,7 +157,7 @@ class SportQuestions extends Component {
 
             newArr = arr.reverse();
 
-            console.log(newArr)
+             // console.log(newArr)
             let place = 0;
 
             for (let element in helaDatabasen) {
@@ -168,7 +166,7 @@ class SportQuestions extends Component {
 
                 if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
 
-                  console.log(i + 1)
+                   // console.log(i + 1)
                   place = i + 1
 
                 }
@@ -196,7 +194,7 @@ class SportQuestions extends Component {
               if(val === "finnsInte"){
                 let plus = correct + wrong;
                 rank = (correct / plus) * 100;
-                console.log(self.state.nickname)
+                 // console.log(self.state.nickname)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
                   nickname: self.state.nickname,
                   profile: {
@@ -216,8 +214,8 @@ class SportQuestions extends Component {
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
-                console.log(self.state)
-                console.log(self.props)
+                 // console.log(self.state)
+                 // console.log(self.props)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
                   nickname: self.state.nickname,
                   profile: {
@@ -238,14 +236,14 @@ class SportQuestions extends Component {
 
         if (databaseCorrect === 0 && databaseWrong === 0) {
 
-          console.log("användare finns inte")
+           // console.log("användare finns inte")
 
           loopFunc("finnsInte")
 
 
         } else {
 
-          console.log("användare finns")
+           // console.log("användare finns")
 
           loopFunc()
 
@@ -255,17 +253,20 @@ class SportQuestions extends Component {
 
       })
 
-      console.log("correctAnswers:  " + correct)
-      console.log("failedAnswers:  " + wrong)
-      console.log(this.state.totalAnswers)
+       // console.log("correctAnswers:  " + correct)
+       // console.log("failedAnswers:  " + wrong)
+       // console.log(this.state.totalAnswers)
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
 
     }
 
   }
 
-  clickedButton(val, correctAnswer) {
+ 
+     
 
+  clickedButton(val, correctAnswer) {
+ 
     switch (val) {
 
       case "a":
@@ -290,14 +291,14 @@ class SportQuestions extends Component {
 
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
       if (val === "next") {
-        console.log(this.state.lastVal)
+         // console.log(this.state.lastVal)
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
           this.state.totalAnswers.push(false)
 
         }
-        console.log(correctAnswer)
+         // console.log(correctAnswer)
         this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -309,11 +310,40 @@ class SportQuestions extends Component {
       }
     }
   }
+  tick() {
+    this.setState({
+      timeLeft: this.state.timeLeft - 1
+    });
+    if(this.state.timeLeft === 0) {
+    alert("You ran out of time")
+    }
+      
+  }
+  startTimer() {
+      console.log(this.state.timeLeft)
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
+    );
+    this.setState({
+      isPlaying: true
+    });
+
+  }
+resetTimer() {
+  clearInterval(this.timerID);
+    this.setState({
+      timeLeft: 6
+    });
+}
+
+
+
   writeQuestion = () => {
-    console.log("enter")
-    console.log(this.state.writeQuestion)
+     // console.log("enter")
+     // console.log(this.state.writeQuestion)
     this.setState({writeQuestion: false})
-    console.log(this.state.writeQuestion)
+     // console.log(this.state.writeQuestion)
   }
 
 
@@ -322,19 +352,20 @@ class SportQuestions extends Component {
 
   }
   render() {
+    const isPlaying = this.state.isPlaying;
     let sportQuestions = [];
 
-    console.log(this.state.tenQuestions[this.state.currentQuestion])
+      // console.log(this.state.tenQuestions[this.state.currentQuestion])
     if (!this.state.backToProfile) {
-      console.log("PROFILEN")
-      console.log(this.props.profile.nickname)
+        // console.log("PROFILEN")
+        // console.log(this.props.profile.nickname)
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
       </div>)
     }
 
     if (!this.state.writeQuestion) {
-      console.log("hejsan")
+       // console.log("hejsan")
       return (<div>
         <AddQuestions/>
       </div>)
@@ -368,10 +399,11 @@ class SportQuestions extends Component {
                   </div>
                 </ul>
 
-                <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>
+                <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())}>
                   Next question</button>
                 <br/>
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
+                <div>Time remaining on current question: { this.state.timeLeft}</div>
               </div>
             : <h2></h2>
         }
