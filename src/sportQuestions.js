@@ -51,6 +51,7 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
+      this.startTimer()
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false})
 
 
