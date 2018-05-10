@@ -19,7 +19,11 @@ class SportQuestions extends Component {
       lastVal: "",
       totalAnswers: [],
       totalCorrectAnswers: 0,
-      totalFailedAnswers: 0
+      totalFailedAnswers: 0,
+      nickname: this.props.nickname,
+      profile : {
+
+      },
     }
     this.clickedButton = this.clickedButton.bind(this)
     console.log(this.props.firebaseKey)
@@ -172,12 +176,11 @@ class SportQuestions extends Component {
 
             }
 
-              if(val === "finnsInte"){
-                let plus = correct + wrong;
-                rank = (correct / plus) * 100
-                firebase.database().ref('users/' + self.props.firebaseKey).set({
+            function hej(){
+              self.setState({
+                  nickname: self.state.nickname,
                   profile: {
-                    nickname: self.props.profile.nickname,
+                    nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
@@ -185,7 +188,29 @@ class SportQuestions extends Component {
                     ranking: rank.toFixed(2),
                     place: place,
                   }
-                });
+              })
+
+
+            }
+
+              if(val === "finnsInte"){
+                let plus = correct + wrong;
+                rank = (correct / plus) * 100;
+                console.log(self.state.nickname)
+                firebase.database().ref('users/' + self.props.firebaseKey).set({
+                  nickname: self.state.nickname,
+                  profile: {
+                    nickname: self.state.nickname,
+                    photo: self.props.profile.photo,
+                    correctAnswers: databaseCorrect + correct,
+                    failedAnswers: databaseWrong + wrong,
+                    uid: self.props.profile.uid,
+                    ranking: rank.toFixed(2),
+                    place: place,
+                  }
+
+                },hej());
+
               }else{
                 let totalCorrect = databaseCorrect + correct;
                 let totalFail = databaseWrong + wrong;
@@ -194,8 +219,9 @@ class SportQuestions extends Component {
                 console.log(self.state)
                 console.log(self.props)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
+                  nickname: self.state.nickname,
                   profile: {
-                    nickname: self.props.nickname,
+                    nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
@@ -203,7 +229,8 @@ class SportQuestions extends Component {
                     ranking: rank.toFixed(2),
                     place: place,
                   }
-                });
+
+                },hej());
               }
           })
 
@@ -289,28 +316,30 @@ class SportQuestions extends Component {
     console.log(this.state.writeQuestion)
   }
 
-  
+
   backToProfile = () => {
       this.setState({backToProfile: false})
-      
+
   }
   render() {
     let sportQuestions = [];
-    
+
     console.log(this.state.tenQuestions[this.state.currentQuestion])
     if (!this.state.backToProfile) {
       console.log("PROFILEN")
+      console.log(this.props.profile.nickname)
       return (<div>
-        <ProfileComponent/>
+        <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
       </div>)
     }
-      
+
     if (!this.state.writeQuestion) {
       console.log("hejsan")
       return (<div>
         <AddQuestions/>
       </div>)
     }
+
     return (<div className="sportQuestion">
       Lets see how much you know about sport!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
@@ -318,6 +347,7 @@ class SportQuestions extends Component {
       </button>
       <br/>
       <button onClick={this.writeQuestion}>Click to write your own sport questions!</button>
+      <button onClick={this.backToProfile}>Go back to your profile</button>
       <div>
         {
           //Check if message failed
