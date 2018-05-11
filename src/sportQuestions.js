@@ -85,7 +85,11 @@ class SportQuestions extends Component {
   }
 
   componentDidUpdate() {
+
+
+
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
+      console.log("hej")
       let correct = 0;
       let wrong = 0;
 
@@ -205,6 +209,7 @@ class SportQuestions extends Component {
 
 
   clickedButton(val, correctAnswer) {
+
     switch (val) {
         case "a":
         this.setState({backgroundA: "bgColor", backgroundB: "", backgroundC: "", backgroundD: "", lastVal: "a"})
@@ -220,6 +225,7 @@ class SportQuestions extends Component {
         break;
         default:
     }
+    console.log(val)
 if(this.state.timeLeft === 0){
          console.log("hejsan")
             this.setState({
@@ -233,13 +239,17 @@ if(this.state.timeLeft === 0){
 
         }
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
-      if (val === "next") {
+      if (val === "next" && this.state.timeLeft > 0) {
 
+        console.log(val)
+        console.log(correctAnswer)
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
           this.state.totalAnswers.push(false)
         }
+
+        console.log(this.state.totalAnswers);
         this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
