@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import AddQuestions from './AddQuestions.js';
+import AddQuestionsFiction from './AddQuestionsFiction.js';
 import ProfileComponent from './ProfileComponent.js';
 
 
-class SportQuestions extends Component {
+class FictionQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,40 +37,56 @@ class SportQuestions extends Component {
       this.stopTimer = this.stopTimer.bind(this);
   }
 
-  // sendQuestion = () => {
-  //   this.setState({clicked: false})
-  //   const questionRef = firebase.database().ref('questions/genre/sport/');
-  //   let theQuestions;
-  //   questionRef.once("value", function(snapshot) {
-  //     questionRef.push(theQuestions)
-  //   });
-  // }
+  sendQuestion = () => {
+    this.setState({clicked: false})
+    const questionRef = firebase.database().ref('questions/genre/fiction/');
+    let theQuestions;
+    questionRef.once("value", function(snapshot) {
+      questionRef.push(theQuestions)
+    });
+  }
 
   getQuestions = () => {
+    console.log(this.props)
       this.startTimer()
-    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
+    this.setState({clicked: false,
+      currentQuestion: 0,
+      totalCorrectAnswers: 0,
+       totalFailedAnswers: 0,
+       handleChange:false,
+        wichState:false,
+          profile: {
+            nickname: this.state.nickname,
+            photo: this.props.profile.photo,
+            // correctAnswers: databaseCorrect + correct,
+            // failedAnswers: databaseWrong + wrong,
+            uid: this.props.profile.uid,
+            // ranking: rank.toFixed(2),
+            // place: place,
+          }
+      })
 
-    let sportQuestions = [];
+    let fictionQuestions = [];
     let ten = [];
     let self = this;
-    var ref = firebase.database().ref("questions/genre/sport/");
+    var ref = firebase.database().ref("questions/genre/fiction/");
     ref.once("value", function(snapshot) {
       let obj = snapshot.val()
       for (let element in obj) {
 
-        sportQuestions.push(obj[element])
+        fictionQuestions.push(obj[element])
       }
 
-      shuffleArray(sportQuestions)
-      function shuffleArray(sportQuestions) {
+      shuffleArray(fictionQuestions)
+      function shuffleArray(fictionQuestions) {
 
-        for (let i = sportQuestions.length - 1; i > 0; i--) {
+        for (let i = fictionQuestions.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1));
-          [sportQuestions[i], sportQuestions[j]] = [sportQuestions[j], sportQuestions[i]];
+          [fictionQuestions[i], fictionQuestions[j]] = [fictionQuestions[j], fictionQuestions[i]];
         }
       }
       for (let y = 0; y < 10; y++) {
-        ten.push(sportQuestions[y])
+        ten.push(fictionQuestions[y])
       }
       putState(ten)
     }, function(error) {
@@ -106,15 +122,19 @@ class SportQuestions extends Component {
       let databaseCorrect;
       let databaseWrong;
       let self = this;
-      console.log(this.props.firebaseKey)
-
       firebase.database().ref('users/' + this.props.firebaseKey).once("value", function(snapshot) {
         let Obj = snapshot.val();
 
-        console.log(Obj)
+        console.log(databaseCorrect)
+        // console.log(this.props.profile)
+        // console.log(this.state.profile)
+        console.log(Obj.profile.correctAnswers)
+        // console.log(databaseWrong)
+        // console.log(Obj.profile.failedAnswers)
+
+
         databaseCorrect = Obj.profile.correctAnswers;
         databaseWrong = Obj.profile.failedAnswers;
-
 
         function loopFunc(val) {
           firebase.database().ref('users/').once("value", function(snapshot) {
@@ -156,7 +176,7 @@ class SportQuestions extends Component {
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    // place: place,
+                    place: place,
                   }
               })
             }
@@ -166,32 +186,31 @@ class SportQuestions extends Component {
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
                   nickname: self.state.nickname,
                   profile: {
-                    // nickname: self.state.nickname,
+                    nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    // place: place,
+                    place: place,
                   }
                 },hej());
               }else{
-                console.log(self.props)
                 let totalCorrect = databaseCorrect + correct;
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
 
-                firebase.database().ref('users/' + self.props.firebaseKey + "/").set({
-                  nickname: self.props.nickname,
+                firebase.database().ref('users/' + self.props.firebaseKey).set({
+                  nickname: self.state.nickname,
                   profile: {
-                    nickname: self.props.nickname,
+                    nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    // place: place,
+                    place: place,
                   }
 
                 },hej());
@@ -260,6 +279,7 @@ if(this.state.timeLeft === 0){
           backgroundC: "",
           backgroundD: ""
         })
+
       }
     }
   }
@@ -350,25 +370,25 @@ stopTimer() {
   }
   render() {
     const isPlaying = this.state.isPlaying;
-    let sportQuestions = [];
+    let fictionQuestions = [];
     if (!this.state.backToProfile) {
       return (<div>
-        <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
+        <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.props.profile} nickname={this.state.nickname} />
       </div>)
     }
 
     if (!this.state.writeQuestion) {
       return (<div>
-        <AddQuestions profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+        <AddQuestionsFiction profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
-    return (<div className="sportQuestion">
-      Lets see how much you know about sport!
+    return (<div className="fictionQuestions">
+      Lets see how much you know about fiction!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
-        Get Sport Questions!
+        Get Fiction Questions!
       </button>
       <br/>
-      <button onClick={this.writeQuestion} >Click to write your own sport questions!</button>
+      <button onClick={this.writeQuestion} >Click to write your own fiction questions!</button>
         {(this.state.handleChange === true)
           ?
           <button onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
@@ -418,4 +438,4 @@ stopTimer() {
 
 }
 
-export default SportQuestions;
+export default FictionQuestions;
