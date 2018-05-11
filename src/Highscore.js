@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import firebase, {auth} from './firebase.js';
 import ProfileComponent from './ProfileComponent.js';
-import './App.css';
+import './Highscore.css';
 
 class Highscore extends Component {
   constructor(props) {
@@ -30,33 +30,17 @@ class Highscore extends Component {
         console.log(self.props.firebaseKey)
         let childKey = childSnapshot.key;
         let childData = childSnapshot.val();
-        // console.log(childKey)
-        // console.log(childData)
-        // if (childKey === self.props.firebaseKey) {
-        //    console.log("found something")
-        //   console.log(childData);
-        //
-        //   console.log(self.props.firebaseKey);
-        //   console.log(self.state)
-        //   self.setState({
-        //     profile: {
-        //       place: self.state.profile.place
-        //     }
-        //   })
-        //   console.log(self.state)
-        // }
         let highScoreUser = {
           nickname: childData.profile.nickname,
           ranking: childData.profile.ranking,
-          // numberOfQuestions: childData.profile.numberOfQuestions
         }
         highScoreList.push(highScoreUser);
         console.log(highScoreUser)
       })
       function compare(a, b) {
-        if (a.ranking < b.ranking) 
+        if (a.ranking < b.ranking)
           return -1;
-        if (a.ranking > b.ranking) 
+        if (a.ranking > b.ranking)
           return 1;
         return 0;
       }
@@ -83,10 +67,17 @@ class Highscore extends Component {
       </div>)
     } else {
       return (<div>
+        <div className="container">
+        <h1>Top players</h1>
+        </div>
+        <div className="container">
         <ol className="topPlayers">
-          {topTen.map(d => <li key={d.nickname}>{d.nickname + " " + d.ranking}</li>)}
+          {topTen.map(d => <li key={d.nickname}>{d.nickname + " - " + d.ranking + "%"}</li>)}
         </ol>
-        <button onClick={this.goBack}>Back to ProfilePage</button>
+        </div>
+        <div className="container">
+        <button className="btn" onClick={this.goBack}>Back to ProfilePage</button>
+        </div>
       </div>)
 
     }

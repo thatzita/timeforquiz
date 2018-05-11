@@ -1,0 +1,40 @@
+.btn {
+  display: block;
+  /* padding: 9px 12px; */
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #5e5e5e;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #d1dade;
+  -webkit-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-image: none !important;
+  border: none;
+  text-shadow: none;
+  box-shadow: none;
+  transition: all 0.12s linear 0s !important;
+  margin-bottom: 12px;
+  background-color: #fff;
+  border: 1px solid #e5e9ec;
+}
+
+div>.btn {
+  display: flex;
+  justify-content: center;
+
+}
+
+input {
+  font-size: 1.17em;
+  -webkit-margin-before: 1em;
+  -webkit-margin-after: 1em;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  width: 150px;
+  height: 25px;
+}

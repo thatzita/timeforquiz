@@ -1,0 +1,41 @@
+.btn {
+  padding: 9px 12px;
+  padding-top: 7px;
+  margin-bottom: 0;
+  font-size: 14px;
+  line-height: 20px;
+  color: #5e5e5e;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #d1dade;
+  -webkit-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  background-image: none !important;
+  border: none;
+  text-shadow: none;
+  box-shadow: none;
+  transition: all 0.12s linear 0s !important;
+  margin-right: 5px;
+  min-width: 120px;
+  margin-top: 20px;
+  margin-bottom: 8px;
+  background-color: #fff;
+  border: 1px solid #e5e9ec;
+}
+
+.container {
+  display: flex;
+  align-items:baseline;
+  justify-content: center;
+}
+
+.topPlayers{
+  font-size: 1.3em;
+}
+
+.topPlayers > li {
+  width: 100%;
+
+}
