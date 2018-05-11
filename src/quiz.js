@@ -54,15 +54,15 @@ class Quiz extends Component {
     }
     return (<div>Quiz Menu
       <br/>
-      <button onClick={this.goBack}>Back to ProfilePage</button>
+      <button onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
       <h3>Choose Category!</h3>
       <div className="categoryDiv">
         <br/>
-        <button className="btnQuiz" onClick={this.fictionQuiz}>Fiction</button>
+        <button className="btnQuiz" onClick={this.fictionQuiz}  profile={profile}>Fiction</button>
         <br/>
-        <button className="btnQuiz" onClick={this.historyQuiz}>History</button>
+        <button className="btnQuiz" onClick={this.historyQuiz}  profile={profile}>History</button>
         <br/>
-        <button className="btnQuiz" onClick={this.sportQuiz}>Sport</button>
+        <button className="btnQuiz" onClick={this.sportQuiz}  profile={profile}>Sport</button>
       </div>
       <div className="profile">
         <img src={profile.photo + "?width=999"}/>

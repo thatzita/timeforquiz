@@ -19,6 +19,8 @@ class ProfileComponent extends Component {
     }
     this.logout = this.logout.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    console.log(this.state)
+    console.log(this.props)
   }
   logout = () => {
     auth.signOut().then(() => {
@@ -95,7 +97,7 @@ class ProfileComponent extends Component {
         </div>)
       } else {
         return (<div>
-          <button className="btn" onClick={this.startQuiz}>Click to start the quiz</button>
+          <button className="btn" onClick={this.startQuiz} profile={this.props.profile}>Click to start the quiz</button>
           <button className="btn" onClick={this.highscore}>Highscore</button>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>

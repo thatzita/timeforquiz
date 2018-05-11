@@ -72,7 +72,7 @@ class Highscore extends Component {
         </div>
         <div className="container">
         <ol className="topPlayers">
-          {topTen.map(d => <li key={d.nickname}>{d.nickname + " " + d.ranking + "%"}</li>)}
+          {topTen.map(d => <li key={d.nickname}>{d.nickname + " - " + d.ranking + "%"}</li>)}
         </ol>
         </div>
         <div className="container">
