@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import SportQuestions from './sportQuestions.js';
+import FictionQuestions from './FictionQuestions.js';
 import './AddQuestions.css'
 
-class AddQuestions extends Component {
+class AddQuestionsFiction extends Component {
 
   constructor(props) {
     super(props)
@@ -18,7 +18,7 @@ class AddQuestions extends Component {
       sendMessage: '',
       divId: ''
     }
-    console.log(this.props)
+    console.log(this.props.profile)
   }
 
   goBack = () => {
@@ -56,10 +56,10 @@ class AddQuestions extends Component {
 
   componentDidUpdate() {
      let btnSend = document.getElementById("btnSend")
-     console.log(btnSend)
+     // console.log(btnSend)
      if(btnSend === null) {
        console.log("you will come here")
-
+       btnSend = document.getElementById("btnSend")
      }else{
 
      btnSend.disabled = true;
@@ -72,7 +72,7 @@ class AddQuestions extends Component {
   sendQuestion = () => {
     let self = this;
     let form = document.getElementById("theForm");
-    firebase.database().ref('questions/genre/sport/').push({
+    firebase.database().ref('questions/genre/fiction/').push({
       Question: this.state.question,
       answers: {
         a: this.state.a,
@@ -105,17 +105,17 @@ class AddQuestions extends Component {
 
     if (!this.state.goBack) {
       return (<div>
-        <SportQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname} />
+        <FictionQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
     }
 
     return (<div>
-      <h2>Create your own sport Question!</h2>
+      <h2>Create your own fiction Question!</h2>
       <br/>
 
       <div>
         <form id="theForm">
-          <h3>What sport question do you want to add?
+          <h3>What fiction question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
           <br/>Answer A:<label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
@@ -126,10 +126,10 @@ class AddQuestions extends Component {
       </div>
       <br/>
       <button id="btnSend" className="btnQ" onClick={this.sendQuestion}>Send Question!</button>
-      <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
+      <button className="btnQ" onClick={this.goBack} >Back to fictionPage</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
 
 }
-export default AddQuestions;
+export default AddQuestionsFiction;
