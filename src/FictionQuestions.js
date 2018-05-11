@@ -373,7 +373,7 @@ stopTimer() {
     let fictionQuestions = [];
     if (!this.state.backToProfile) {
       return (<div>
-        <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.props.profile} nickname={this.state.nickname} />
+        <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
       </div>)
     }
 
