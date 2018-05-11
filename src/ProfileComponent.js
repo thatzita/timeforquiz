@@ -3,6 +3,7 @@ import Quiz from './quiz.js';
 import App from './App.js';
 import Highscore from './Highscore.js';
 import firebase, {auth} from './firebase.js';
+import './ProfileComponent.css';
 
 class ProfileComponent extends Component {
   constructor(props) {
@@ -16,15 +17,10 @@ class ProfileComponent extends Component {
       },
       nickname: this.props.nickname
     }
-    console.log(this.state)
-    console.log(this.props)
-
-    // let signOut = false;
     this.logout = this.logout.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
   logout = () => {
-    // this.signOut = true;
     auth.signOut().then(() => {
       this.setState({
         profile: {
@@ -41,20 +37,14 @@ class ProfileComponent extends Component {
     this.setState({score: false})
   }
   changeType = () => {
-    // console.log(firebase.auth().currentUser.uid)
-    // console.log(this.props.firebaseKey)
     let userId = this.props.firebaseKey
-    // console.log(this.state)
     if (this.state.inputField === false) {
-      // console.log("on")
       this.setState({inputField: true})
     } else {
-      // console.log("off")
       this.setState({inputField: false})
       firebase.database().ref('users/' + userId).set({
         profile: {
           nickname: this.state.nickname,
-          // mail: this.props.profile.mail,
           uid: this.props.profile.uid,
           photo: this.props.profile.photo,
           place: this.props.profile.place,
@@ -70,8 +60,6 @@ class ProfileComponent extends Component {
 
   }
   render() {
-//    console.log(this.props.profile)
-    // this.signOut;
     const profile = this.props.profile;
     const list = this.props.list;
     if (!this.state.clicked) {
@@ -89,12 +77,12 @@ class ProfileComponent extends Component {
     } else {
       if (this.state.inputField === true) {
         return (<div>
-          <button onClick={this.startQuiz}>Click to start the quiz</button>
-          <button onClick={this.highscore}>Highscore</button>
+          <button className="btn" onClick={this.startQuiz}>Click to start the quiz</button>
+          <button className="btn" onClick={this.highscore}>Highscore</button>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>
             <input type="text" onChange={this.handleChange}/>
-            <button onClick={this.changeType}>Make the change</button>
+            <button className="btn" onClick={this.changeType}>Make the change</button>
             <h4>Stats</h4>
             <ul>
               <li>Place: {profile.place}</li>
@@ -102,17 +90,17 @@ class ProfileComponent extends Component {
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
             </ul>
-            <button onClick={this.logout}>Logout</button>
+            <button className="btn" onClick={this.logout}>Logout</button>
           </div>
         </div>)
       } else {
         return (<div>
-          <button onClick={this.startQuiz}>Click to start the quiz</button>
-          <button onClick={this.highscore}>Highscore</button>
+          <button className="btn" onClick={this.startQuiz}>Click to start the quiz</button>
+          <button className="btn" onClick={this.highscore}>Highscore</button>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>
             <h3>{this.state.nickname}</h3>
-            <button onClick={this.changeType}>Edit</button>
+            <button className="btn" onClick={this.changeType}>Edit</button>
             <h4>Stats</h4>
             <ul>
               <li>Place: {profile.place}</li>
@@ -120,7 +108,7 @@ class ProfileComponent extends Component {
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
             </ul>
-            <button onClick={this.logout}>Logout</button>
+            <button className="btn" onClick={this.logout}>Logout</button>
           </div>
         </div>)
       }
