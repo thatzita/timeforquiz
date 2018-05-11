@@ -19,7 +19,8 @@ class App extends Component {
         failedAnswers: 0,
         ranking: 0
       },
-      key: ''
+      key: '',
+      timeForQuiz : {}
     }
     this.handleChange = this.handleChange.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
@@ -317,7 +318,10 @@ class App extends Component {
     })
   }
 
+  componentDidMount(){
   
+  }
+
 
   render() {
     // const profile = this.props.profile;
@@ -330,7 +334,7 @@ class App extends Component {
     return (<div className="App">
       <div className="ruta"></div>
       <div className="info">
-        <span>Time for quiz</span>
+        <span  className="timequiz">Time for quiz</span>
       </div>
       <div className="wrapper"></div>
       <div className="socialamedierLogIn">

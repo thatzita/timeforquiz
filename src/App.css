@@ -1,15 +1,20 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100');
 body {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#381f1f+0,381f1f+100&1+0,0.87+51,1+100 */
-  background: -moz-linear-gradient(top, rgba(56, 31, 31, 1) 0%, rgba(56, 31, 31, 0.87) 51%, rgba(56, 31, 31, 1) 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(56, 31, 31, 1) 0%, rgba(56, 31, 31, 0.87) 51%, rgba(56, 31, 31, 1) 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(56, 31, 31, 1) 0%, rgba(56, 31, 31, 0.87) 51%, rgba(56, 31, 31, 1) 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#381f1f', endColorstr='#381f1f', GradientType=0);
-  /* IE6-9 */
-  color: rgba(255, 255, 255, 0.8);
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#de000e+0,de000e+99&0.29+0,1+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#de000e+0,6d0000+99&0.55+0,1+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#de000e+0,560000+99&0.55+0,1+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#00447c+0,004b59+99&0.68+0,1+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#008e85+0,005068+99 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#2a8296+0,295c89+99 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ce9e8c+0,a05940+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ad8475+0,844d3b+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ad8475+0,7c3a26+100 */
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ad8475+0,49271e+100 */
+  background: rgb(173,132,117); /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover, rgba(173,132,117,1) 0%, rgba(73,39,30,1) 100%); /* FF3.6-15 */
+  background: -webkit-radial-gradient(center, ellipse cover, rgba(173,132,117,1) 0%,rgba(73,39,30,1) 100%); /* Chrome10-25,Safari5.1-6 */
+  background: radial-gradient(ellipse at center, rgba(173,132,117,1) 0%,rgba(73,39,30,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ad8475', endColorstr='#49271e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
   margin: 30px;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
@@ -57,17 +62,31 @@ body {
   font-size: 3em;
 }
 
+.profileText{
+  color:rgba(0,0,0,0.7);
+  font-size: 1.2em;
+  font-weight: 500;
+  text-align: center;
+  width:10%;
+  box-shadow: 0px 0px white;
+}
+
 .profile {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  margin:0 auto;
+}
+
+.profile ul{
+  color:rgba(255,255,255,0.7)
 }
 
 .profile img {
   width: 200px;
   height: 200px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 0 20px rgba(82, 62, 62, 1);
   border-radius: 100%;
   margin-top: 50px;
 }
@@ -84,9 +103,10 @@ body {
 
 .ruta {
   width: 70%;
-  height: 30px;
-  background: rgba(0, 0, 0, 0.5);
+  height: 10px;
+  background: rgba(255, 255, 255, 0.5);
   margin: 0 auto;
+  display: none;
   -webkit-clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
   clip-path: polygon(5% 0, 95% 0, 100% 100%, 0 100%);
 }
@@ -94,14 +114,15 @@ body {
 .wrapper {
   margin: 0 auto;
   display: flex;
+  display: none;
   color: rgba(255, 255, 255, 0.7);
   flex-direction: column;
   justify-content: space-around;
-  height: 50px;
+  height: 20px;
   /* border-radius: 30px 0px; */
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.5);
   width: 65%;
-  margin-top: 80px;
+  margin-top: 45px;
   align-items: center;
   -webkit-clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
   clip-path: polygon(0 0, 100% 0, 90% 100%, 10% 100%);
@@ -120,30 +141,50 @@ body {
 
 .info {
   position: relative;
-  top: 40px;
+  top: 100px;
   display: flex;
   flex-direction: column;
 }
 
 .info span {
-  font-size: 3em;
+  color:rgba(0,0,0,0.5);
+  font-size: 6em;
+  transition-property: all;
+  transition-duration: 2s;
+}
+
+.timequiz{
+  transition-property: all;
+  transition-duration: 2s;
+}
+
+.logout{
+  background: rgba(255,255,255,0);
+  border:none;
+  margin-top: 100px;
+  color: rgba(0,0,0,0.6);
+  font-size:1.2em;
 }
 
 .socialamedierLogIn {
   position: relative;
-  top: 40px;
+  top: 140px;
   cursor: pointer;
 }
 
 .socialamedierLogIn i {
-  color: rgba(255, 255, 255, 0.8);
-  transition-property: transform;
+  color: rgba(255, 255, 255, 0.4);
+  transition-property: all;
   transition-duration: 0.3s;
 }
 
 .socialamedierLogIn i:hover {
   transform: rotate(3deg);
+  color: rgba(255, 255, 255, 0.7);
+
 }
+
+
 
 .socialamedierLogIn i:last-child {
   margin-left: 20px;
