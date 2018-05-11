@@ -47,6 +47,11 @@ body {
   border:2px solid rgba(0,0,0,0.4);
   text-align: center;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
 .btnFb {
   font-size: 3em;
 }
@@ -152,3 +157,16 @@ body {
   top: 150px;
   text-align: center;
 }
+
+#itHasBeenSent {
+    -moz-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Firefox */
+    -webkit-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Safari and Chrome */
+    -o-animation: cssAnimation 0s ease-in 5s forwards;
+    /* Opera */
+    animation: cssAnimation 0s ease-in 5s forwards;
+    -webkit-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+}
+
