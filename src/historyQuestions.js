@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import AddQuestions from './AddQuestions.js';
+import AddQuestionsHistory from './AddQuestionsHistory.js';
 import ProfileComponent from './ProfileComponent.js';
 
 
-class SportQuestions extends Component {
+class HistoryQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -37,40 +37,41 @@ class SportQuestions extends Component {
       this.stopTimer = this.stopTimer.bind(this);
   }
 
-  // sendQuestion = () => {
-  //   this.setState({clicked: false})
-  //   const questionRef = firebase.database().ref('questions/genre/sport/');
-  //   let theQuestions;
-  //   questionRef.once("value", function(snapshot) {
-  //     questionRef.push(theQuestions)
-  //   });
-  // }
+  sendQuestion = () => {
+    console.log("hej")
+    this.setState({clicked: false})
+    const questionRef = firebase.database().ref('questions/genre/History');
+    let theQuestions;
+    questionRef.once("value", function(snapshot) {
+      questionRef.push(theQuestions)
+    });
+  }
 
   getQuestions = () => {
       this.startTimer()
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
-    let sportQuestions = [];
+    let historyQuestions = [];
     let ten = [];
     let self = this;
-    var ref = firebase.database().ref("questions/genre/sport/");
+    var ref = firebase.database().ref("questions/genre/History");
     ref.once("value", function(snapshot) {
       let obj = snapshot.val()
       for (let element in obj) {
 
-        sportQuestions.push(obj[element])
+        historyQuestions.push(obj[element])
       }
 
-      shuffleArray(sportQuestions)
-      function shuffleArray(sportQuestions) {
+      shuffleArray(historyQuestions)
+      function shuffleArray(historyQuestions) {
 
-        for (let i = sportQuestions.length - 1; i > 0; i--) {
+        for (let i = historyQuestions.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1));
-          [sportQuestions[i], sportQuestions[j]] = [sportQuestions[j], sportQuestions[i]];
+          [historyQuestions[i], historyQuestions[j]] = [historyQuestions[j], historyQuestions[i]];
         }
       }
       for (let y = 0; y < 10; y++) {
-        ten.push(sportQuestions[y])
+        ten.push(historyQuestions[y])
       }
       putState(ten)
     }, function(error) {
@@ -106,12 +107,10 @@ class SportQuestions extends Component {
       let databaseCorrect;
       let databaseWrong;
       let self = this;
-      console.log(this.props.firebaseKey)
-
       firebase.database().ref('users/' + this.props.firebaseKey).once("value", function(snapshot) {
         let Obj = snapshot.val();
 
-        console.log(Obj)
+
         databaseCorrect = Obj.profile.correctAnswers;
         databaseWrong = Obj.profile.failedAnswers;
 
@@ -156,7 +155,7 @@ class SportQuestions extends Component {
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    // place: place,
+                    place: place,
                   }
               })
             }
@@ -166,32 +165,31 @@ class SportQuestions extends Component {
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
                   nickname: self.state.nickname,
                   profile: {
-                    // nickname: self.state.nickname,
+                    nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    // place: place,
+                    place: place,
                   }
                 },hej());
               }else{
-                console.log(self.props)
                 let totalCorrect = databaseCorrect + correct;
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
 
-                firebase.database().ref('users/' + self.props.firebaseKey + "/").set({
-                  nickname: self.props.nickname,
+                firebase.database().ref('users/' + self.props.firebaseKey).set({
+                  nickname: self.state.nickname,
                   profile: {
-                    nickname: self.props.nickname,
+                    nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    // place: place,
+                    place: place,
                   }
 
                 },hej());
@@ -260,6 +258,7 @@ if(this.state.timeLeft === 0){
           backgroundC: "",
           backgroundD: ""
         })
+
       }
     }
   }
@@ -350,7 +349,7 @@ stopTimer() {
   }
   render() {
     const isPlaying = this.state.isPlaying;
-    let sportQuestions = [];
+    let historyQuestions = [];
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -359,16 +358,16 @@ stopTimer() {
 
     if (!this.state.writeQuestion) {
       return (<div>
-        <AddQuestions profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+        <AddQuestionsHistory profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
     }
     return (<div className="sportQuestion">
-      Lets see how much you know about sport!
+      Lets see how much you know about history!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
-        Get Sport Questions!
+        Get history Questions!
       </button>
       <br/>
-      <button onClick={this.writeQuestion} >Click to write your own sport questions!</button>
+      <button onClick={this.writeQuestion} >Click to write your own history questions!</button>
         {(this.state.handleChange === true)
           ?
           <button onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
@@ -418,4 +417,4 @@ stopTimer() {
 
 }
 
-export default SportQuestions;
+export default HistoryQuestions;

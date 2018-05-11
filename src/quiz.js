@@ -5,15 +5,16 @@ import ProfileComponent from './ProfileComponent.js';
 import Questions from './questions.js';
 import SportQuestions from './sportQuestions.js';
 import FictionQuestions from './FictionQuestions.js';
+import HistoryQuestions from "./historyQuestions.js"
 
 class Quiz extends Component {
   constructor(props) {
     super(props)
     this.state = {
       clicked: true,
-      //      clickedQuiz: true,
       clickedSport: true,
       clickedFiction: true,
+      clickedHistory:true,
       nickname: this.props.nickname,
       key: this.props.firebaseKey
     }
@@ -29,7 +30,10 @@ class Quiz extends Component {
     this.setState({clickedFiction: false})
   }
 
-
+  historyQuiz = () => {
+    console.log("this is a quiz a bout history");
+    this.setState({clickedHistory: false})
+  }
 
   sportQuiz = () => {
     console.log("this is a quiz a bout sport");
@@ -54,6 +58,11 @@ class Quiz extends Component {
     if (!this.state.clickedFiction) {
       return (<div>
         <FictionQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
+      </div>)
+    }
+    if(!this.state.clickedHistory){
+      return (<div>
+        <HistoryQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
       </div>)
     }
     return (<div>Quiz Menu
