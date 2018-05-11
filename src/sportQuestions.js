@@ -22,6 +22,7 @@ class SportQuestions extends Component {
       totalFailedAnswers: 0,
       nickname: this.props.nickname,
       handleChange:true,
+      wichState:true,
       profile : {
 
       },
@@ -54,7 +55,7 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
-    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false})
+    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
     let sportQuestions = [];
     let ten = [];
@@ -188,7 +189,7 @@ class SportQuestions extends Component {
 
             function hej(){
               self.setState({
-                handleChange:true,
+                  handleChange:true,
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -229,8 +230,8 @@ class SportQuestions extends Component {
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
-                console.log(self.state)
-                console.log(self.props)
+
+                console.log(self.state.handleChange)
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
 
                   nickname: self.state.nickname,
@@ -337,7 +338,9 @@ class SportQuestions extends Component {
 
   backToProfile = () => {
 
-    if(this.state.handleChange){
+    if(this.state.wichState){
+      console.log(this.state.profile)
+
       this.setState({
         backToProfile: false,
         nickname: this.props.nickname,
@@ -352,19 +355,29 @@ class SportQuestions extends Component {
         }
       })
     }else{
+      console.log(this.state.profile)
+
       this.setState({
         backToProfile: false,
-
+        nickname: this.state.nickname,
+        profile: {
+          nickname: this.state.profile.nickname,
+          photo: this.state.profile.photo,
+          correctAnswers: this.state.profile.correctAnswers,
+          failedAnswers: this.state.profile.failedAnswers,
+          uid: this.state.profile.uid,
+          ranking: this.state.profile.ranking,
+          place: this.state.profile.place,
+        }
       })
     }
-
 
 
   }
   render() {
     let sportQuestions = [];
 
-    console.log(this.state.tenQuestions[this.state.currentQuestion])
+    console.log(this.state.profile)
     if (!this.state.backToProfile) {
       console.log("PROFILEN")
       console.log(this.props.profile.nickname)
