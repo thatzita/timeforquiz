@@ -27,6 +27,7 @@ class SportQuestions extends Component {
       handleChange:true,
       divClass : "Row",
       profile : {},
+      wichState:true,
     }
     console.log(this.state)
     console.log(this.props)
@@ -34,7 +35,6 @@ class SportQuestions extends Component {
       this.startTimer = this.startTimer.bind(this);
       this.resetTimer = this.resetTimer.bind(this);
       this.stopTimer = this.stopTimer.bind(this);
-
   }
 
   sendQuestion = () => {
@@ -47,9 +47,8 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
-    this.startTimer()
-    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange: false})
-
+      this.startTimer()
+    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
     let sportQuestions = [];
     let ten = [];
@@ -142,7 +141,7 @@ class SportQuestions extends Component {
             }
             function hej(){
               self.setState({
-                handleChange:true,
+                  handleChange:true,
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -175,8 +174,8 @@ class SportQuestions extends Component {
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
-                firebase.database().ref('users/' + self.props.firebaseKey).set({
 
+                firebase.database().ref('users/' + self.props.firebaseKey).set({
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -303,7 +302,9 @@ stopTimer() {
 
   backToProfile = () => {
 
-    if(this.state.handleChange){
+    if(this.state.wichState){
+      console.log(this.state.profile)
+
       this.setState({
         backToProfile: false,
         nickname: this.props.nickname,
@@ -318,11 +319,22 @@ stopTimer() {
         }
       })
     }else{
+      console.log(this.state.profile)
+
       this.setState({
         backToProfile: false,
+        nickname: this.state.nickname,
+        profile: {
+          nickname: this.state.profile.nickname,
+          photo: this.state.profile.photo,
+          correctAnswers: this.state.profile.correctAnswers,
+          failedAnswers: this.state.profile.failedAnswers,
+          uid: this.state.profile.uid,
+          ranking: this.state.profile.ranking,
+          place: this.state.profile.place,
+        }
       })
     }
-
   }
   render() {
     const isPlaying = this.state.isPlaying;
