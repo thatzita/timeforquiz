@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import SportQuestions from './sportQuestions.js';
-import './AddQuestions.css'
-class AddQuestions extends Component {
+import HistoryQuestions from './historyQuestions.js';
+
+class AddQuestionsHistory extends Component {
 
   constructor(props) {
     super(props)
@@ -49,33 +49,29 @@ class AddQuestions extends Component {
   }
 
   componentDidMount() {
-        //let btnSend = document.getElementById("btnSend");
-      if(this.btnSend) {
-       this.btnSend.disabled = true;
-      }
+        let btnSend = document.getElementById("btnSend");
+        btnSend.disabled = true;
   }
 
   componentDidUpdate() {
-     //let btnSend = document.getElementById("btnSend")
-    if(this.btnSend) {
-     console.log(this.btnSend)
-     if(this.btnSend === null) {
+     let btnSend = document.getElementById("btnSend")
+     console.log(btnSend)
+     if(btnSend === null) {
        console.log("you will come here")
 
      }else{
 
-    this.btnSend.disabled = true;
+     btnSend.disabled = true;
          if(this.state.question !== '' && this.state.correctAnswer !== '' &&
            this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
-         this.btnSend.disabled = false
+         btnSend.disabled = false
        }
      }
-    }
      }
   sendQuestion = () => {
     let self = this;
-   // let form = document.getElementById("theForm");
-    firebase.database().ref('questions/genre/sport/').push({
+    let form = document.getElementById("theForm");
+    firebase.database().ref('questions/genre/History/').push({
       Question: this.state.question,
       answers: {
         a: this.state.a,
@@ -86,8 +82,7 @@ class AddQuestions extends Component {
       correctAnswer: this.state.correctAnswer
     })
 
-    if(this.theForm) {
-    this.theForm.reset();
+    form.reset();
 
     this.setState({sendMessage: 'Your question have been sent, sir!', divId: 'itHasBeenSent'})
 
@@ -104,22 +99,22 @@ class AddQuestions extends Component {
     correctAnswer: ''
   })
   }
-  }
+
   render() {
 
     if (!this.state.goBack) {
       return (<div>
-        <SportQuestions profile={this.props.profile}/>
+        <HistoryQuestions profile={this.props.profile}/>
       </div>)
     }
 
     return (<div>
-      <h2>Create your own sport Question!</h2>
+      <h2>Create your own history Question!</h2>
       <br/>
 
       <div>
-        <form ref={this.theForm}>
-          <h3>What sport question do you want to add?
+        <form id="theForm">
+          <h3>What history question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
           <br/>Answer A:<label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
@@ -129,11 +124,11 @@ class AddQuestions extends Component {
         </form>
       </div>
       <br/>
-      <button ref={this.btnSend} id="btnSend" className="btnQ" onClick={this.sendQuestion}>Send Question!</button>
+      <button id="btnSend" className="btnQ" onClick={this.sendQuestion}>Send Question!</button>
       <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
 
 }
-export default AddQuestions;
+export default AddQuestionsHistory;

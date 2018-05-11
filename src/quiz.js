@@ -52,9 +52,9 @@ class Quiz extends Component {
         <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
       </div>)
     }
-    return (<div>Quiz Menu
+    return (<div className="stlyeMenu">Quiz Menu
       <br/>
-      <button onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
+      <button className="btnBack" onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
       <h3>Choose Category!</h3>
       <div className="categoryDiv">
         <br/>

@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import AddQuestions from './AddQuestions.js';
+import AddQuestionsHistory from './addQuestionsHistory.js';
 import ProfileComponent from './ProfileComponent.js';
 
 
-class SportQuestions extends Component {
+class HistoryQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -39,7 +39,7 @@ class SportQuestions extends Component {
 
   sendQuestion = () => {
     this.setState({clicked: false})
-    const questionRef = firebase.database().ref('questions/genre/sport/');
+    const questionRef = firebase.database().ref('questions/genre/History/');
     let theQuestions;
     questionRef.once("value", function(snapshot) {
       questionRef.push(theQuestions)
@@ -85,11 +85,7 @@ class SportQuestions extends Component {
   }
 
   componentDidUpdate() {
-
-
-
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
-      console.log("hej")
       let correct = 0;
       let wrong = 0;
 
@@ -209,7 +205,6 @@ class SportQuestions extends Component {
 
 
   clickedButton(val, correctAnswer) {
-
     switch (val) {
         case "a":
         this.setState({backgroundA: "bgColor", backgroundB: "", backgroundC: "", backgroundD: "", lastVal: "a"})
@@ -225,7 +220,6 @@ class SportQuestions extends Component {
         break;
         default:
     }
-    console.log(val)
 if(this.state.timeLeft === 0){
          console.log("hejsan")
             this.setState({
@@ -239,17 +233,13 @@ if(this.state.timeLeft === 0){
 
         }
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
-      if (val === "next" && this.state.timeLeft > 0) {
+      if (val === "next") {
 
-        console.log(val)
-        console.log(correctAnswer)
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
           this.state.totalAnswers.push(false)
         }
-
-        console.log(this.state.totalAnswers);
         this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -357,19 +347,19 @@ stopTimer() {
 
     if (!this.state.writeQuestion) {
       return (<div>
-        <AddQuestions profile={this.props.profile} nickname={this.state.nickname}/>
+        <AddQuestionsHistory profile={this.props.profile} nickname={this.state.nickname}/>
       </div>)
     }
     return (<div className="sportQuestion">
-      Lets see how much you know about sport!
+      Lets see how much you know about history!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
-        Get Sport Questions!
+        Get History Questions!
       </button>
       <br/>
-      <button onClick={this.writeQuestion} >Click to write your own sport questions!</button>
+      <button onClick={this.writeQuestion} >Click to write your own history questions!</button>
         {(this.state.handleChange === true)
           ?
-          <button className="btnBack" onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
+          <button onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
           :
           <div></div>
         }
@@ -416,4 +406,4 @@ stopTimer() {
 
 }
 
-export default SportQuestions;
+export default HistoryQuestions;
