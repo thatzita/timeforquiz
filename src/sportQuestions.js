@@ -24,8 +24,13 @@ class SportQuestions extends Component {
       totalFailedAnswers: 0,
       nickname: this.props.nickname,
       handleChange:true,
+      wichState:true,
+      profile : {
+
+      },
+
         class: "Row",
-      profile : {},
+
     }
     this.clickedButton = this.clickedButton.bind(this);
     this.startTimer = this.startTimer.bind(this);
@@ -51,8 +56,9 @@ class SportQuestions extends Component {
   }
 
   getQuestions = () => {
+
       this.startTimer()
-    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false})
+    this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
 
     let sportQuestions = [];
@@ -186,7 +192,7 @@ class SportQuestions extends Component {
 
             function hej(){
               self.setState({
-                handleChange:true,
+                  handleChange:true,
                   nickname: self.state.nickname,
                   profile: {
                     nickname: self.state.nickname,
@@ -227,8 +233,7 @@ class SportQuestions extends Component {
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
-                 // console.log(self.state)
-                 // console.log(self.props)
+
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
 
                   nickname: self.state.nickname,
@@ -388,7 +393,9 @@ stopTimer() {
 
   backToProfile = () => {
 
-    if(this.state.handleChange){
+    if(this.state.wichState){
+      console.log(this.state.profile)
+
       this.setState({
         backToProfile: false,
         nickname: this.props.nickname,
@@ -403,12 +410,22 @@ stopTimer() {
         }
       })
     }else{
+      console.log(this.state.profile)
+
       this.setState({
         backToProfile: false,
-
+        nickname: this.state.nickname,
+        profile: {
+          nickname: this.state.profile.nickname,
+          photo: this.state.profile.photo,
+          correctAnswers: this.state.profile.correctAnswers,
+          failedAnswers: this.state.profile.failedAnswers,
+          uid: this.state.profile.uid,
+          ranking: this.state.profile.ranking,
+          place: this.state.profile.place,
+        }
       })
     }
-
 
 
   }
@@ -416,7 +433,7 @@ stopTimer() {
     const isPlaying = this.state.isPlaying;
     let sportQuestions = [];
 
-      // console.log(this.state.tenQuestions[this.state.currentQuestion])
+
     if (!this.state.backToProfile) {
         // console.log("PROFILEN")
         // console.log(this.props.profile.nickname)
