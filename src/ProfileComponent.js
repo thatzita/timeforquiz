@@ -111,7 +111,7 @@ class ProfileComponent extends Component {
           <button onClick={this.highscore}>Highscore</button>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>
-            <h3>{this.state.nickname}</h3>
+            <h3 className="profileText">{this.state.nickname}</h3>
             <button onClick={this.changeType}>Edit</button>
             <h4>Stats</h4>
             <ul>
@@ -120,7 +120,7 @@ class ProfileComponent extends Component {
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
             </ul>
-            <button onClick={this.logout}>Logout</button>
+            <button className="logout" onClick={this.logout}>Logout</button>
           </div>
         </div>)
       }
