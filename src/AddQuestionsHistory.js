@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import SportQuestions from './sportQuestions.js';
+import HistoryQuestions from './historyQuestions.js';
 import './AddQuestions.css'
-class AddQuestions extends Component {
+class AddQuestionsHistory extends Component {
 
   constructor(props) {
     super(props)
@@ -71,7 +71,7 @@ class AddQuestions extends Component {
   sendQuestion = () => {
     let self = this;
     let form = document.getElementById("theForm");
-    firebase.database().ref('questions/genre/sport/').push({
+    firebase.database().ref('questions/genre/History/').push({
       Question: this.state.question,
       answers: {
         a: this.state.a,
@@ -104,17 +104,17 @@ class AddQuestions extends Component {
 
     if (!this.state.goBack) {
       return (<div>
-        <SportQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
+        <HistoryQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
     }
 
     return (<div>
-      <h2>Create your own sport Question!</h2>
+      <h2>Create your own history Question!</h2>
       <br/>
 
       <div>
         <form id="theForm">
-          <h3>What sport question do you want to add?
+          <h3>What history question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
           <br/>Answer A:<label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
@@ -131,4 +131,4 @@ class AddQuestions extends Component {
   }
 
 }
-export default AddQuestions;
+export default AddQuestionsHistory;
