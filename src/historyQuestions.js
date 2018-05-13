@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
 
-import AddQuestionsHistory from './AddQuestionsHistory.js';
+import AddQuestionsHistory from './addQuestionsHistory.js';
 
 import ProfileComponent from './ProfileComponent.js';
 
