@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-import AddQuestionsHistory from './addQuestionsHistory.js';
+
+import AddQuestionsHistory from './AddQuestionsHistory.js';
+
 import ProfileComponent from './ProfileComponent.js';
 
 
@@ -38,8 +40,11 @@ class HistoryQuestions extends Component {
   }
 
   sendQuestion = () => {
+
+    console.log("hej")
     this.setState({clicked: false})
-    const questionRef = firebase.database().ref('questions/genre/History/');
+    const questionRef = firebase.database().ref('questions/genre/History');
+
     let theQuestions;
     questionRef.once("value", function(snapshot) {
       questionRef.push(theQuestions)
@@ -50,27 +55,30 @@ class HistoryQuestions extends Component {
       this.startTimer()
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
-    let sportQuestions = [];
+
+    let historyQuestions = [];
     let ten = [];
     let self = this;
-    var ref = firebase.database().ref("questions/genre/sport/");
+    var ref = firebase.database().ref("questions/genre/History");
+
     ref.once("value", function(snapshot) {
       let obj = snapshot.val()
       for (let element in obj) {
 
-        sportQuestions.push(obj[element])
+        historyQuestions.push(obj[element])
       }
 
-      shuffleArray(sportQuestions)
-      function shuffleArray(sportQuestions) {
+      shuffleArray(historyQuestions)
+      function shuffleArray(historyQuestions) {
 
-        for (let i = sportQuestions.length - 1; i > 0; i--) {
+        for (let i = historyQuestions.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1));
-          [sportQuestions[i], sportQuestions[j]] = [sportQuestions[j], sportQuestions[i]];
+          [historyQuestions[i], historyQuestions[j]] = [historyQuestions[j], historyQuestions[i]];
         }
       }
       for (let y = 0; y < 10; y++) {
-        ten.push(sportQuestions[y])
+        ten.push(historyQuestions[y])
+
       }
       putState(ten)
     }, function(error) {
@@ -85,7 +93,13 @@ class HistoryQuestions extends Component {
   }
 
   componentDidUpdate() {
+
+
+
+
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
+      console.log("hej")
+
       let correct = 0;
       let wrong = 0;
 
@@ -205,6 +219,7 @@ class HistoryQuestions extends Component {
 
 
   clickedButton(val, correctAnswer) {
+
     switch (val) {
         case "a":
         this.setState({backgroundA: "bgColor", backgroundB: "", backgroundC: "", backgroundD: "", lastVal: "a"})
@@ -220,6 +235,7 @@ class HistoryQuestions extends Component {
         break;
         default:
     }
+
 if(this.state.timeLeft === 0){
          console.log("hejsan")
             this.setState({
@@ -233,13 +249,18 @@ if(this.state.timeLeft === 0){
 
         }
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
-      if (val === "next") {
+
+      if (val === "next" && this.state.timeLeft > 0) {
+
+        console.log(val)
+        console.log(correctAnswer)
 
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
           this.state.totalAnswers.push(false)
         }
+
         this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -338,7 +359,9 @@ stopTimer() {
   }
   render() {
     const isPlaying = this.state.isPlaying;
-    let sportQuestions = [];
+
+    let historyQuestions = [];
+
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -347,13 +370,17 @@ stopTimer() {
 
     if (!this.state.writeQuestion) {
       return (<div>
-        <AddQuestionsHistory profile={this.props.profile} nickname={this.state.nickname}/>
+
+        <AddQuestionsHistory profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
+
       </div>)
     }
     return (<div className="sportQuestion">
       Lets see how much you know about history!
       <button className="btnGetQuestions" onClick={this.getQuestions}>
-        Get History Questions!
+
+        Get history Questions!
+
       </button>
       <br/>
       <button onClick={this.writeQuestion} >Click to write your own history questions!</button>

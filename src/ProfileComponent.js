@@ -101,7 +101,7 @@ class ProfileComponent extends Component {
           <button className="btn" onClick={this.highscore}>Highscore</button>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>
-            
+
             <h3 className="profileText">{this.state.nickname}</h3>
             <button className="btnEdit" onClick={this.changeType}>Edit</button>
 

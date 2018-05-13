@@ -4,14 +4,17 @@ import './App.css';
 import ProfileComponent from './ProfileComponent.js';
 import Questions from './questions.js';
 import SportQuestions from './sportQuestions.js';
+import FictionQuestions from './FictionQuestions.js';
+import HistoryQuestions from "./historyQuestions.js"
 
 class Quiz extends Component {
   constructor(props) {
     super(props)
     this.state = {
       clicked: true,
-      //      clickedQuiz: true,
       clickedSport: true,
+      clickedFiction: true,
+      clickedHistory:true,
       nickname: this.props.nickname,
       key: this.props.firebaseKey
     }
@@ -24,12 +27,12 @@ class Quiz extends Component {
 
   fictionQuiz = () => {
     console.log("this is a quiz about fiction");
-    this.setState({clickedQuiz: false})
+    this.setState({clickedFiction: false})
   }
 
   historyQuiz = () => {
     console.log("this is a quiz a bout history");
-    this.setState({clickedQuiz: false})
+    this.setState({clickedHistory: false})
   }
 
   sportQuiz = () => {
@@ -52,7 +55,19 @@ class Quiz extends Component {
         <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
       </div>)
     }
-    return (<div className="stlyeMenu">Quiz Menu
+
+    if (!this.state.clickedFiction) {
+      return (<div>
+        <FictionQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
+      </div>)
+    }
+    if(!this.state.clickedHistory){
+      return (<div>
+        <HistoryQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
+      </div>)
+    }
+    return (<div>Quiz Menu
+
       <br/>
       <button className="btnBack" onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
       <h3>Choose Category!</h3>
