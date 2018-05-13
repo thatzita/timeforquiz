@@ -371,7 +371,7 @@ stopTimer() {
       <button onClick={this.writeQuestion} >Click to write your own sport questions!</button>
         {(this.state.handleChange === true)
           ?
-          <button onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
+          <button className="btnBack" onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
           :
           <div></div>
         }

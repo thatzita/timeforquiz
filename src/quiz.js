@@ -55,6 +55,7 @@ class Quiz extends Component {
         <SportQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
       </div>)
     }
+
     if (!this.state.clickedFiction) {
       return (<div>
         <FictionQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
@@ -66,8 +67,9 @@ class Quiz extends Component {
       </div>)
     }
     return (<div>Quiz Menu
+
       <br/>
-      <button onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
+      <button className="btnBack" onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
       <h3>Choose Category!</h3>
       <div className="categoryDiv">
         <br/>

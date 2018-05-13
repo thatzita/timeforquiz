@@ -103,7 +103,7 @@ class ProfileComponent extends Component {
             <img src={profile.photo + "?width=999"}/>
 
             <h3 className="profileText">{this.state.nickname}</h3>
-            <button onClick={this.changeType}>Edit</button>
+            <button className="btnEdit" onClick={this.changeType}>Edit</button>
 
             <h4>Stats</h4>
             <ul>
