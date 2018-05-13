@@ -15,9 +15,11 @@ class AddQuestions extends Component {
       question: '',
       correctAnswer: '',
       sendMessage: '',
-      divId: ''
-    }
+      divId: '',
+      quest: '',
+     }
     console.log(this.props.profile)
+    this.basestate = this.state
   }
 
   goBack = () => {
@@ -26,55 +28,50 @@ class AddQuestions extends Component {
 
   handleChangeQuestion = (e) => {
     this.setState({question: e.target.value})
+    //this.setState({quest: e.target.value})
   }
 
   handleChangeA = (e) => {
     this.setState({a: e.target.value})
+    // this.setState({quest: e.target.value}) 
   }
 
   handleChangeB = (e) => {
     this.setState({b: e.target.value})
+   // this.setState({quest: e.target.value})
+     
   }
 
   handleChangeC = (e) => {
     this.setState({c: e.target.value})
+   // this.setState({quest: e.target.value})
   }
 
   handleChangeD = (e) => {
     this.setState({d: e.target.value})
+   // this.setState({quest: e.target.value})
+      
+      
   }
 
   correctAnswer = (e) => {
     this.setState({correctAnswer: e.target.value})
+   // this.setState({quest: e.target.value})
   }
-
-  componentDidMount() {
-        //let btnSend = document.getElementById("btnSend");
-      if(this.btnSend) {
-       this.btnSend.disabled = true;
-      }
-  }
-
+  
   componentDidUpdate() {
-     //let btnSend = document.getElementById("btnSend")
-    if(this.btnSend) {
-     console.log(this.btnSend)
-     if(this.btnSend === null) {
-       console.log("you will come here")
-
-     }else{
-
-    this.btnSend.disabled = true;
-         if(this.state.question !== '' && this.state.correctAnswer !== '' &&
-           this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
-         this.btnSend.disabled = false
-       }
-     }
-    }
-     }
+//      
+//      if(this.state.question !== '' && this.state.correctAnswer !== '' &&
+//           this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
+//          console.log("azsd")
+//          //this.setState({quest: this.state.event})
+//      }
+//     //this.setState({quest:this.state.quest})
+}
   sendQuestion = () => {
+      
     let self = this;
-   // let form = document.getElementById("theForm");
+   
     firebase.database().ref('questions/genre/sport/').push({
       Question: this.state.question,
       answers: {
@@ -85,10 +82,17 @@ class AddQuestions extends Component {
       },
       correctAnswer: this.state.correctAnswer
     })
+      console.log(this.state.question)
+    
+      
+    
+      //theForm.reset();
+      
+     
+   
 
-    if(this.theForm) {
-    this.theForm.reset();
 
+      
     this.setState({sendMessage: 'Your question have been sent, sir!', divId: 'itHasBeenSent'})
 
     setInterval(function() {
@@ -103,11 +107,37 @@ class AddQuestions extends Component {
     d: '',
     correctAnswer: ''
   })
+   console.log(this.state.question)
+  
   }
+  
+
+  
+  resetIt = () => {
+    this.setState({
+        question: '',
+        a: '',
+        b: '',
+        c: '',
+        d: '',
+        correctAnswer: ''
+      })
+      this.myFormRef.reset();
+   console.log(this.state.question)
+   
+      
   }
   render() {
-
-    if (!this.state.goBack) {
+      const { a,b,c,d,question,correctAnswer} = this.state
+      const enabled =
+            a.length > 0 &&
+            b.length > 0 &&
+            c.length > 0 &&
+            d.length > 0 &&
+            question.length > 0 &&
+            correctAnswer.length > 0
+            
+      if (!this.state.goBack) {
       return (<div>
         <SportQuestions profile={this.props.profile}/>
       </div>)
@@ -118,7 +148,7 @@ class AddQuestions extends Component {
       <br/>
 
       <div>
-        <form ref={this.theForm}>
+        <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
           <h3>What sport question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
@@ -129,7 +159,8 @@ class AddQuestions extends Component {
         </form>
       </div>
       <br/>
-      <button ref={this.btnSend} id="btnSend" className="btnQ" onClick={this.sendQuestion}>Send Question!</button>
+      <button disabled={!enabled} id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
+      <button onClick={this.resetIt}>Reset Fields</button>
       <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
