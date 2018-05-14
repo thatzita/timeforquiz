@@ -4,7 +4,7 @@ import App from './App.js';
 import Highscore from './Highscore.js';
 import firebase, {auth} from './firebase.js';
 import './ProfileComponent.css';
-
+import "./App.css"
 class ProfileComponent extends Component {
   constructor(props) {
     super(props)
@@ -79,30 +79,34 @@ class ProfileComponent extends Component {
     } else {
       if (this.state.inputField === true) {
         return (<div>
-          <button className="btn" onClick={this.startQuiz}>Click to start the quiz</button>
-          <button className="btn" onClick={this.highscore}>Highscore</button>
+          <div className="buttons">
+            <button className="btn" onClick={this.startQuiz}>Click to start the quiz</button>
+            <button className="btn" onClick={this.highscore}>Highscore</button>
+          </div>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>
             <input type="text" onChange={this.handleChange}/>
-            <button className="btn" onClick={this.changeType}>Make the change</button>
+            <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
             <h4>Stats</h4>
             <ul>
               <li>Ranking: {profile.ranking}</li>
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
             </ul>
-            <button className="btn" onClick={this.logout}>Logout</button>
+            <button className="logout" onClick={this.logout}>Logout</button>
           </div>
         </div>)
       } else {
         return (<div>
-          <button className="btn" onClick={this.startQuiz} profile={this.props.profile}>Click to start the quiz</button>
-          <button className="btn" onClick={this.highscore}>Highscore</button>
+          <div className="buttons">
+            <button className="btn" onClick={this.startQuiz} profile={this.props.profile}>Click to start the quiz</button>
+            <button className="btn" onClick={this.highscore}>Highscore</button>
+          </div>
           <div className="profile">
             <img src={profile.photo + "?width=999"}/>
 
             <h3 className="profileText">{this.state.nickname}</h3>
-            <button className="btnEdit" onClick={this.changeType}>Edit</button>
+            <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
 
             <h4>Stats</h4>
             <ul>

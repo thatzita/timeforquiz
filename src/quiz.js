@@ -66,22 +66,28 @@ class Quiz extends Component {
         <HistoryQuestions firebaseKey={this.props.firebaseKey} profile={profile} nickname={this.state.nickname}/>
       </div>)
     }
-    return (<div>Quiz Menu
+    return (
 
-      <br/>
-      <button className="btnBack" onClick={this.goBack} profile={this.props.profile}>Back to ProfilePage</button>
-      <h3>Choose Category!</h3>
+    <div>
+      <div className="quizDiv">
+
+
+        <div onClick={this.goBack} profile={this.props.profile}>
+          <h3>{this.state.nickname}</h3>
+
+            <img src={profile.photo + "?width=999"}/>
+        </div>
+
+
+      </div>
+      <h3 className="categoryh3">Choose Category</h3>
       <div className="categoryDiv">
-        <br/>
-        <button className="btnQuiz" onClick={this.fictionQuiz}  profile={profile}>Fiction</button>
-        <br/>
-        <button className="btnQuiz" onClick={this.historyQuiz}  profile={profile}>History</button>
-        <br/>
-        <button className="btnQuiz" onClick={this.sportQuiz}  profile={profile}>Sport</button>
+        <button className="fiction" onClick={this.fictionQuiz}  profile={profile}><span>Fiction</span></button>
+        <button className="history" onClick={this.historyQuiz}  profile={profile}><span>History</span></button>
+        <button className="sport" onClick={this.sportQuiz}  profile={profile}><span>Sport</span></button>
       </div>
       <div className="profile">
-        <img src={profile.photo + "?width=999"}/>
-        <h3>{this.state.nickname}</h3>
+
       </div>
     </div>)
 
