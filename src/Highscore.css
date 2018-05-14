@@ -27,15 +27,14 @@
 
 .container {
   display: flex;
-  align-items:baseline;
+  align-items: baseline;
   justify-content: center;
 }
 
-.topPlayers{
-  font-size: 1.3em;
+.topPlayers {
+  font-size: 1.4em;
 }
 
-.topPlayers > li {
-  width: 100%;
-
+.topPlayers>li {
+  width: 100%
 }

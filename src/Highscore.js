@@ -18,6 +18,7 @@ class Highscore extends Component {
   componentDidMount() {
     let highScoreList = [];
     firebase.database().ref('users/').on("value", snapshot => {
+      highScoreList = [];
       let self = this;
       snapshot.forEach(function(childSnapshot) {
         let childKey = childSnapshot.key;
@@ -26,20 +27,26 @@ class Highscore extends Component {
           nickname: childData.profile.nickname,
           ranking: childData.profile.ranking,
         }
+        console.log(highScoreList)
         highScoreList.push(highScoreUser);
       })
       function compare(a, b) {
+        console.log(a.ranking)
+        console.log(b.ranking)
         if (a.ranking < b.ranking)
           return -1;
         if (a.ranking > b.ranking)
           return 1;
         return 0;
       }
+      console.log(highScoreList)
       highScoreList.sort(compare);
-      highScoreList.reverse()
-      this.setState({topPlayers: highScoreList})
+      highScoreList.reverse();
+      this.setState({topPlayers: highScoreList});
     });
+    console.log(this.state.topPlayers)
 
+    console.log(highScoreList)
   }
   render() {
     const profile = this.props.profile;

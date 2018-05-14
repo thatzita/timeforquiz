@@ -4,7 +4,6 @@ import HistoryQuestions from './historyQuestions.js';
 import './AddQuestions.css'
 
 class AddQuestionsHistory extends Component {
-
     constructor(props) {
       super(props)
       this.state = {
