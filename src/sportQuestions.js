@@ -30,8 +30,8 @@ class SportQuestions extends Component {
       wichState:true,
       disabledBtn: '',
     }
-    console.log(this.state)
-    console.log(this.props)
+    // console.log(this.state)
+    // console.log(this.props)
       this.clickedButton = this.clickedButton.bind(this);
       this.startTimer = this.startTimer.bind(this);
       this.resetTimer = this.resetTimer.bind(this);
@@ -75,7 +75,7 @@ class SportQuestions extends Component {
       }
       putState(ten)
     }, function(error) {
-       console.log("Error: " + error.code);
+       // console.log("Error: " + error.code);
     });
 
     function putState(ten) {
@@ -94,7 +94,6 @@ class SportQuestions extends Component {
 
 
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
-      console.log("hej1000")
       let correct = 0;
       let wrong = 0;
 
@@ -111,12 +110,12 @@ class SportQuestions extends Component {
       let databaseCorrect;
       let databaseWrong;
       let self = this;
-      console.log(this.props.firebaseKey)
+      // console.log(this.props.firebaseKey)
 
       firebase.database().ref('users/' + this.props.firebaseKey).once("value", function(snapshot) {
         let Obj = snapshot.val();
 
-        console.log(Obj)
+        // console.log(Obj)
         databaseCorrect = Obj.profile.correctAnswers;
         databaseWrong = Obj.profile.failedAnswers;
 
@@ -125,13 +124,13 @@ class SportQuestions extends Component {
           firebase.database().ref('users/').once("value", function(snapshot) {
 
             let helaDatabasen = snapshot.val()
-            let newArr;
+            // let newArr;
             let arr = []
 
             for (let element in helaDatabasen) {
               let namn = helaDatabasen[element].profile.nickname
               let profilen = helaDatabasen[element].profile.ranking
-              let length = helaDatabasen[element].profile.ranking.length
+              // let length = helaDatabasen[element].profile.ranking.length
               arr.push({nickname: namn, ranking: Number(profilen)})
             }
 
@@ -139,17 +138,17 @@ class SportQuestions extends Component {
               return a.ranking - b.ranking
             })
 
-            newArr = arr.reverse();
-            let place = 0;
-            for (let element in helaDatabasen) {
-              console.log("element: ", helaDatabasen[element])
-              console.log("newArr: ", newArr)
-              for (let i = 0; i < newArr.length; i++) {
-                if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
-                  place = i + 1
-                }
-              }
-            }
+            // newArr = arr.reverse();
+            // let place = 0;
+            // for (let element in helaDatabasen) {
+            //   // console.log("element: ", helaDatabasen[element])
+            //   // console.log("newArr: ", newArr)
+            //   for (let i = 0; i < newArr.length; i++) {
+            //     if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
+            //       place = i + 1
+            //     }
+            //   }
+            // }
             function hej(){
               self.setState({
                   handleChange:true,
@@ -181,7 +180,7 @@ class SportQuestions extends Component {
                   }
                 },hej());
               }else{
-                console.log(self.props)
+                // console.log(self.props)
                 let totalCorrect = databaseCorrect + correct;
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
@@ -237,9 +236,9 @@ class SportQuestions extends Component {
         break;
         default:
     }
-    console.log(val)
+    // console.log(val)
 if(this.state.timeLeft === 0){
-         console.log("hejsan")
+         // console.log("hejsan")
             this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -254,15 +253,15 @@ if(this.state.timeLeft === 0){
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
       if (val === "next" && this.state.timeLeft > 0) {
 
-        console.log(val)
-        console.log(correctAnswer)
+        // console.log(val)
+        // console.log(correctAnswer)
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
           this.state.totalAnswers.push(false)
         }
 
-        console.log(this.state.totalAnswers);
+        // console.log(this.state.totalAnswers);
         this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -279,10 +278,10 @@ if(this.state.timeLeft === 0){
       timeLeft: this.state.timeLeft - 1
     });
     if(this.state.timeLeft === 0) {
-        console.log(this.state)
+        // console.log(this.state)
       this.setState({
           divClass: "Row li, disabled",
-          disabledBtn: "true"    
+          disabledBtn: "true"
       })
      this.stopTimer();
      this.state.totalAnswers.push(false)
@@ -295,7 +294,7 @@ if(this.state.timeLeft === 0){
       // }
   }
   startTimer() {
-      console.log(this.state.timeLeft)
+      // console.log(this.state.timeLeft)
     this.timerID = setInterval(
       () => this.tick(),
       1000
@@ -327,7 +326,7 @@ stopTimer() {
   backToProfile = () => {
 
     if(this.state.wichState){
-      console.log(this.state.profile)
+      // console.log(this.state.profile)
 
       this.setState({
         backToProfile: false,
@@ -343,7 +342,7 @@ stopTimer() {
         }
       })
     }else{
-      console.log(this.state.profile)
+      // console.log(this.state.profile)
 
       this.setState({
         backToProfile: false,
@@ -361,8 +360,8 @@ stopTimer() {
     }
   }
   render() {
-    const isPlaying = this.state.isPlaying;
-    let sportQuestions = [];
+    // const isPlaying = this.state.isPlaying;
+    // let sportQuestions = [];
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -409,7 +408,7 @@ stopTimer() {
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
                 <div>Time remaining on current question: { this.state.timeLeft}</div>
               </div>
-            : <h2></h2>
+            : <div></div>
         }
         {
           (this.state.currentQuestion === 10)

@@ -19,7 +19,6 @@ class AddQuestionsHistory extends Component {
         divId: '',
         quest: '',
        }
-      console.log(this.props.profile)
       this.basestate = this.state
 
     }
@@ -85,8 +84,6 @@ class AddQuestionsHistory extends Component {
       d: '',
       correctAnswer: ''
     })
-     console.log(this.state.question)
-
     }
 
 
