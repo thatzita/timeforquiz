@@ -82,6 +82,10 @@ class SportQuestions extends Component {
       self.setState({tenQuestions: ten})
 
     }
+      
+      this.setState({
+      isButtonDisabled: true
+    });
 
   }
 
@@ -90,7 +94,6 @@ class SportQuestions extends Component {
 
 
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
-      // console.log("hej")
       let correct = 0;
       let wrong = 0;
 
@@ -206,6 +209,10 @@ class SportQuestions extends Component {
         }
       })
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
+        
+        this.setState({
+            isButtonDisabled: false
+    });
     }
   }
 
@@ -368,7 +375,7 @@ stopTimer() {
     }
     return (<div className="sportQuestion">
       Lets see how much you know about sport!
-      <button className="btnGetQuestions" onClick={this.getQuestions}>
+      <button disabled={this.state.isButtonDisabled} className="btnGetQuestions" onClick={this.getQuestions}>
         Get Sport Questions!
       </button>
       <br/>

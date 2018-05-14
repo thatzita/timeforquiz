@@ -20,9 +20,6 @@ class AddQuestions extends Component {
       divId: '',
       quest: '',
      }
-    // console.log(this.props.profile)
-    this.basestate = this.state
-
   }
 
   goBack = () => {

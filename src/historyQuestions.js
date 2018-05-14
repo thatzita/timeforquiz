@@ -90,7 +90,9 @@ class HistoryQuestions extends Component {
       self.setState({tenQuestions: ten})
 
     }
-
+      this.setState({
+      isButtonDisabled: true
+      });
   }
 
   componentDidUpdate() {
@@ -213,7 +215,11 @@ class HistoryQuestions extends Component {
         }
       })
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
+        this.setState({
+            isButtonDisabled: false
+          })
     }
+          
   }
 
 
@@ -381,7 +387,7 @@ stopTimer() {
     }
     return (<div className="sportQuestion">
       Lets see how much you know about history!
-      <button className="btnGetQuestions" onClick={this.getQuestions}>
+      <button disabled={this.state.isButtonDisabled} className="btnGetQuestions" onClick={this.getQuestions}>
 
         Get history Questions!
 
