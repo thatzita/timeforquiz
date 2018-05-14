@@ -66,14 +66,6 @@ class AddQuestionsFiction extends Component {
       self.setState({sendMessage: '', divId: ''})
     }, 4000);
 
-  //   this.setState({
-  //   question: '',
-  //   a: '',
-  //   b: '',
-  //   c: '',
-  //   d: '',
-  //   correctAnswer: ''
-  // })
   this.resetIt();
   }
 
