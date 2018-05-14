@@ -18,7 +18,7 @@ class AddQuestionsFiction extends Component {
       sendMessage: '',
       divId: ''
     }
-    console.log(this.props.profile)
+    this.basestate = this.state
   }
 
   goBack = () => {
@@ -49,29 +49,8 @@ class AddQuestionsFiction extends Component {
     this.setState({correctAnswer: e.target.value})
   }
 
-  componentDidMount() {
-        let btnSend = document.getElementById("btnSend");
-        btnSend.disabled = true;
-  }
-
-  componentDidUpdate() {
-     let btnSend = document.getElementById("btnSend")
-     // console.log(btnSend)
-     if(btnSend === null) {
-       console.log("you will come here")
-       btnSend = document.getElementById("btnSend")
-     }else{
-
-     btnSend.disabled = true;
-         if(this.state.question !== '' && this.state.correctAnswer !== '' &&
-           this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
-         btnSend.disabled = false
-       }
-     }
-     }
   sendQuestion = () => {
     let self = this;
-    let form = document.getElementById("theForm");
     firebase.database().ref('questions/genre/fiction/').push({
       Question: this.state.question,
       answers: {
@@ -82,11 +61,7 @@ class AddQuestionsFiction extends Component {
       },
       correctAnswer: this.state.correctAnswer
     })
-
-    form.reset();
-
     this.setState({sendMessage: 'Your question have been sent, sir!', divId: 'itHasBeenSent'})
-
     setInterval(function() {
       self.setState({sendMessage: '', divId: ''})
     }, 4000);
@@ -101,7 +76,28 @@ class AddQuestionsFiction extends Component {
   })
   }
 
+  resetIt = () => {
+    this.setState({
+        question: '',
+        a: '',
+        b: '',
+        c: '',
+        d: '',
+        correctAnswer: ''
+      })
+      this.myFormRef.reset();
+  }
+
   render() {
+      const { a,b,c,d,question,correctAnswer} = this.state
+      const enabled =
+            a.length > 0 &&
+            b.length > 0 &&
+            c.length > 0 &&
+            d.length > 0 &&
+            question.length > 0 &&
+            correctAnswer.length > 0
+
 
     if (!this.state.goBack) {
       return (<div>
@@ -114,7 +110,7 @@ class AddQuestionsFiction extends Component {
       <br/>
 
       <div>
-        <form id="theForm">
+        <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
           <h3>What fiction question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
@@ -125,8 +121,9 @@ class AddQuestionsFiction extends Component {
         </form>
       </div>
       <br/>
-      <button id="btnSend" className="btnQ" onClick={this.sendQuestion}>Send Question!</button>
-      <button className="btnQ" onClick={this.goBack} >Back to fictionPage</button>
+      <button disabled={!enabled} id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
+      <button onClick={this.resetIt}>Reset Fields</button>
+      <button className="btnQ" onClick={this.goBack} >Back to fiction page</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
