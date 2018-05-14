@@ -30,6 +30,7 @@ class HistoryQuestions extends Component {
       divClass : "Row",
       profile : {},
       wichState:true,
+      disabledBtn: ''
     }
     console.log(this.state)
     console.log(this.props)
@@ -145,16 +146,16 @@ class HistoryQuestions extends Component {
             })
 
             newArr = arr.reverse();
-            let place = 0;
-            for (let element in helaDatabasen) {
-              console.log("element: ", helaDatabasen[element])
-              console.log("newArr: ", newArr)
-              for (let i = 0; i < newArr.length; i++) {
-                if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
-                  place = i + 1
-                }
-              }
-            }
+            // let place = 0;
+            // for (let element in helaDatabasen) {
+            //   console.log("element: ", helaDatabasen[element])
+            //   console.log("newArr: ", newArr)
+            //   for (let i = 0; i < newArr.length; i++) {
+            //     if (newArr[i].nickname === helaDatabasen[element].profile.nickname) {
+            //       place = i + 1
+            //     }
+            //   }
+            // }
             function hej(){
               self.setState({
                   handleChange:true,
@@ -166,7 +167,7 @@ class HistoryQuestions extends Component {
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    place: place,
+                    // place: place,
                   }
               })
             }
@@ -182,7 +183,7 @@ class HistoryQuestions extends Component {
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    place: place,
+                    // place: place,
                   }
                 },hej());
               }else{
@@ -200,7 +201,7 @@ class HistoryQuestions extends Component {
                     failedAnswers: databaseWrong + wrong,
                     uid: self.props.profile.uid,
                     ranking: rank.toFixed(2),
-                    place: place,
+                    // place: place,
                   }
 
                 },hej());
@@ -228,16 +229,16 @@ class HistoryQuestions extends Component {
 
     switch (val) {
         case "a":
-        this.setState({backgroundA: "bgColor", backgroundB: "", backgroundC: "", backgroundD: "", lastVal: "a"})
+        this.setState({backgroundA: "bgColor", backgroundB: "", backgroundC: "", backgroundD: "", lastVal: "a", disabledBtn: "true"})
         break;
         case "b":
-        this.setState({backgroundA: "", backgroundB: "bgColor", backgroundC: "", backgroundD: "", lastVal: "b"})
+        this.setState({backgroundA: "", backgroundB: "bgColor", backgroundC: "", backgroundD: "", lastVal: "b", disabledBtn: "true"})
         break;
         case "c":
-        this.setState({backgroundA: "", backgroundB: "", backgroundC: "bgColor", backgroundD: "", lastVal: "c"})
+        this.setState({backgroundA: "", backgroundB: "", backgroundC: "bgColor", backgroundD: "", lastVal: "c", disabledBtn: "true"})
         break;
         case "d":
-        this.setState({backgroundA: "", backgroundB: "", backgroundC: "", backgroundD: "bgColor", lastVal: "d"})
+        this.setState({backgroundA: "", backgroundB: "", backgroundC: "", backgroundD: "bgColor", lastVal: "d", disabledBtn: "true"})
         break;
         default:
     }
@@ -250,7 +251,8 @@ if(this.state.timeLeft === 0){
           backgroundB: "",
           backgroundC: "",
           backgroundD: "",
-          divClass: "Row"
+          divClass: "Row",
+          disabledBtn: ""
         })
 
         }
@@ -272,7 +274,8 @@ if(this.state.timeLeft === 0){
           backgroundA: "",
           backgroundB: "",
           backgroundC: "",
-          backgroundD: ""
+          backgroundD: "",
+          disabledBtn: ""
         })
 
       }
@@ -285,7 +288,8 @@ if(this.state.timeLeft === 0){
     if(this.state.timeLeft === 0) {
         console.log(this.state)
       this.setState({
-          divClass: "Row li, disabled"
+          divClass: "Row li, disabled",
+          disabledBtn: "true"
       })
      this.stopTimer();
      this.state.totalAnswers.push(false)
@@ -342,7 +346,7 @@ stopTimer() {
           failedAnswers: this.props.profile.failedAnswers,
           uid: this.props.profile.uid,
           ranking: this.props.profile.ranking,
-          place: this.props.profile.place,
+          // place: this.props.profile.place,
         }
       })
     }else{
@@ -358,7 +362,7 @@ stopTimer() {
           failedAnswers: this.state.profile.failedAnswers,
           uid: this.state.profile.uid,
           ranking: this.state.profile.ranking,
-          place: this.state.profile.place,
+          // place: this.state.profile.place,
         }
       })
     }
@@ -413,7 +417,7 @@ stopTimer() {
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
                 </ul>
-                <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())}>Next question</button>
+                <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())}disabled={!this.state.disabledBtn}>Next question</button>
                 <br/>
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
                 <div>Time remaining on current question: { this.state.timeLeft}</div>

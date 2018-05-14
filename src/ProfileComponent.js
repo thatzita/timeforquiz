@@ -49,7 +49,7 @@ class ProfileComponent extends Component {
           nickname: this.state.nickname,
           uid: this.props.profile.uid,
           photo: this.props.profile.photo,
-          place: this.props.profile.place,
+          // place: this.props.profile.place,
           correctAnswers: this.props.profile.correctAnswers,
           failedAnswers: this.props.profile.failedAnswers,
           ranking: this.props.profile.ranking
@@ -87,7 +87,6 @@ class ProfileComponent extends Component {
             <button className="btn" onClick={this.changeType}>Make the change</button>
             <h4>Stats</h4>
             <ul>
-              <li>Place: {profile.place}</li>
               <li>Ranking: {profile.ranking}</li>
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
@@ -107,7 +106,6 @@ class ProfileComponent extends Component {
 
             <h4>Stats</h4>
             <ul>
-              <li>Place: {profile.place}</li>
               <li>Ranking: {profile.ranking}</li>
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
@@ -122,3 +120,5 @@ class ProfileComponent extends Component {
 }
 
 export default ProfileComponent;
+// <li>Place: {profile.place}</li>
+// <li>Place: {profile.place}</li>
