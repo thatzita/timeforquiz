@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import firebase from './firebase.js';
 import AddQuestions from './AddQuestions.js';
 import ProfileComponent from './ProfileComponent.js';
-
-
+import "./App.css"
+import "./quiz.css"
 class SportQuestions extends Component {
   constructor(props) {
     super(props);
@@ -29,6 +29,8 @@ class SportQuestions extends Component {
       profile : {},
       wichState:true,
       disabledBtn: '',
+      displayPlay: "show",
+      displayCreate: "showCreate"
     }
     // console.log(this.state)
     // console.log(this.props)
@@ -48,6 +50,29 @@ class SportQuestions extends Component {
   // }
 
   getQuestions = () => {
+
+    if(this.state.displayPlay === "show"){
+      console.log(this.state.displayPlay)
+      this.setState({
+        displayPlay:"none"
+      })
+    }else{
+      console.log(this.state.displayPlay)
+
+      this.setState({
+        displayPlay:"show"
+      })
+    }
+
+    if(this.state.displayCreate === "showCreate"){
+      this.setState({
+        displayCreate:"noneCreate"
+      })
+    }else{
+      this.setState({
+        displayCreate:"showCreate"
+      })
+    }
       this.startTimer()
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
@@ -82,7 +107,7 @@ class SportQuestions extends Component {
       self.setState({tenQuestions: ten})
 
     }
-      
+
       this.setState({
       isButtonDisabled: true
     });
@@ -94,6 +119,11 @@ class SportQuestions extends Component {
 
 
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
+
+      this.setState({
+        displayPlay:"show",
+        displayCreate:"showCreate"
+      })
       let correct = 0;
       let wrong = 0;
 
@@ -209,7 +239,7 @@ class SportQuestions extends Component {
         }
       })
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
-        
+
         this.setState({
             isButtonDisabled: false
     });
@@ -374,18 +404,40 @@ stopTimer() {
       </div>)
     }
     return (<div className="sportQuestion">
-      Lets see how much you know about sport!
-      <button disabled={this.state.isButtonDisabled} className="btnGetQuestions" onClick={this.getQuestions}>
-        Get Sport Questions!
-      </button>
-      <br/>
-      <button onClick={this.writeQuestion} >Click to write your own sport questions!</button>
+
+
+
+    <div className="sportCreate">
+     <button onClick={this.writeQuestion} className={this.state.displayCreate} >Write your own question</button>
+
+    </div>
         {(this.state.handleChange === true)
           ?
-          <button className="btnBack" onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
+          <div className="quizDiv">
+
+
+            <div onClick={this.backToProfile} profile={this.props.profile}>
+              <h3>{this.state.nickname}</h3>
+
+                <img src={this.props.profile.photo + "?width=999"}/>
+            </div>
+
+
+          </div>
           :
           <div></div>
         }
+        <h3>Lets see how much you know about sport!</h3>
+        <div className={this.state.displayPlay}>
+
+
+          <div   onClick={this.getQuestions}>
+            <i className="fas fa-play-circle"></i>
+            <button >
+            Start quiz
+            </button>
+          </div>
+        </div>
       <div>
         {
           (this.state.tenQuestions[this.state.currentQuestion] !== undefined)
@@ -412,7 +464,7 @@ stopTimer() {
         }
         {
           (this.state.currentQuestion === 10)
-            ? <div>
+            ? <div className="answersAll">
                 <h2>You got {this.state.totalCorrectAnswers}
                   correct answers. And {this.state.totalFailedAnswers}
                   wronged ones.</h2>

@@ -157,6 +157,71 @@
   list-style-type: none;
 }
 
+.show {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    position: relative;
+    top:100px;
+
+}
+.show > div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+
+}
+.show i{
+  font-size: 6em;
+  color:rgba(255,255,255,0.8);
+  text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+  margin-bottom: 10px;
+}
+.show  button{
+  background: rgba(255,255,255,0);
+  border: none;
+  color:rgba(255,255,255,0.7);
+  font-size: 1.3em;
+}
+
+.showCreate{
+  display: inline-block;
+}
+.noneCreate{
+  display: none;
+}
+
+
+.none {
+  display: none;
+}
+
+
+.sportCreate{
+  width:30%;
+  width: 15%;
+  padding:20px;
+  text-align: center;
+  border-bottom: 3px solid rgba(255,255,255,0.7)
+}
+
+.sportCreate button{
+  background: rgba(255,255,255,0);
+  color:rgba(255,255,255,0.7);
+
+  font-size: 0.9em;
+  border: none;
+}
+
+.answersAll{
+  margin:0 auto;
+  position: relative;
+  top:120px;
+  text-align: center;
+  display: block;
+}
+
 @media (max-width:1000px){
   .categoryDiv {
     flex-direction: column;
