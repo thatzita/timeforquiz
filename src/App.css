@@ -15,7 +15,6 @@ body {
   background: -webkit-radial-gradient(center, ellipse cover, rgba(173,132,117,1) 0%,rgba(73,39,30,1) 100%); /* Chrome10-25,Safari5.1-6 */
   background: radial-gradient(ellipse at center, rgba(173,132,117,1) 0%,rgba(73,39,30,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ad8475', endColorstr='#49271e',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-  margin: 30px;
   height: 100vh;
   font-family: 'Montserrat', sans-serif;
   font-weight: 100;
@@ -49,6 +48,7 @@ body {
   width: 100%;
   margin:0;
   padding: 20px 5px;
+
   background:rgba(0,0,0,0.2);
   border:2px solid rgba(0,0,0,0.4);
   text-align: center;
@@ -67,6 +67,7 @@ body {
   font-size: 1.2em;
   font-weight: 500;
   text-align: center;
+  margin-bottom: 10px;
 }
 
 .profile {
@@ -75,6 +76,14 @@ body {
   flex-direction: column;
   align-items: center;
   margin:0 auto;
+  position: relative;
+}
+
+.profile h4{
+  padding-top:20px;
+}
+.profile li {
+  margin-top: 10px;
 }
 
 .profile button:first-child{
@@ -99,12 +108,13 @@ body {
 }
 
 .btnEdit {
-    margin-top: 30px;
-    background: white;
-    border:none;
-    color: rgba(0,0,0,0.6);
-    font-size:1.2em;
+    width: 270px;
+    font-size: 1.2em;
+    text-align: right;
     cursor: pointer;
+    position: absolute;
+    top:270px;
+    z-index: 1;
 }
 
 .profile li {
@@ -171,14 +181,16 @@ body {
 }
 
 .logout{
-  background: white;
   border: none;
-  border-radius: 3px;
-  margin-top: 100px;
+  background: rgba(255,255,255,0);
+  margin-top: 30px;
   color: rgba(0,0,0,0.6);
   font-size:1.2em;
   cursor: pointer;
-  font-size: 17px;
+}
+
+.logout:hover{
+  text-decoration: underline;
 }
 
 .socialamedierLogIn {
@@ -198,6 +210,8 @@ body {
   color: rgba(255, 255, 255, 0.7);
 
 }
+
+
 
 
 

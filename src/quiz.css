@@ -1,4 +1,67 @@
-.quizDiv {}
+.quizDiv {
+  padding:0;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.quizDiv i{
+  font-size: 1.8em;
+  margin-top: 55px;
+  margin-left: 40px;
+  width:50%;
+}
+
+.quizDiv div{
+  display: flex;
+  margin-right: 40px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+
+.quizDiv div:hover ::after{
+  top: 60px;
+  width: 130px;
+  left:0px;
+  right: 0;
+  font-size: 0.8em;
+  content: "To profile";
+  position:absolute;
+}
+
+.quizDiv img{
+  width:90px;
+  position: relative;
+  height: 90px;
+  border-radius: 100%;
+}
+
+.quizDiv h3{
+  display: inline-block;
+  position: relative;
+  right: 20px;
+  top:10px;
+  color:rgba(255,255,255,0.7)
+
+}
+
+.quizDiv button{
+  display: block;
+  position: relative;
+  top:15px;
+  right:40px;
+}
+
+.categoryh3{
+  text-align: center;
+  font-size: 1.5em;
+  color: rgba(0,0,0,0.7);
+  margin-top: -20px;
+}
+.btn{
+  margin:0;
+}
 
 .btnQuiz {
   margin-top: 30px;
@@ -6,6 +69,83 @@
 
 .categoryDiv {
   display: flex;
+  width: 100%;
+  height: ;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top:50px;
+  padding: 10px;
+
+}
+
+.fiction, .history, .sport{
+  width:300px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 500px;
+  font-size: 3em;
+  color:rgba(255,255,255,0.6);
+  border-top:7px solid rgba(255,255,255,0.7);
+  transition: all;
+  border-left:0;
+  border-right: 0;
+  transition-duration: 0.5s;
+  border-bottom:7px solid rgba(255,255,255,0.7);
+  padding: 0;
+  box-shadow: 0 0 100px -15px rgba(0,0,0,1);
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.fiction span, .history span, .sport span{
+  margin:0;
+  display: inline-block;
+  width:300px;
+}
+
+.sport{
+  background: url("https://images.unsplash.com/photo-1485908953667-cf6d88997642?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=dcc6a29fb8bc02fa69b8a6c1ddb7b7d2&auto=format&fit=crop&w=1020&q=80");
+  background-position: 50% 20%;
+  filter:grayscale(70%);
+}
+
+.history{
+  margin-left: 80px;
+  margin-right: 80px;
+  background: url("https://images.unsplash.com/photo-1460722665083-c2599113f7e0?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=584272365ebdc5534755f4944e3174cc&auto=format&fit=crop&w=1050&q=80");
+  background-position: 30% 20%;
+}
+
+.fiction {
+  background:url("https://images.unsplash.com/photo-1495333003700-eb75daae834b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7b63e5ca2db92bdd2f03d69b69695ced&auto=format&fit=crop&w=700&q=80");
+  background-position: 50% 20%;
+  background-size: 100% 120%;
+
+}
+
+.sport:hover{
+  filter:grayscale(100%);
+  color:rgba(255,255,255,1);
+  box-shadow: 0 0 100px -10px rgba(0,0,0,1)
+
+
+}
+
+.history:hover{
+  filter: grayscale(100%);
+  color:rgba(0,0,0,1);
+  box-shadow: 0 0 100px -10px rgba(0,0,0,1);
+
+
+}
+
+.fiction:hover{
+  filter: grayscale(100%);
+  color:rgba(255,255,255,1);
+  box-shadow: 0 0 100px -10px rgba(0,0,0,1);
+
+
 }
 
 .btnQuiz {
@@ -15,4 +155,34 @@
 
 .profile ul>li {
   list-style-type: none;
+}
+
+@media (max-width:1000px){
+  .categoryDiv {
+    flex-direction: column;
+
+  }
+  .fiction, .history, .sport{
+    height:150px;
+    width:500px;
+    color:rgba(0,0,0,1);
+    font-size: 1.3em;
+  }
+
+  .fiction span, .history span, .sport span {
+
+  }
+
+  .fiction{
+    background-position: 50% 70%;
+    background-size: 100%;
+
+    filter: grayscale(100%);
+  }
+
+  .history{
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
 }
