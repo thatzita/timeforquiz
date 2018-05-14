@@ -76,14 +76,7 @@ class AddQuestionsHistory extends Component {
         self.setState({sendMessage: '', divId: ''})
       }, 4000);
 
-      this.setState({
-      question: '',
-      a: '',
-      b: '',
-      c: '',
-      d: '',
-      correctAnswer: ''
-    })
+      this.resetIt();
     }
 
 
@@ -133,7 +126,6 @@ class AddQuestionsHistory extends Component {
         </div>
         <br/>
         <button disabled={!enabled} id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
-        <button onClick={this.resetIt}>Reset Fields</button>
         <button className="btnQ" onClick={this.goBack} >Back to history page</button>
         <div id={this.state.divId}>{this.state.sendMessage}</div>
       </div>)
