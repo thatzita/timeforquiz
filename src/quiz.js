@@ -85,11 +85,7 @@ class Quiz extends Component {
         <button className="history" onClick={this.historyQuiz}  profile={profile}><span>History</span></button>
         <button className="sport" onClick={this.sportQuiz}  profile={profile}><span>Sport</span></button>
       </div>
-      <div className="profile">
-
-        <img src={profile.photo + "?width=999"} alt=" "/>
-        <h3>{this.state.nickname}</h3>
-      </div>
+    
     </div>)
 
   }
