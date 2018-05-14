@@ -16,7 +16,6 @@ class AddQuestions extends Component {
       question: '',
       correctAnswer: '',
       sendMessage: '',
-
       divId: '',
       quest: '',
      }
@@ -59,15 +58,6 @@ class AddQuestions extends Component {
    // this.setState({quest: e.target.value})
   }
 
-  componentDidUpdate() {
-//
-//      if(this.state.question !== '' && this.state.correctAnswer !== '' &&
-//           this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
-//          // console.log("azsd")
-//          //this.setState({quest: this.state.event})
-//      }
-//     //this.setState({quest:this.state.quest})
-}
   sendQuestion = () => {
 
     let self = this;
@@ -82,16 +72,6 @@ class AddQuestions extends Component {
       },
       correctAnswer: this.state.correctAnswer
     })
-      // console.log(this.state.question)
-
-
-
-      //theForm.reset();
-
-
-
-
-
 
     this.setState({sendMessage: 'Your question have been sent, sir!', divId: 'itHasBeenSent'})
 
@@ -99,16 +79,7 @@ class AddQuestions extends Component {
       self.setState({sendMessage: '', divId: ''})
     }, 4000);
 
-    this.setState({
-    question: '',
-    a: '',
-    b: '',
-    c: '',
-    d: '',
-    correctAnswer: ''
-  })
-   // console.log(this.state.question)
-
+   this.resetIt();
   }
 
 
@@ -160,7 +131,6 @@ class AddQuestions extends Component {
       </div>
       <br/>
       <button disabled={!enabled} id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
-      <button onClick={this.resetIt}>Reset Fields</button>
       <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
