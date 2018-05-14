@@ -41,7 +41,7 @@ class App extends Component {
       // let existingUsers = [];
       let doesItNotExist = true;
 
-      console.log(user)
+      // console.log(user)
       let currentUser = {
         nickname: user.displayName,
         profile: {
@@ -68,12 +68,12 @@ class App extends Component {
           userRef.push(currentUser)
           // console.log(data.key)
         } else {
-          let keys = Object.keys(data);
+          // let keys = Object.keys(data);
           for (let key in data) {
             // console.log(data[key])
             // console.log(data)
             if (data[key].profile.uid === user.uid) {
-              console.log(key)
+              // console.log(key)
               userKey = key;
 
               let rank;
@@ -90,9 +90,9 @@ class App extends Component {
                 let plus = data[key].profile.correctAnswers + data[key].profile.failedAnswers;
                 let newVal = (data[key].profile.correctAnswers / plus) * 100
                 if (isNaN(newVal)) {
-                  console.log(0)
+                  // console.log(0)
                 } else {
-                  console.log(newVal.toFixed(2))
+                  // console.log(newVal.toFixed(2))
                   arr.push({
                     nickname: data[key].profile.nickname,
                     ranking: Number(newVal.toFixed(2)),
@@ -106,7 +106,7 @@ class App extends Component {
               })
 
               newArr = arr.reverse();
-              console.log(newArr)
+              // console.log(newArr)
 
               // let place = 0;
               // for (let i = 0; i < newArr.length; i++) {
@@ -156,7 +156,7 @@ class App extends Component {
       function updateVal(newArr, firebaseKey) {
 
         //this fel
-        console.log(newArr)
+        // console.log(newArr)
 
         self.setState({
           nickname: currentUser.profile.nickname,
@@ -189,7 +189,7 @@ class App extends Component {
       // let existingUsers = [];
       let doesItNotExist = true;
 
-      console.log(user)
+      // console.log(user)
       let currentUser = {
         nickname: user.displayName,
         profile: {
@@ -213,7 +213,7 @@ class App extends Component {
           userRef.push(currentUser)
 
         } else {
-          let keys = Object.keys(data);
+          // let keys = Object.keys(data);
           for (let key in data) {
             if (data[key].profile.uid === user.uid) {
               userKey = key;
@@ -232,9 +232,9 @@ class App extends Component {
                 let plus = data[key].profile.correctAnswers + data[key].profile.failedAnswers;
                 let newVal = (data[key].profile.correctAnswers / plus) * 100
                 if (isNaN(newVal)) {
-                  console.log(0)
+                  // console.log(0)
                 } else {
-                  console.log(newVal.toFixed(2))
+                  // console.log(newVal.toFixed(2))
                   arr.push({
                     nickname: data[key].profile.nickname,
                     ranking: Number(newVal.toFixed(2)),
@@ -249,14 +249,14 @@ class App extends Component {
 
               newArr = arr.reverse();
 
-              console.log(newArr)
+              // console.log(newArr)
               // let place = 0;
               // for (let i = 0; i < newArr.length; i++) {
               //
               //   if (newArr[i].nickname === data[key].profile.nickname) {
-              //      console.log(data[key].profile.nickname)
+              //      // console.log(data[key].profile.nickname)
               //
-              //      console.log(i + 1)
+              //      // console.log(i + 1)
               //     place = i + 1
               //
               //   }

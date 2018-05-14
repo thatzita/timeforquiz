@@ -19,8 +19,6 @@ class ProfileComponent extends Component {
     }
     this.logout = this.logout.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    console.log(this.state)
-    console.log(this.props)
   }
   logout = () => {
     auth.signOut().then(() => {
@@ -84,7 +82,7 @@ class ProfileComponent extends Component {
             <button className="btn" onClick={this.highscore}>Highscore</button>
           </div>
           <div className="profile">
-            <img src={profile.photo + "?width=999"}/>
+            <img src={profile.photo + "?width=999"} alt=" "/>
             <input type="text" onChange={this.handleChange}/>
             <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
             <h4>Stats</h4>
@@ -103,7 +101,7 @@ class ProfileComponent extends Component {
             <button className="btn" onClick={this.highscore}>Highscore</button>
           </div>
           <div className="profile">
-            <img src={profile.photo + "?width=999"}/>
+            <img src={profile.photo + "?width=999"} alt=" "/>
 
             <h3 className="profileText">{this.state.nickname}</h3>
             <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
