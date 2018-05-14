@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import firebase, {auth} from './firebase.js';
+import firebase from './firebase.js';
 import ProfileComponent from './ProfileComponent.js';
 import './Highscore.css';
 
@@ -17,36 +17,29 @@ class Highscore extends Component {
   }
   componentDidMount() {
     let highScoreList = [];
-    firebase.database().ref('users/').on("value", snapshot => {
+    firebase.database().ref('users/').once("value", snapshot => {
       highScoreList = [];
-      let self = this;
+      // let self = this;
       snapshot.forEach(function(childSnapshot) {
-        let childKey = childSnapshot.key;
+        // let childKey = childSnapshot.key;
         let childData = childSnapshot.val();
         let highScoreUser = {
           nickname: childData.profile.nickname,
           ranking: childData.profile.ranking,
         }
-        console.log(highScoreList)
         highScoreList.push(highScoreUser);
       })
       function compare(a, b) {
-        console.log(a.ranking)
-        console.log(b.ranking)
         if (a.ranking < b.ranking)
           return -1;
         if (a.ranking > b.ranking)
           return 1;
         return 0;
       }
-      console.log(highScoreList)
       highScoreList.sort(compare);
       highScoreList.reverse();
       this.setState({topPlayers: highScoreList});
     });
-    console.log(this.state.topPlayers)
-
-    console.log(highScoreList)
   }
   render() {
     const profile = this.props.profile;

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './quiz.css';
 import './App.css';
 import ProfileComponent from './ProfileComponent.js';
-import Questions from './questions.js';
 import SportQuestions from './sportQuestions.js';
 import FictionQuestions from './FictionQuestions.js';
 import HistoryQuestions from "./historyQuestions.js"
@@ -26,23 +25,23 @@ class Quiz extends Component {
   }
 
   fictionQuiz = () => {
-    console.log("this is a quiz about fiction");
+    // console.log("this is a quiz about fiction");
     this.setState({clickedFiction: false})
   }
 
   historyQuiz = () => {
-    console.log("this is a quiz a bout history");
+    // console.log("this is a quiz a bout history");
     this.setState({clickedHistory: false})
   }
 
   sportQuiz = () => {
-    console.log("this is a quiz a bout sport");
+    // console.log("this is a quiz a bout sport");
     this.setState({clickedSport: false})
   }
 
   render() {
     const profile = this.props.profile;
-    console.log(profile)
+    // console.log(profile)
     if (!this.state.clicked) {
       return (<div>
         <ProfileComponent profile={profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
@@ -80,7 +79,7 @@ class Quiz extends Component {
         <button className="btnQuiz" onClick={this.sportQuiz}  profile={profile}>Sport</button>
       </div>
       <div className="profile">
-        <img src={profile.photo + "?width=999"}/>
+        <img src={profile.photo + "?width=999"} alt=" "/>
         <h3>{this.state.nickname}</h3>
       </div>
     </div>)

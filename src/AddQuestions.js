@@ -20,7 +20,7 @@ class AddQuestions extends Component {
       divId: '',
       quest: '',
      }
-    console.log(this.props.profile)
+    // console.log(this.props.profile)
     this.basestate = this.state
 
   }
@@ -36,13 +36,13 @@ class AddQuestions extends Component {
 
   handleChangeA = (e) => {
     this.setState({a: e.target.value})
-    // this.setState({quest: e.target.value}) 
+    // this.setState({quest: e.target.value})
   }
 
   handleChangeB = (e) => {
     this.setState({b: e.target.value})
    // this.setState({quest: e.target.value})
-     
+
   }
 
   handleChangeC = (e) => {
@@ -53,28 +53,28 @@ class AddQuestions extends Component {
   handleChangeD = (e) => {
     this.setState({d: e.target.value})
    // this.setState({quest: e.target.value})
-      
-      
+
+
   }
 
   correctAnswer = (e) => {
     this.setState({correctAnswer: e.target.value})
    // this.setState({quest: e.target.value})
   }
-  
+
   componentDidUpdate() {
-//      
+//
 //      if(this.state.question !== '' && this.state.correctAnswer !== '' &&
 //           this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
-//          console.log("azsd")
+//          // console.log("azsd")
 //          //this.setState({quest: this.state.event})
 //      }
 //     //this.setState({quest:this.state.quest})
 }
   sendQuestion = () => {
-      
+
     let self = this;
-   
+
     firebase.database().ref('questions/genre/sport/').push({
       Question: this.state.question,
       answers: {
@@ -85,17 +85,17 @@ class AddQuestions extends Component {
       },
       correctAnswer: this.state.correctAnswer
     })
-      console.log(this.state.question)
-    
-      
-    
+      // console.log(this.state.question)
+
+
+
       //theForm.reset();
-      
-     
-   
 
 
-      
+
+
+
+
     this.setState({sendMessage: 'Your question have been sent, sir!', divId: 'itHasBeenSent'})
 
     setInterval(function() {
@@ -110,12 +110,12 @@ class AddQuestions extends Component {
     d: '',
     correctAnswer: ''
   })
-   console.log(this.state.question)
-  
-  }
-  
+   // console.log(this.state.question)
 
-  
+  }
+
+
+
   resetIt = () => {
     this.setState({
         question: '',
@@ -126,9 +126,9 @@ class AddQuestions extends Component {
         correctAnswer: ''
       })
       this.myFormRef.reset();
-   console.log(this.state.question)
-   
-      
+   // console.log(this.state.question)
+
+
   }
   render() {
       const { a,b,c,d,question,correctAnswer} = this.state
@@ -139,7 +139,7 @@ class AddQuestions extends Component {
             d.length > 0 &&
             question.length > 0 &&
             correctAnswer.length > 0
-            
+
       if (!this.state.goBack) {
       return (<div>
         <SportQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
