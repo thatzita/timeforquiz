@@ -20,7 +20,7 @@ class App extends Component {
         ranking: 0
       },
       key: '',
-      timeForQuiz : {}
+      timeForQuiz: {}
     }
     this.handleChange = this.handleChange.bind(this);
     this.loginGoogle = this.loginGoogle.bind(this);
@@ -52,7 +52,7 @@ class App extends Component {
           correctAnswers: 0,
           failedAnswers: 0,
           ranking: 0,
-          place: 0
+          // place: 0
         }
       };
 
@@ -108,16 +108,16 @@ class App extends Component {
               newArr = arr.reverse();
               console.log(newArr)
 
-              let place = 0;
-              for (let i = 0; i < newArr.length; i++) {
+              // let place = 0;
+              // for (let i = 0; i < newArr.length; i++) {
 
-                if (newArr[i].nickname === data[key].profile.nickname) {
-                  // console.log(data[key].profile.nickname)
-                  // console.log(i + 1)
-                  place = i + 1
-
-                }
-              }
+              // if (newArr[i].nickname === data[key].profile.nickname) {
+              // console.log(data[key].profile.nickname)
+              // console.log(i + 1)
+              //     place = i + 1
+              //
+              //   }
+              // }
 
               currentUser = {
                 nickname: data[key].profile.nickname,
@@ -129,7 +129,7 @@ class App extends Component {
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
                   ranking: rank.toFixed(2),
-                  place: place
+                  // place: place
                 }
               }
               doesItNotExist = false;
@@ -169,7 +169,7 @@ class App extends Component {
             correctAnswers: currentUser.profile.correctAnswers,
             failedAnswers: currentUser.profile.failedAnswers,
             ranking: currentUser.profile.ranking,
-            place: currentUser.profile.place
+            // place: currentUser.profile.place
           },
           list: newArr,
           key: firebaseKey
@@ -200,7 +200,7 @@ class App extends Component {
           correctAnswers: 0,
           failedAnswers: 0,
           ranking: 0,
-          place: 0
+          // place: 0
         },
         list: []
       };
@@ -250,17 +250,17 @@ class App extends Component {
               newArr = arr.reverse();
 
               console.log(newArr)
-              let place = 0;
-              for (let i = 0; i < newArr.length; i++) {
-
-                if (newArr[i].nickname === data[key].profile.nickname) {
-                  // console.log(data[key].profile.nickname)
-                  //
-                  // console.log(i + 1)
-                  place = i + 1
-
-                }
-              }
+              // let place = 0;
+              // for (let i = 0; i < newArr.length; i++) {
+              //
+              //   if (newArr[i].nickname === data[key].profile.nickname) {
+              //      console.log(data[key].profile.nickname)
+              //
+              //      console.log(i + 1)
+              //     place = i + 1
+              //
+              //   }
+              // }
               // console.log(userKey)
               currentUser = {
                 profile: {
@@ -271,7 +271,7 @@ class App extends Component {
                   correctAnswers: data[key].profile.correctAnswers,
                   failedAnswers: data[key].profile.failedAnswers,
                   ranking: rank.toFixed(2),
-                  place: place
+                  // place: place
                 }
               }
               doesItNotExist = false;
@@ -308,7 +308,7 @@ class App extends Component {
             correctAnswers: currentUser.profile.correctAnswers,
             failedAnswers: currentUser.profile.failedAnswers,
             ranking: currentUser.profile.ranking,
-            place: currentUser.profile.place
+            // place: currentUser.profile.place
           },
           list: newArr,
           key: firebaseKey
@@ -318,10 +318,7 @@ class App extends Component {
     })
   }
 
-  componentDidMount(){
-  
-  }
-
+  componentDidMount() {}
 
   render() {
     // const profile = this.props.profile;
@@ -334,7 +331,7 @@ class App extends Component {
     return (<div className="App">
       <div className="ruta"></div>
       <div className="info">
-        <span  className="timequiz">Time for quiz</span>
+        <span className="timequiz">Time for quiz</span>
       </div>
       <div className="wrapper"></div>
       <div className="socialamedierLogIn">
