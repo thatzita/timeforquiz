@@ -21,7 +21,7 @@ class AddQuestions extends Component {
       quest: '',
      }
     console.log(this.props.profile)
-    this.basestate = this.state
+   // this.basestate = this.state
 
   }
 

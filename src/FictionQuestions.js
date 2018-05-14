@@ -97,6 +97,10 @@ class FictionQuestions extends Component {
       self.setState({tenQuestions: ten})
 
     }
+      
+      this.setState({
+      isButtonDisabled: true
+      })
 
   }
 
@@ -224,7 +228,11 @@ class FictionQuestions extends Component {
         }
       })
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
+        this.setState({
+      isButtonDisabled: false
+      })
     }
+      
   }
 
 
@@ -384,7 +392,7 @@ stopTimer() {
     }
     return (<div className="fictionQuestions">
       Lets see how much you know about fiction!
-      <button className="btnGetQuestions" onClick={this.getQuestions}>
+      <button disabled={this.state.isButtonDisabled} className="btnGetQuestions" onClick={this.getQuestions}>
         Get Fiction Questions!
       </button>
       <br/>
