@@ -18,6 +18,9 @@ class AddQuestions extends Component {
       sendMessage: '',
       divId: '',
       quest: '',
+      
+      
+    
      }
   }
 
@@ -98,16 +101,25 @@ class AddQuestions extends Component {
 
 
   }
+  
+  
+  
+  
   render() {
-      const { a,b,c,d,question,correctAnswer} = this.state
-      const enabled =
+      
+
+      
+      let { a,b,c,d,question,correctAnswer} = this.state
+      let enabled =
             a.length > 0 &&
             b.length > 0 &&
             c.length > 0 &&
             d.length > 0 &&
             question.length > 0 &&
             correctAnswer.length > 0
+        
 
+      
       if (!this.state.goBack) {
       return (<div>
         <SportQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
@@ -115,19 +127,21 @@ class AddQuestions extends Component {
     }
 
     return (<div>
-      <h2>Create your own Sport Question!</h2>
+      <h2 className="h2Sport">Create your own Sport Question!</h2>
       <br/>
         <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
        <div className="quizDiv">
             <div onClick={this.backToProfile} profile={this.props.profile}>
               <h3>{this.state.nickname}</h3>
+
                 <img src={this.props.profile.photo + "?width=999"} alt=" "/>
+
             </div>
           </div>
       <div>
 
         <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
-          <h3>What sport question do you want to add?
+          <h3 className="h3Head">What sport question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
           <br/><p className="letter">Answer A:</p><label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
@@ -139,7 +153,9 @@ class AddQuestions extends Component {
       <br/>
 
 
+
       <button disabled={!enabled} id="btnSend" className="btnSendQ" onClick={this.sendQuestion}>Send Question!</button>
+
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
