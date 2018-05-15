@@ -129,16 +129,18 @@ class AddQuestionsHistory extends Component {
     return (<div>
       <h2 className="h3Head">Create your own History Question!</h2>
       <br/>
-        <button className="btnQ" onClick={this.goBack} >Back to HistoryPage</button>
+         <div className="buttons">
+       <button className="btn" onClick={this.goBack} profile={this.props.profile}>Back to HistoryPage</button>
+      </div>
        <div className="quizDiv">
             <div onClick={this.backToProfile} profile={this.props.profile}>
               <h3>{this.state.nickname}</h3>
                 <img className="img" src={this.props.profile.photo + "?width=999"} alt=" "/>
             </div>
           </div>
-      <div>
+      
 
-        <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
+         <form className="theForm" ref={(el) => this.myFormRef = el} onChange={this.clearIt}>
           <h3 className="h3Head">What history question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
@@ -147,7 +149,7 @@ class AddQuestionsHistory extends Component {
           <br/><p className="letter">Answer C:</p><label><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/></label>
           <br/><p className="letter">Answer D:</p><label><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/></label>
         </form>
-      </div>
+      
       <br/>
 
 

@@ -131,7 +131,7 @@ class AddQuestions extends Component {
     }
 
     return (<div>
-
+        <h2 className="h3Head">Create your own fiction Question!</h2>
       <div className="buttons">
        <button className="btn" onClick={this.goBack} profile={this.props.profile}>Back to SportPage</button>
       </div>
@@ -143,9 +143,9 @@ class AddQuestions extends Component {
           </div>
         </div>
       </div>
-      <div id="formDiv">
+    
 
-        <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
+        <form className="theForm" ref={(el) => this.myFormRef = el} onChange={this.clearIt}>
           <h3 className="h3Head">What sport question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
@@ -154,12 +154,12 @@ class AddQuestions extends Component {
           <br/><p className="letter">Answer C:</p><label><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/></label>
           <br/><p className="letter">Answer D:</p><label><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/></label>
         </form>
-      </div>
+      
       <br/>
 
 
 
-      <button disabled={!enabled} id="btnSend" className="btnSendQ" onClick={this.sendQuestion}>Send Question!</button>
+      <button disabled={!enabled} id="btnSend" className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
 
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)

@@ -31,6 +31,7 @@
 
 
 .btnSend {
+  display: flex;
   border: none;
   background: rgba(255,255,255,0);
   margin-top: 60px;
@@ -38,7 +39,8 @@
   font-size:1.2em;
   cursor: pointer;
   transition: all .2s ease-in-out;
-  margin-left: 840px;
+  margin-left: 780px;
+  margin-top: 20px;
 }
 
 .btnSend button{
@@ -77,6 +79,24 @@
 
 }
 
+.theForm {
+    display: inline-block;
+    margin-top: 40px;
+    margin-left: 700px;
+}
+
+@media only screen and (max-width: 1222px) {
+    .theForm {
+        margin-left: 60px;
+    }
+}
+
+@media only screen and (max-width: 1222px) {
+    .btnSend {
+        margin-left: 60px;
+    }
+}
+
 input {
   font-size: 1.17em;
   -webkit-margin-before: 1em;
@@ -106,7 +126,4 @@ input {
   text-align: left;
 }
 
-#formDiv{
-  display: flex;
-  justify-content: center;
-}
+
