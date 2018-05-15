@@ -32,8 +32,15 @@
   width: 100%;
   /* border: 2px solid black; */
 }
+
 .buttons{
   width: 20%;
   text-align: center;
   border-bottom: 3px solid rgba(255,255,255,0.7)
+}
+
+.headerForTopPlayers{
+  text-align: center;
+  color:rgba(255,255,255,0.7);
+  margin-top: -20px;
 }

@@ -93,15 +93,15 @@ class HistoryQuestions extends Component {
       let obj = snapshot.val()
       for (let element in obj) {
 
-        HistoryQuestions.push(obj[element])
+        historyQuestions.push(obj[element])
       }
 
-      shuffleArray(HistoryQuestions)
+      shuffleArray(historyQuestions)
       function shuffleArray(HistoryQuestions) {
 
-        for (let i = HistoryQuestions.length - 1; i > 0; i--) {
+        for (let i = historyQuestions.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1));
-          [HistoryQuestions[i], HistoryQuestions[j]] = [HistoryQuestions[j], HistoryQuestions[i]];
+          [historyQuestions[i], historyQuestions[j]] = [historyQuestions[j], historyQuestions[i]];
         }
       }
       for (let y = 0; y < 10; y++) {
@@ -404,7 +404,7 @@ stopTimer() {
   }
   render() {
     // const isPlaying = this.state.isPlaying;
-<
+
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -504,4 +504,4 @@ stopTimer() {
 
 }
 
-export default historyQuestions;
+export default HistoryQuestions;

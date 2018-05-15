@@ -106,13 +106,13 @@ class ProfileComponent extends Component {
             <h3 className="profileText">{this.state.nickname}</h3>
             <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
 
-            <h3>Stats</h3>
+            <h3 className="stats">Stats</h3>
             <ul>
-              <li>Ranking: {profile.ranking}</li>
+              <li>Win percentage: {profile.ranking}%</li>
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
             </ul>
-            <button className="btn" onClick={this.logout}>Logout</button>
+            <button className="logout" onClick={this.logout}>Logout</button>
 
           </div>
         </div>)

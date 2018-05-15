@@ -203,20 +203,9 @@ body {
   transition-duration: 2s;
 }
 
-.logout{
-  border: none;
-  background: rgba(255,255,255,0);
-  margin-top: 30px;
-  color: rgba(0,0,0,0.6);
-  font-size:1.2em;
-  cursor: pointer;
-  transition: all .2s ease-in-out
-}
 
-.logout:hover{
-  text-decoration: underline;
-  transform: scale(1.1);
-}
+
+
 
 .socialamedierLogIn {
   position: relative;

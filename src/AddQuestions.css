@@ -38,19 +38,19 @@
 .btnSendQ:hover{
    color:rgba(255,255,255,0.7);
   transform: scale(1.1);
-  
+
 }
 
 
 
-h2 {
+/* h2 {
     color: white;
     margin-left: 400px;
 }
 
 h3 {
     color: white;
-}
+} */
 
 .letter {
     color: white;
@@ -70,7 +70,7 @@ input {
 
 .radioButton {
   margin-left: -70px;
-  
+
 }
 
 .answerInput {
