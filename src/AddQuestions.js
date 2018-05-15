@@ -121,11 +121,11 @@ class AddQuestions extends Component {
        <div className="quizDiv">
             <div onClick={this.backToProfile} profile={this.props.profile}>
               <h3>{this.state.nickname}</h3>
-                <img src={this.props.profile.photo + "?width=999"}/>
+                <img src={this.props.profile.photo + "?width=999"} alt=" "/>
             </div>
-          </div>      
+          </div>
       <div>
-          
+
         <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
           <h3>What sport question do you want to add?
           </h3><br/>
@@ -137,8 +137,8 @@ class AddQuestions extends Component {
         </form>
       </div>
       <br/>
-      
-      
+
+
       <button disabled={!enabled} id="btnSend" className="btnSendQ" onClick={this.sendQuestion}>Send Question!</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
