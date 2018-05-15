@@ -1,28 +1,22 @@
 .btnQ {
-  padding: 9px 12px;
-  padding-top: 7px;
-  margin-bottom: 0;
-  font-size: 14px;
-  line-height: 20px;
-  color: #5e5e5e;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  background-color: #d1dade;
-  -webkit-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  background-image: none !important;
+  /* background: rgba(255,255,255,0);
   border: none;
-  text-shadow: none;
-  box-shadow: none;
-  transition: all 0.12s linear 0s !important;
-  margin-right: 5px;
-  min-width: 120px;
-  margin-top: 20px;
-  margin-bottom: 8px;
-  background-color: #fff;
-  border: 1px solid #e5e9ec;
+  color:rgba(255,255,255,0.7) */
+  margin-right:45px;
+  position: relative;
+  border: none;
+  background: rgba(255,255,255,0);
+  margin-top: 30px;
+  color: rgba(0,0,0,0.6);
+  font-size:1.2em;
+  cursor: pointer;
+  transition: all .2s ease-in-out
+}
+
+.btnQ:hover{
+  /* text-decoration: underline; */
+  transform: scale(1.1);
+    color:rgba(255,255,255,0.7);
 }
 
 input {

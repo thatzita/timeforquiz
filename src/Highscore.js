@@ -53,6 +53,9 @@ class Highscore extends Component {
       </div>)
     } else {
       return (<div>
+        <div className="buttons">
+          <button className="btn" onClick={this.goBack}>Back to ProfilePage</button>
+        </div>
         <div className="container">
         <h1>Top players</h1>
         </div>
@@ -60,9 +63,6 @@ class Highscore extends Component {
         <ol className="topPlayers">
           {topTen.map(d => <li key={d.nickname}>{d.nickname + " - " + d.ranking + "%"}</li>)}
         </ol>
-        </div>
-        <div className="container">
-        <button className="btn" onClick={this.goBack}>Back to ProfilePage</button>
         </div>
       </div>)
 

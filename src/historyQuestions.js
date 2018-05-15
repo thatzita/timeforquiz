@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import firebase from './firebase.js';
-
 import AddQuestionsHistory from './addQuestionsHistory.js';
-
 import ProfileComponent from './ProfileComponent.js';
+import Quiz from './quiz.js';
+import "./App.css"
+import "./quiz.css"
 
 
 class HistoryQuestions extends Component {
@@ -13,6 +14,7 @@ class HistoryQuestions extends Component {
       clicked: true,
       writeQuestion: true,
       backToProfile: true,
+      backToQuiz: true,
       timeLeft: 6,
       isPlaying: false,
       tenQuestions: [],
@@ -30,7 +32,9 @@ class HistoryQuestions extends Component {
       divClass : "Row",
       profile : {},
       wichState:true,
-      disabledBtn: ''
+      disabledBtn: '',
+      displayPlay: "show",
+      displayCreate: "showCreate"
     }
     // console.log(this.state)
     // console.log(this.props)
@@ -40,28 +44,46 @@ class HistoryQuestions extends Component {
       this.stopTimer = this.stopTimer.bind(this);
   }
 
-  sendQuestion = () => {
-
-    // console.log("hej")
-    this.setState({clicked: false})
-    const questionRef = firebase.database().ref('questions/genre/History');
-
-    let theQuestions;
-    questionRef.once("value", function(snapshot) {
-      questionRef.push(theQuestions)
-    });
-  }
+  // sendQuestion = () => {
+  //   this.setState({clicked: false})
+  //   const questionRef = firebase.database().ref('questions/genre/sport/');
+  //   let theQuestions;
+  //   questionRef.once("value", function(snapshot) {
+  //     questionRef.push(theQuestions)
+  //   });
+  // }
 
   getQuestions = () => {
+
+    if(this.state.displayPlay === "show"){
+      console.log(this.state.displayPlay)
+      this.setState({
+        displayPlay:"none"
+      })
+    }else{
+      console.log(this.state.displayPlay)
+
+      this.setState({
+        displayPlay:"show"
+      })
+    }
+
+    if(this.state.displayCreate === "showCreate"){
+      this.setState({
+        displayCreate:"noneCreate"
+      })
+    }else{
+      this.setState({
+        displayCreate:"showCreate"
+      })
+    }
       this.startTimer()
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
-
 
     let historyQuestions = [];
     let ten = [];
     let self = this;
-    var ref = firebase.database().ref("questions/genre/History");
-
+    var ref = firebase.database().ref("questions/genre/History/");
     ref.once("value", function(snapshot) {
       let obj = snapshot.val()
       for (let element in obj) {
@@ -79,7 +101,6 @@ class HistoryQuestions extends Component {
       }
       for (let y = 0; y < 10; y++) {
         ten.push(historyQuestions[y])
-
       }
       putState(ten)
     }, function(error) {
@@ -90,19 +111,23 @@ class HistoryQuestions extends Component {
       self.setState({tenQuestions: ten})
 
     }
+
       this.setState({
       isButtonDisabled: true
-      });
+    });
+
   }
 
   componentDidUpdate() {
 
 
 
-
     if (this.state.currentQuestion === 10 && this.state.totalAnswers.length === 10) {
-      // console.log("hej")
 
+      this.setState({
+        displayPlay:"show",
+        displayCreate:"showCreate"
+      })
       let correct = 0;
       let wrong = 0;
 
@@ -119,10 +144,12 @@ class HistoryQuestions extends Component {
       let databaseCorrect;
       let databaseWrong;
       let self = this;
+      // console.log(this.props.firebaseKey)
+
       firebase.database().ref('users/' + this.props.firebaseKey).once("value", function(snapshot) {
         let Obj = snapshot.val();
 
-
+        // console.log(Obj)
         databaseCorrect = Obj.profile.correctAnswers;
         databaseWrong = Obj.profile.failedAnswers;
 
@@ -177,7 +204,7 @@ class HistoryQuestions extends Component {
                 firebase.database().ref('users/' + self.props.firebaseKey).set({
                   nickname: self.state.nickname,
                   profile: {
-                    nickname: self.state.nickname,
+                    // nickname: self.state.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
@@ -187,15 +214,16 @@ class HistoryQuestions extends Component {
                   }
                 },hej());
               }else{
+                // console.log(self.props)
                 let totalCorrect = databaseCorrect + correct;
                 let totalFail = databaseWrong + wrong;
                 let plus = totalCorrect + totalFail;
                 rank = (totalCorrect / plus) * 100
 
-                firebase.database().ref('users/' + self.props.firebaseKey).set({
-                  nickname: self.state.nickname,
+                firebase.database().ref('users/' + self.props.firebaseKey + "/").set({
+                  nickname: self.props.nickname,
                   profile: {
-                    nickname: self.state.nickname,
+                    nickname: self.props.nickname,
                     photo: self.props.profile.photo,
                     correctAnswers: databaseCorrect + correct,
                     failedAnswers: databaseWrong + wrong,
@@ -215,11 +243,11 @@ class HistoryQuestions extends Component {
         }
       })
       this.setState({totalCorrectAnswers: correct, totalFailedAnswers: wrong, totalAnswers: []})
+
         this.setState({
             isButtonDisabled: false
-          })
+    });
     }
-          
   }
 
 
@@ -242,7 +270,7 @@ class HistoryQuestions extends Component {
         break;
         default:
     }
-
+    // console.log(val)
 if(this.state.timeLeft === 0){
          // console.log("hejsan")
             this.setState({
@@ -257,18 +285,17 @@ if(this.state.timeLeft === 0){
 
         }
     if (this.state.backgroundA !== "" || this.state.backgroundB !== "" || this.state.backgroundC !== "" || this.state.backgroundD !== "") {
-
       if (val === "next" && this.state.timeLeft > 0) {
 
         // console.log(val)
         // console.log(correctAnswer)
-
         if (this.state.lastVal === correctAnswer) {
           this.state.totalAnswers.push(true)
         } else {
           this.state.totalAnswers.push(false)
         }
 
+        // console.log(this.state.totalAnswers);
         this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -277,7 +304,6 @@ if(this.state.timeLeft === 0){
           backgroundD: "",
           disabledBtn: ""
         })
-
       }
     }
   }
@@ -329,7 +355,9 @@ stopTimer() {
   writeQuestion = () => {
     this.setState({writeQuestion: false})
   }
-
+  backToQuiz = () => {
+    this.setState({backToQuiz: false})
+  }
 
   backToProfile = () => {
 
@@ -369,9 +397,7 @@ stopTimer() {
   }
   render() {
     // const isPlaying = this.state.isPlaying;
-    // let historyQuestions = [];
-
-
+    // let sportQuestions = [];
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -380,26 +406,46 @@ stopTimer() {
 
     if (!this.state.writeQuestion) {
       return (<div>
-
-        <AddQuestionsHistory profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
-
+        <AddQuestionsHistory profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
-    return (<div className="sportQuestion">
-      Lets see how much you know about history!
-      <button disabled={this.state.isButtonDisabled} className="btnGetQuestions" onClick={this.getQuestions}>
-
-        Get history Questions!
-
-      </button>
-      <br/>
-      <button onClick={this.writeQuestion} >Click to write your own history questions!</button>
+    if (!this.state.backToQuiz) {
+      return (<div>
+        <Quiz profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+      </div>)
+    }
+    return (<div className="historyQuestion">
+      <div className="buttons">
+       <button  onClick={this.writeQuestion} className={"historyCreate " +this.state.displayCreate + " btn"}>Write your own question</button>
+       <button onClick={this.backToQuiz}  className={"historyCreate " +this.state.displayCreate + " btn"}>Back to quizzes</button>
+    </div>
         {(this.state.handleChange === true)
           ?
-          <button onClick={this.backToProfile} profile={this.props.profile}>Go back to your profile</button>
+          <div>
+          <div className="profilePosition">
+          <div className="quizDiv">
+            <div onClick={this.backToProfile} profile={this.props.profile}>
+              <h3>{this.state.nickname}</h3>
+                <img src={this.props.profile.photo + "?width=999"}/>
+            </div>
+          </div>
+          </div>
+          </div>
           :
           <div></div>
         }
+
+
+        <h1 className="knowledgeHeader">Lets see how much you know about history!</h1>
+        <div className={this.state.displayPlay}>
+
+
+          <div   onClick={this.getQuestions}>
+            <button className="btn">
+            Start quiz
+            </button>
+          </div>
+        </div>
       <div>
         {
           (this.state.tenQuestions[this.state.currentQuestion] !== undefined)
@@ -417,16 +463,18 @@ stopTimer() {
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
                 </ul>
-                <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())}disabled={!this.state.disabledBtn}>Next question</button>
+                <button className="btn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
                 <br/>
+                <div className="timeAndCurrentQ">
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
                 <div>Time remaining on current question: { this.state.timeLeft}</div>
+                </div>
               </div>
             : <div></div>
         }
         {
           (this.state.currentQuestion === 10)
-            ? <div>
+            ? <div className="answersAll">
                 <h2>You got {this.state.totalCorrectAnswers} correct answers. And {this.state.totalFailedAnswers} wronged ones.</h2>
                 <h2>Everything will be updated at your profile</h2>
               </div>
