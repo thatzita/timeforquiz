@@ -291,6 +291,9 @@ body {
       font-size: 3em;
     }
 
+    .App{
+      top:40px;
+    }
     .profile img{
       width:100px;
       height: 100px;
