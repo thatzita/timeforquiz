@@ -112,7 +112,7 @@ class ProfileComponent extends Component {
               <li>Correct answers: {profile.correctAnswers}</li>
               <li>Wrong answers: {profile.failedAnswers}</li>
             </ul>
-            <button className="logout" onClick={this.logout}>Logout</button>
+            <button className="btn" onClick={this.logout}>Logout</button>
 
           </div>
         </div>)

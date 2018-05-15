@@ -6,12 +6,14 @@
   color: rgba(0,0,0,0.6);
   font-size:1.2em;
   cursor: pointer;
-  transition: all .2s ease-in-out
+  transition: all .2s ease-in-out;
+    color:rgba(255,255,255,0.7);
 }
 
 .btn:hover{
-  text-decoration: underline;
+  /* text-decoration: underline; */
   transform: scale(1.1);
+    color:rgba(255,255,255,0.7);
 }
 
 .container {
@@ -29,4 +31,9 @@
 .topPlayers>li {
   width: 100%;
   /* border: 2px solid black; */
+}
+.buttons{
+  width: 20%;
+  text-align: center;
+  border-bottom: 3px solid rgba(255,255,255,0.7)
 }
