@@ -417,8 +417,8 @@ stopTimer() {
     return (<div className="sportQuestion">
 
       <div className="buttons">
-       <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate + " btn"}>Write your own question</button>
-       <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate + " btn"}>Back to quizzes</button>
+       <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate  }>Create question</button>
+       <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate }>Back to quizzes</button>
 
        </div>
         {(this.state.handleChange === true)
@@ -466,7 +466,7 @@ stopTimer() {
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
                 </ul>
-                <button id="nextbtn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
+                <button className="nextbtn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
                 <br/>
                 <div className="timeAndCurrentQ">
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
