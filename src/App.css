@@ -65,7 +65,7 @@ body {
 .profileText{
   color: white;
   font-size: 1.2em;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
   margin-bottom: 10px;
 }
@@ -79,11 +79,13 @@ body {
   position: relative;
 }
 
-.profile h4{
+.profile h3{
   padding-top:20px;
 }
 .profile li {
   margin-top: 10px;
+  font-size: 1.2em;
+  font-weight: 700;
 }
 
 .profile button:first-child{
@@ -103,7 +105,7 @@ body {
   margin-top: 50px;
 }
 
-.profile h4 {
+.profile h3 {
   margin: 0;
 }
 
@@ -187,10 +189,12 @@ body {
   color: rgba(0,0,0,0.6);
   font-size:1.2em;
   cursor: pointer;
+  transition: all .2s ease-in-out
 }
 
 .logout:hover{
   text-decoration: underline;
+  transform: scale(1.1);
 }
 
 .socialamedierLogIn {
