@@ -348,7 +348,7 @@ if(this.state.timeLeft === 0){
 resetTimer() {
   clearInterval(this.timerID);
     this.setState({
-      timeLeft: 6
+      timeLeft: 30
     });
 }
 stopTimer() {
@@ -444,7 +444,6 @@ stopTimer() {
         }
 
 
-        <h1 className="knowledgeHeader">Lets see how much you know about history!</h1>
 
         <div className={this.state.displayPlay}>
 
