@@ -102,8 +102,12 @@ font-weight: 900;
   position: relative;
   right: 20px;
   top:10px;
-  color:rgba(255,255,255,0.7)
+  color: white;
 
+}
+
+.sporth3 {
+    color: white;
 }
 
 .quizDiv button{
@@ -296,6 +300,7 @@ font-weight: 900;
 
 .sportCreate, .fictionCreate button{
   background: rgba(255,255,255,0);
+
   /* color:rgba(255,255,255,0.7); */
 
   /* font-size: 0.9em; */
@@ -307,6 +312,7 @@ font-weight: 900;
   text-align: center;
   border-bottom: 3px solid rgba(255,255,255,0.7);
   /* background: red; */
+
 
 }
 
@@ -346,4 +352,13 @@ font-weight: 900;
     margin-bottom: 20px;
   }
 
+}
+
+.historyQuestion > h3 {
+    display: inline-block;
+    position: relative;
+    right: 20px;
+    top:10px;
+    margin-left: 500px;
+    color: white;
 }

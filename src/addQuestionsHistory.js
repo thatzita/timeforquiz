@@ -125,8 +125,9 @@ class AddQuestionsHistory extends Component {
           </form>
         </div>
         <br/>
-        <button disabled={!enabled} id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
-        <button className="btnQ" onClick={this.goBack} >Back to history page</button>
+        <button className="btnQ" onClick={this.goBack} >Back to History page</button>
+        <button disabled={!enabled} className="btnSend" id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
+        
         <div id={this.state.divId}>{this.state.sendMessage}</div>
       </div>)
     }

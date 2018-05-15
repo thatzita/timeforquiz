@@ -1,22 +1,61 @@
 .btnQ {
-  /* background: rgba(255,255,255,0);
-  border: none;
-  color:rgba(255,255,255,0.7) */
-  margin-right:45px;
-  position: relative;
-  border: none;
+
+   border: none;
   background: rgba(255,255,255,0);
-  margin-top: 30px;
+  margin-top: -30px;
+  margin-left: 30px;
   color: rgba(0,0,0,0.6);
   font-size:1.2em;
   cursor: pointer;
   transition: all .2s ease-in-out
-}
+  }
 
 .btnQ:hover{
-  /* text-decoration: underline; */
+  text-decoration: underline;
   transform: scale(1.1);
-    color:rgba(255,255,255,0.7);
+   color: white;
+}
+
+.btnSendQ {
+  border: none;
+  background: rgba(255,255,255,0);
+  margin-top: 60px;
+  color: rgba(0,0,0,0.6);
+  font-size:1.2em;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+  margin-left: 490px;
+}
+
+.bbtnSendQ button{
+  background: rgba(255,255,255,0);
+  color:white;
+  font-size: 0.9em;
+  border: none;
+  cursor: pointer;
+}
+
+.btnSendQ:hover{
+   color:rgba(255,255,255,0.7);
+  transform: scale(1.1);
+  
+}
+
+
+
+h2 {
+    color: white;
+    margin-left: 400px;
+}
+
+h3 {
+    color: white;
+}
+
+.letter {
+    color: white;
+    font-weight: 900;
+
 }
 
 input {
@@ -30,8 +69,8 @@ input {
 
 
 .radioButton {
-  margin-top:8px;
-  margin-left:-50px;
+  margin-left: -70px;
+  
 }
 
 .answerInput {
@@ -49,6 +88,7 @@ input {
 #theForm{
   display: flex;
   flex-direction: column;
+  margin-left: 400px;
 }
 
 h3 {

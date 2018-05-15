@@ -115,23 +115,31 @@ class AddQuestions extends Component {
     }
 
     return (<div>
-      <h2>Create your own sport Question!</h2>
+      <h2>Create your own Sport Question!</h2>
       <br/>
-
+        <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
+       <div className="quizDiv">
+            <div onClick={this.backToProfile} profile={this.props.profile}>
+              <h3>{this.state.nickname}</h3>
+                <img src={this.props.profile.photo + "?width=999"}/>
+            </div>
+          </div>      
       <div>
+          
         <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
           <h3>What sport question do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
-          <br/>Answer A:<label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
-          <br/>Answer B:<label><input className="answerInput" type="text" onChange={this.handleChangeB}/><input type="radio" className="radioButton" value="b" name="chooseOne" onClick={this.correctAnswer}/></label>
-          <br/>Answer C:<label><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/></label>
-          <br/>Answer D:<label><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/><p className="letter">Answer A:</p><label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/><p className="letter">Answer B:</p><label><input className="answerInput" type="text" onChange={this.handleChangeB}/><input type="radio" className="radioButton" value="b" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/><p className="letter">Answer C:</p><label><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/><p className="letter">Answer D:</p><label><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/></label>
         </form>
       </div>
       <br/>
-      <button disabled={!enabled} id="btnSend" onClick={this.sendQuestion}>Send Question!</button>
-      <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
+      
+      
+      <button disabled={!enabled} id="btnSend" className="btnSendQ" onClick={this.sendQuestion}>Send Question!</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }

@@ -415,9 +415,11 @@ stopTimer() {
       </div>)
     }
     return (<div className="sportQuestion">
+
       <div className="buttons">
        <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate + " btn"}>Write your own question</button>
        <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate + " btn"}>Back to quizzes</button>
+
     </div>
         {(this.state.handleChange === true)
           ?
@@ -436,12 +438,14 @@ stopTimer() {
         }
 
 
+
         <h1 className="knowledgeHeader">Lets see how much you know about sport!</h1>
         <div className={this.state.displayPlay}>
 
 
           <div   onClick={this.getQuestions}>
             <button className="btn">
+
             Start quiz
             </button>
           </div>

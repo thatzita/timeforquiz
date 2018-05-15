@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import firebase from './firebase.js';
 import AddQuestionsHistory from './addQuestionsHistory.js';
 import ProfileComponent from './ProfileComponent.js';
+
 import Quiz from './quiz.js';
 import "./App.css"
 import "./quiz.css"
@@ -46,7 +47,9 @@ class HistoryQuestions extends Component {
 
   // sendQuestion = () => {
   //   this.setState({clicked: false})
-  //   const questionRef = firebase.database().ref('questions/genre/sport/');
+
+  //   const questionRef = firebase.database().ref('questions/genre/History/');
+
   //   let theQuestions;
   //   questionRef.once("value", function(snapshot) {
   //     questionRef.push(theQuestions)
@@ -80,7 +83,9 @@ class HistoryQuestions extends Component {
       this.startTimer()
     this.setState({clicked: false, currentQuestion: 0, totalCorrectAnswers: 0, totalFailedAnswers: 0, handleChange:false, wichState:false})
 
+
     let historyQuestions = [];
+
     let ten = [];
     let self = this;
     var ref = firebase.database().ref("questions/genre/History/");
@@ -88,19 +93,21 @@ class HistoryQuestions extends Component {
       let obj = snapshot.val()
       for (let element in obj) {
 
-        historyQuestions.push(obj[element])
+        HistoryQuestions.push(obj[element])
       }
 
-      shuffleArray(historyQuestions)
-      function shuffleArray(historyQuestions) {
+      shuffleArray(HistoryQuestions)
+      function shuffleArray(HistoryQuestions) {
 
-        for (let i = historyQuestions.length - 1; i > 0; i--) {
+        for (let i = HistoryQuestions.length - 1; i > 0; i--) {
           let j = Math.floor(Math.random() * (i + 1));
-          [historyQuestions[i], historyQuestions[j]] = [historyQuestions[j], historyQuestions[i]];
+          [HistoryQuestions[i], HistoryQuestions[j]] = [HistoryQuestions[j], HistoryQuestions[i]];
         }
       }
       for (let y = 0; y < 10; y++) {
+
         ten.push(historyQuestions[y])
+
       }
       putState(ten)
     }, function(error) {
@@ -374,7 +381,7 @@ stopTimer() {
           failedAnswers: this.props.profile.failedAnswers,
           uid: this.props.profile.uid,
           ranking: this.props.profile.ranking,
-          // place: this.props.profile.place,
+          place: this.props.profile.place,
         }
       })
     }else{
@@ -390,14 +397,14 @@ stopTimer() {
           failedAnswers: this.state.profile.failedAnswers,
           uid: this.state.profile.uid,
           ranking: this.state.profile.ranking,
-          // place: this.state.profile.place,
+          place: this.state.profile.place,
         }
       })
     }
   }
   render() {
     // const isPlaying = this.state.isPlaying;
-    // let sportQuestions = [];
+<
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -409,6 +416,7 @@ stopTimer() {
         <AddQuestionsHistory profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
+
     if (!this.state.backToQuiz) {
       return (<div>
         <Quiz profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
@@ -437,11 +445,14 @@ stopTimer() {
 
 
         <h1 className="knowledgeHeader">Lets see how much you know about history!</h1>
+
         <div className={this.state.displayPlay}>
 
 
           <div   onClick={this.getQuestions}>
+
             <button className="btn">
+
             Start quiz
             </button>
           </div>
@@ -463,7 +474,9 @@ stopTimer() {
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
                 </ul>
+
                 <button className="btn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
+
                 <br/>
                 <div className="timeAndCurrentQ">
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
@@ -475,7 +488,9 @@ stopTimer() {
         {
           (this.state.currentQuestion === 10)
             ? <div className="answersAll">
+
                 <h2>You got {this.state.totalCorrectAnswers} correct answers. And {this.state.totalFailedAnswers} wronged ones.</h2>
+
                 <h2>Everything will be updated at your profile</h2>
               </div>
             : <div></div>
@@ -489,4 +504,4 @@ stopTimer() {
 
 }
 
-export default HistoryQuestions;
+export default historyQuestions;
