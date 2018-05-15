@@ -240,7 +240,8 @@ justify-content: center;
 
 }
 
-#btnStart{
+#btnStart, #startFic, .startHist
+{
   width: 100%;
   font-size: 1.7em;
   background: rgba(255,255,255,0);
@@ -254,13 +255,13 @@ justify-content: center;
 
 }
 
-#btnStart:hover{
+#btnStart:hover, #startFic:hover, .startHist:hover{
   transform: scale(1.2);
   font-size: 1.4em;
   color:rgba(0,0,0,0.5)
 }
 
-#nextbtn{
+.nextbtn{
   font-size: 1em;
   width: 13%;
   margin:auto;
@@ -273,7 +274,7 @@ justify-content: center;
   cursor: pointer;
 
 }
-#nextbtn:hover{
+.nextbtn:hover{
   width:1.2em;
   width: 13%;
   color:rgba(255,255,255,0.6)
@@ -297,12 +298,16 @@ justify-content: center;
 
 
 .sportCreate, .fictionCreate, .historyCreate{
-  /* width:30%;
-  width: 15%;
-  padding:20px;
-  text-align: center; */
-  /* border-bottom: 3px solid rgba(255,255,255,0.7); */
-  /* position: absolute; */
+
+  border: none;
+  background: rgba(255,255,255,0);
+  margin-top: 30px;
+  color: rgba(0,0,0,0.6);
+  font-size:1.2em;
+  padding: 10px;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
+    color:rgba(255,255,255,0.7);
 }
 
 .sportCreate, .fictionCreate, .historyCreate button{
@@ -324,7 +329,7 @@ justify-content: center;
 .answersAll{
   margin:0 auto;
   position: relative;
-  top:120px;
+  top:200px;
   text-align: center;
   display: block;
   color:rgba(255,255,255,0.7)
