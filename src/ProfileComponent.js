@@ -83,7 +83,7 @@ class ProfileComponent extends Component {
           </div>
           <div className="profile">
             <img src={profile.photo + "?width=999"} alt=" "/>
-            <input type="text" onChange={this.handleChange}/>
+            <input type="text" maxLength="17" onChange={this.handleChange}/>
             <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
             <h3>Stats</h3>
             <ul>
