@@ -1,7 +1,8 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100');
 
 .question{
   position: relative;
-  top:200px;
+  top:75px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -10,33 +11,31 @@ justify-content: center;
 .question h2{
   width:50% ;
   margin:auto;
-  height: ;
-  color:rgba(255,255,255,0.5)
+  /* height: ; */
+  color:rgba(255,255,255,0.5);
+  font-size: 1.5em;
 
 }
 
 .question ul{
-  width: 40%;
+  width: 55%;
   margin: auto;
 }
-.question button{
-  width: 15%;
-  margin: 0 auto;
-  padding:10px;
-  color:rgba(0,0,0,0.5);
-  cursor: pointer;
-  background: rgba(255,255,255,0);
-  /* box-shadow: 0 0 20px rgba(231, 255, 163, 1); */
-  font-size: 1.2em;
-  border-radius: 20px ;
-  border:none;
-
-  /* border-left: 10px solid rgba(233, 255, 170, 0.4);
-  border-right: 10px solid rgba(233, 255, 170, 0.4); */
-  border-left: 10px solid rgba(255,255,255,0.5);
- border-right: 10px solid rgba(255,255,255,0.5);
-  outline: none;
-  margin-top: 20px;
+.question button {
+    width: 13%;
+    margin: 0 auto;
+    padding: 10px;
+    color: rgba(0,0,0,0.5);
+    cursor: pointer;
+    background: rgba(255,255,255,0);
+    /* box-shadow: 0 0 20px rgba(231, 255, 163, 1); */
+    font-size: 1.5em;
+    border-radius: 20px;
+    border: none;
+    border-left: 10px solid rgba(255,255,255,0.5);
+    border-right: 10px solid rgba(255,255,255,0.5);
+    outline: none;
+    margin-top: 20px;
 }
 
 .quizDiv {
@@ -57,18 +56,31 @@ justify-content: center;
 .quizDiv div{
   display: flex;
   margin-right: 40px;
-  margin-top: 20px;
+  margin-top: -40px;
   cursor: pointer;
 }
 
+.profilePosition > .quizDiv > div{
+    display: flex;
+    margin-right: 40px;
+    margin-top: -40px;
+    cursor: pointer;
+}
+
 .quizDiv div:hover ::after{
-  top: 60px;
-  width: 130px;
-  left:0px;
-  right: 0;
-  font-size: 0.8em;
-  content: "To profile";
-  position:absolute;
+  top: -20px;
+  width: 80px;
+  /* border: 1px solid black; */
+  /* left:0px; */
+  right: -10px;
+  font-size: 1em;
+  position: absolute;
+  content: "Go back";
+  filter: grayscale(100%);
+  color:rgba(0,0,0,0.5);
+  /* box-shadow: 0 0 100px -10px rgba(0,0,0,1); */
+  /* z-index: 1; */
+  /* font-weight: 900; */
 }
 
 .quizDiv img{
@@ -76,6 +88,13 @@ justify-content: center;
   position: relative;
   height: 90px;
   border-radius: 100%;
+}
+
+.quizDiv img:hover{
+  filter:grayscale(75%);
+  /* color:rgba(255,255,255,1); */
+  /* box-shadow: 0 0 100px -10px rgba(0,0,0,1); */
+font-weight: 900;
 }
 
 .quizDiv h3{
@@ -96,6 +115,16 @@ justify-content: center;
   position: relative;
   top:15px;
   right:40px;
+}
+
+
+.knowledgeHeader {
+  width: 580px;
+  position: relative;
+  top:-85px;
+  text-align: center;
+  margin: 0 auto;
+  color:rgba(255,255,255,0.7)
 }
 
 .categoryh3{
@@ -260,38 +289,31 @@ justify-content: center;
 }
 
 
-.sportCreate{
-  width:30%;
+.sportCreate, .fictionCreate, .historyCreate{
+  /* width:30%;
   width: 15%;
   padding:20px;
+  text-align: center; */
+  /* border-bottom: 3px solid rgba(255,255,255,0.7); */
+  /* position: absolute; */
+}
+
+.sportCreate, .fictionCreate button{
+  background: rgba(255,255,255,0);
+
+  /* color:rgba(255,255,255,0.7); */
+
+  /* font-size: 0.9em; */
+  /* border: none; */
+}
+
+.buttons{
+  width: 20%;
   text-align: center;
   border-bottom: 3px solid rgba(255,255,255,0.7);
-  position: absolute;
-}
+  /* background: red; */
 
-.sportCreate button{
-  background: rgba(255,255,255,0);
-  color:rgba(255,255,255,0.7);
-  font-size: 0.9em;
-  border: none;
-  cursor: pointer;
-}
 
-.historyCreate{
-  width:30%;
-  width: 15%;
-  padding:20px;
-  text-align: center;
-  border-bottom: 3px solid rgba(255,255,255,0.7);
-  position: absolute;
-}
-
-.historyCreate button{
-  background: rgba(255,255,255,0);
-  color:rgba(255,255,255,0.7);
-  font-size: 0.9em;
-  border: none;
-  cursor: pointer;
 }
 
 .answersAll{

@@ -2,8 +2,11 @@ import React, {Component} from 'react';
 import firebase from './firebase.js';
 import AddQuestions from './AddQuestions.js';
 import ProfileComponent from './ProfileComponent.js';
+import Quiz from './quiz.js';
 import "./App.css"
 import "./quiz.css"
+
+
 class SportQuestions extends Component {
   constructor(props) {
     super(props);
@@ -11,6 +14,7 @@ class SportQuestions extends Component {
       clicked: true,
       writeQuestion: true,
       backToProfile: true,
+      backToQuiz: true,
       timeLeft: 6,
       isPlaying: false,
       tenQuestions: [],
@@ -351,7 +355,9 @@ stopTimer() {
   writeQuestion = () => {
     this.setState({writeQuestion: false})
   }
-
+  backToQuiz = () => {
+    this.setState({backToQuiz: false})
+  }
 
   backToProfile = () => {
 
@@ -368,7 +374,7 @@ stopTimer() {
           failedAnswers: this.props.profile.failedAnswers,
           uid: this.props.profile.uid,
           ranking: this.props.profile.ranking,
-          place: this.props.profile.place,
+          // place: this.props.profile.place,
         }
       })
     }else{
@@ -384,7 +390,7 @@ stopTimer() {
           failedAnswers: this.state.profile.failedAnswers,
           uid: this.state.profile.uid,
           ranking: this.state.profile.ranking,
-          place: this.state.profile.place,
+          // place: this.state.profile.place,
         }
       })
     }
@@ -403,31 +409,43 @@ stopTimer() {
         <AddQuestions profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
+    if (!this.state.backToQuiz) {
+      return (<div>
+        <Quiz profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+      </div>)
+    }
     return (<div className="sportQuestion">
 
-
-
-    <div onClick={this.writeQuestion} className={"sportCreate "+this.state.displayCreate}>
-     <button>Write your own question</button>
+      <div className="buttons">
+       <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate + " btn"}>Write your own question</button>
+       <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate + " btn"}>Back to quizzes</button>
 
     </div>
         {(this.state.handleChange === true)
           ?
+          <div>
+          <div className="profilePosition">
           <div className="quizDiv">
             <div onClick={this.backToProfile} profile={this.props.profile}>
               <h3>{this.state.nickname}</h3>
-                <img src={this.props.profile.photo + "?width=999"}/>
+                <img src={this.props.profile.photo + "?width=999"} alt=" "/>
             </div>
+          </div>
+          </div>
           </div>
           :
           <div></div>
         }
-        <h3 className="sporth3">Lets see how much you know about sport!</h3>
+
+
+
+        <h1 className="knowledgeHeader">Lets see how much you know about sport!</h1>
         <div className={this.state.displayPlay}>
 
 
-          <div onClick={this.getQuestions}>
-            <button >
+          <div   onClick={this.getQuestions}>
+            <button className="btn">
+
             Start quiz
             </button>
           </div>
@@ -449,19 +467,19 @@ stopTimer() {
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
                 </ul>
-                <button onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
+                <button className="btn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
                 <br/>
+                <div className="timeAndCurrentQ">
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
                 <div>Time remaining on current question: { this.state.timeLeft}</div>
+                </div>
               </div>
             : <div></div>
         }
         {
           (this.state.currentQuestion === 10)
             ? <div className="answersAll">
-                <h2>You got {this.state.totalCorrectAnswers}
-                  correct answers. And {this.state.totalFailedAnswers}
-                  wronged ones.</h2>
+                <h2>You got {this.state.totalCorrectAnswers} correct answers. And {this.state.totalFailedAnswers} wronged ones.</h2>
                 <h2>Everything will be updated at your profile</h2>
               </div>
             : <div></div>
