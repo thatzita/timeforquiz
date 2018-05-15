@@ -1,8 +1,10 @@
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat:100');
 .btn{
-  background: rgba(255,255,255,0);
+  /* background: rgba(255,255,255,0);
   border: none;
-  color:rgba(255,255,255,0.7)
+  color:rgba(255,255,255,0.7) */
+  margin-right:45px;
+  position: relative;
 }
 
 .buttons{

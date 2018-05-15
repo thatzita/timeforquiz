@@ -85,7 +85,7 @@ class ProfileComponent extends Component {
             <img src={profile.photo + "?width=999"} alt=" "/>
             <input type="text" onChange={this.handleChange}/>
             <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
-            <h4>Stats</h4>
+            <h3>Stats</h3>
             <ul>
               <li>Ranking: {profile.ranking}</li>
               <li>Correct answers: {profile.correctAnswers}</li>
@@ -106,7 +106,7 @@ class ProfileComponent extends Component {
             <h3 className="profileText">{this.state.nickname}</h3>
             <i className="fas fa-pencil-alt btnEdit" onClick={this.changeType}></i>
 
-            <h4>Stats</h4>
+            <h3>Stats</h3>
             <ul>
               <li>Ranking: {profile.ranking}</li>
               <li>Correct answers: {profile.correctAnswers}</li>
