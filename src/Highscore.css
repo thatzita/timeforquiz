@@ -5,6 +5,7 @@
   margin-top: 30px;
   color: rgba(0,0,0,0.6);
   font-size:1.2em;
+  position: relative;
   cursor: pointer;
   transition: all .2s ease-in-out;
     color:rgba(255,255,255,0.7);
@@ -12,7 +13,8 @@
 
 .btn:hover{
   /* text-decoration: underline; */
-  transform: scale(1.1);
+    position: relative;
+    top:-5px;
     color:rgba(255,255,255,0.7);
 }
 
