@@ -327,8 +327,8 @@ justify-content: center;
 @media (max-width:1000px){
   .categoryDiv {
     flex-direction: column;
+    padding:0;
     top:0px;
-
   }
   .show {
       display: flex;
