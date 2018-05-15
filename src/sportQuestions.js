@@ -341,7 +341,7 @@ if(this.state.timeLeft === 0){
 resetTimer() {
   clearInterval(this.timerID);
     this.setState({
-      timeLeft: 6
+      timeLeft: 30
     });
 }
 stopTimer() {
@@ -417,10 +417,10 @@ stopTimer() {
     return (<div className="sportQuestion">
 
       <div className="buttons">
-       <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate + " btn"}>Write your own question</button>
-       <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate + " btn"}>Back to quizzes</button>
+       <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate  }>Create question</button>
+       <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate }>Back to quizzes</button>
 
-    </div>
+       </div>
         {(this.state.handleChange === true)
           ?
           <div>
@@ -439,12 +439,11 @@ stopTimer() {
 
 
 
-        <h1 className="knowledgeHeader">Lets see how much you know about sport!</h1>
         <div className={this.state.displayPlay}>
 
 
           <div   onClick={this.getQuestions}>
-            <button className="btn">
+            <button  id="btnStart">
 
             Start quiz
             </button>
@@ -467,7 +466,7 @@ stopTimer() {
                     <li id={this.state.backgroundD} onClick={e => this.clickedButton('d', this.state.tenQuestions[this.state.currentQuestion].correctAnswer)}>{this.state.tenQuestions[this.state.currentQuestion].answers.d}</li>
                   </div>
                 </ul>
-                <button className="btn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
+                <button className="nextbtn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
                 <br/>
                 <div className="timeAndCurrentQ">
                 <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>

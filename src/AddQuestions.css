@@ -52,7 +52,7 @@
 .btnSend:hover{
    
   transform: scale(1.1);
-  
+
 }
 
 .btnSend:disabled,
@@ -69,16 +69,6 @@
 
 
 
-/*
-h2 {
-    color: white;
-    margin-left: 400px;
-}
-
-h3 {
-    color: white;
-}
-*/
 
 .letter {
     color: white;
@@ -99,7 +89,7 @@ input {
 
 .radioButton {
   margin-left: -70px;
-  
+
 }
 
 .answerInput {

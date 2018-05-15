@@ -57,7 +57,7 @@ class Highscore extends Component {
           <button className="btn" onClick={this.goBack}>Back to ProfilePage</button>
         </div>
         <div className="container">
-        <h1>Top players</h1>
+        <h1 className="headerForTopPlayers">Top players</h1>
         </div>
         <div className="container">
         <ol className="topPlayers">
