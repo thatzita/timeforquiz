@@ -18,9 +18,9 @@ class AddQuestionsFiction extends Component {
       sendMessage: '',
       divId: '',
       quest: '',
-      
-      
-    
+
+
+
      }
   }
 
@@ -101,14 +101,14 @@ class AddQuestionsFiction extends Component {
 
 
   }
-  
-  
-  
-  
-  render() {
-      
 
-      
+
+
+
+  render() {
+
+
+
       let { a,b,c,d,question,correctAnswer} = this.state
       let enabled =
             a.length > 0 &&
@@ -117,9 +117,9 @@ class AddQuestionsFiction extends Component {
             d.length > 0 &&
             question.length > 0 &&
             correctAnswer.length > 0
-        
 
-      
+
+
       if (!this.state.goBack) {
       return (<div>
         <FictionQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
@@ -133,11 +133,11 @@ class AddQuestionsFiction extends Component {
        <div className="quizDiv">
             <div onClick={this.backToProfile} profile={this.props.profile}>
               <h3>{this.state.nickname}</h3>
-                <img className="img" src={this.props.profile.photo + "?width=999"}/>
+                <img className="img" src={this.props.profile.photo + "?width=999"} alt=" "/>
             </div>
-          </div>      
+          </div>
       <div>
-          
+
         <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
           <h3 className="h3Head">What fiction question do you want to add?
           </h3><br/>
@@ -149,8 +149,8 @@ class AddQuestionsFiction extends Component {
         </form>
       </div>
       <br/>
-      
-      
+
+
       <button disabled={!enabled} className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
