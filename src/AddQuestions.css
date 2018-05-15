@@ -50,7 +50,7 @@
 }
 
 .btnSend:hover{
-   
+
   transform: scale(1.1);
 
 }
@@ -62,9 +62,9 @@
 
 .btnSend:enabled,
 .btnSend[enabled]{
-  
+
   color: white;
-  
+
 }
 
 
@@ -106,10 +106,7 @@ input {
   text-align: left;
 }
 
-#theForm{
+#formDiv{
   display: flex;
-  flex-direction: column;
-  margin-left: 730px;
+  justify-content: center;
 }
-
-

@@ -18,9 +18,9 @@ class AddQuestions extends Component {
       sendMessage: '',
       divId: '',
       quest: '',
-      
-      
-    
+
+
+
      }
   }
 
@@ -101,14 +101,15 @@ class AddQuestions extends Component {
 
 
   }
-  
-  
-  
-  
-  render() {
-      
 
-      
+
+
+
+  render() {
+
+    const profile = this.props.profile;
+
+
       let { a,b,c,d,question,correctAnswer} = this.state
       let enabled =
             a.length > 0 &&
@@ -117,9 +118,9 @@ class AddQuestions extends Component {
             d.length > 0 &&
             question.length > 0 &&
             correctAnswer.length > 0
-        
 
-      
+
+
       if (!this.state.goBack) {
         console.log(this.props.profile)
         console.log(this.state.profile)
@@ -130,18 +131,19 @@ class AddQuestions extends Component {
     }
 
     return (<div>
-      <h2 className="h2Sport">Create your own Sport Question!</h2>
-      <br/>
-        <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
-       <div className="quizDiv">
-            <div onClick={this.backToProfile} profile={this.props.profile}>
-              <h3>{this.state.nickname}</h3>
 
-                <img src={this.props.profile.photo + "?width=999"} alt=" "/>
-
-            </div>
+      <div className="buttons">
+       <button className="btn" onClick={this.goBack} profile={this.props.profile}>Back to SportPage</button>
+      </div>
+      <div className="profilePosition">
+        <div className="quizDiv">
+          <div onClick={this.goBack} profile={this.props.profile}>
+            <h3>{this.props.nickname}</h3>
+              <img src={profile.photo + "?width=999"} alt=" "/>
           </div>
-      <div>
+        </div>
+      </div>
+      <div id="formDiv">
 
         <form ref={(el) => this.myFormRef = el}id="theForm"onChange={this.clearIt}>
           <h3 className="h3Head">What sport question do you want to add?
