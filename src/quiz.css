@@ -1,3 +1,44 @@
+
+.question{
+  position: relative;
+  top:200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+justify-content: center;
+}
+.question h2{
+  width:50% ;
+  margin:auto;
+  height: ;
+  color:rgba(255,255,255,0.5)
+
+}
+
+.question ul{
+  width: 40%;
+  margin: auto;
+}
+.question button{
+  width: 15%;
+  margin: 0 auto;
+  padding:10px;
+  color:rgba(0,0,0,0.5);
+  cursor: pointer;
+  background: rgba(255,255,255,0);
+  /* box-shadow: 0 0 20px rgba(231, 255, 163, 1); */
+  font-size: 1.2em;
+  border-radius: 20px ;
+  border:none;
+
+  /* border-left: 10px solid rgba(233, 255, 170, 0.4);
+  border-right: 10px solid rgba(233, 255, 170, 0.4); */
+  border-left: 10px solid rgba(255,255,255,0.5);
+ border-right: 10px solid rgba(255,255,255,0.5);
+  outline: none;
+  margin-top: 20px;
+}
+
 .quizDiv {
   padding:0;
   width: 100%;
@@ -56,7 +97,8 @@
 .categoryh3{
   text-align: center;
   font-size: 1.5em;
-  color: rgba(0,0,0,0.7);
+  color:rgba(255,255,255,0.5);
+
   margin-top: -20px;
 }
 .btn{
@@ -170,19 +212,34 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  margin-top: 80px;
+  width: 300px;
 
 }
 .show i{
   font-size: 6em;
-  color:rgba(255,255,255,0.8);
-  text-shadow: 0px 0px 20px rgba(0,0,0,0.4);
+  color:rgba(255,255,255,0.5);
+  /* color:rgba(233, 255, 170, 0.5); */
+
+  /* text-shadow: 0px 0px 20px rgba(0,0,0,0.4); */
   margin-bottom: 10px;
 }
 .show  button{
+  width: 100%;
+  margin: 0 auto;
+  padding:10px;
+  color:rgba(0,0,0,0.5);
+  cursor: pointer;
   background: rgba(255,255,255,0);
-  border: none;
-  color:rgba(255,255,255,0.7);
+  /* box-shadow: 0 0 20px rgba(231, 255, 163, 1); */
   font-size: 1.3em;
+  border-radius: 20px ;
+  border:none;
+
+  border-left: 10px solid rgba(255,255,255,0.5);
+  border-right: 10px solid rgba(255,255,255,0.5);
+  outline: none;
+  margin-top: 20px;
 }
 
 .showCreate{
@@ -203,7 +260,8 @@
   width: 15%;
   padding:20px;
   text-align: center;
-  border-bottom: 3px solid rgba(255,255,255,0.7)
+  border-bottom: 3px solid rgba(255,255,255,0.7);
+  position: absolute;
 }
 
 .sportCreate button{

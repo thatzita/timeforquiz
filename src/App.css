@@ -31,7 +31,9 @@ body {
 
 
 #bgColor{
-  background: green;
+  /* background:rgba(233, 255, 170, 0.4); */
+  background: rgba(255,255,255,0.5);
+  color:rgba(0,0,0,0.7);
 }
 
 .question ul{
@@ -48,12 +50,22 @@ body {
   width: 100%;
   margin:0;
   padding: 20px 5px;
-
+  cursor: pointer;
   background:rgba(0,0,0,0.2);
-  border:2px solid rgba(0,0,0,0.4);
   text-align: center;
+  color:rgba(255,255,255,0.7)
+
 }
 
+
+.Row li:first-child{
+  border-right: 2px solid rgba(255,255,255,0.1);
+}
+
+.Row:first-child{
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+
+}
 .disabled {
     pointer-events: none;
     opacity: 0.4;
@@ -170,6 +182,8 @@ body {
 
 .info span {
   color:rgba(0,0,0,0.5);
+  /* color:rgba(233, 255, 170, 0.4); */
+
   font-size: 6em;
   transition-property: all;
   transition-duration: 2s;

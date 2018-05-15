@@ -407,8 +407,8 @@ stopTimer() {
 
 
 
-    <div className="sportCreate">
-     <button onClick={this.writeQuestion} className={this.state.displayCreate} >Write your own question</button>
+    <div onClick={this.writeQuestion} className={"sportCreate "+this.state.displayCreate}>
+     <button  >Write your own question</button>
 
     </div>
         {(this.state.handleChange === true)
@@ -432,7 +432,6 @@ stopTimer() {
 
 
           <div   onClick={this.getQuestions}>
-            <i className="fas fa-play-circle"></i>
             <button >
             Start quiz
             </button>
