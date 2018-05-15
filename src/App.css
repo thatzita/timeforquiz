@@ -283,3 +283,53 @@ body {
 .stlyeMenu {
    color: white;
 }
+
+
+@media (max-width:800px){
+
+    .info span{
+      font-size: 3em;
+    }
+
+    .profile img{
+      width:100px;
+      height: 100px;
+    }
+    .btnEdit {
+      top:160px;
+    }
+
+    ul{
+      font-size: 0.8em;
+    }
+
+
+
+}
+
+@media (max-width:1000px){
+  .Row{
+    display: flex;
+    justify-content: center;
+  }
+
+  .Row li{
+
+    width: 100%;
+    height: 30px;
+    padding: 10px;
+    margin: 4px;
+    cursor: pointer;
+    background: rgba(0,0,0,0.2);
+    text-align: center;
+    color: rgba(255,255,255,0.7);
+    font-size: 1em;
+    font-weight: 900;
+  }
+
+  .timeAndCurrentQ{
+    font-size: 1em;
+    font-weight: 500;
+    color:rgba(255,255,255,0.5);
+  }
+}

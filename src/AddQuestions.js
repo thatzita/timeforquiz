@@ -121,6 +121,9 @@ class AddQuestions extends Component {
 
       
       if (!this.state.goBack) {
+        console.log(this.props.profile)
+        console.log(this.state.profile)
+
       return (<div>
         <SportQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)

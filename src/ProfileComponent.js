@@ -78,7 +78,7 @@ class ProfileComponent extends Component {
       if (this.state.inputField === true) {
         return (<div>
           <div className="buttons">
-            <button className="btn" onClick={this.startQuiz}>Click to start the quiz</button>
+            <button className="btn" onClick={this.startQuiz}>Quiz</button>
             <button className="btn" onClick={this.highscore}>Highscore</button>
           </div>
           <div className="profile">
@@ -97,7 +97,7 @@ class ProfileComponent extends Component {
       } else {
         return (<div>
           <div className="buttons">
-            <button className="btn" onClick={this.startQuiz} profile={this.props.profile}>Click to start the quiz</button>
+            <button className="btn" onClick={this.startQuiz} profile={this.props.profile}>Quiz</button>
             <button className="btn" onClick={this.highscore}>Highscore</button>
           </div>
           <div className="profile">

@@ -46,3 +46,10 @@
   color:rgba(255,255,255,0.7);
   margin-top: -20px;
 }
+
+@media (max-width:900px){
+  .headerForTopPlayers{
+    margin-top:50px;
+  }
+
+}
