@@ -404,7 +404,7 @@ stopTimer() {
   }
   render() {
     // const isPlaying = this.state.isPlaying;
-<
+
     if (!this.state.backToProfile) {
       return (<div>
         <ProfileComponent firebaseKey={this.props.firebaseKey} profile={this.state.profile} nickname={this.state.nickname} />
@@ -504,4 +504,4 @@ stopTimer() {
 
 }
 
-export default historyQuestions;
+export default HistoryQuestions;

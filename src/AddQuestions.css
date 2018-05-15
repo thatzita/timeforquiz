@@ -1,8 +1,20 @@
-.btnQ {
+.h2Sport {
+    margin-left: 730px;
+    color: rgba(255,255,255,0.7);
+}
 
-   border: none;
+.img {
+    margin-top: -17px;
+}
+
+.h3Head {
+    color: rgba(255,255,255,0.7);
+}
+.btnQ {
+  display: flex;
+  border: none;
   background: rgba(255,255,255,0);
-  margin-top: -30px;
+  margin-top: -40px;
   margin-left: 30px;
   color: rgba(0,0,0,0.6);
   font-size:1.2em;
@@ -13,10 +25,12 @@
 .btnQ:hover{
   text-decoration: underline;
   transform: scale(1.1);
-   color: white;
+  color: white;
+
 }
 
-.btnSendQ {
+
+.btnSend {
   border: none;
   background: rgba(255,255,255,0);
   margin-top: 60px;
@@ -24,10 +38,10 @@
   font-size:1.2em;
   cursor: pointer;
   transition: all .2s ease-in-out;
-  margin-left: 490px;
+  margin-left: 840px;
 }
 
-.bbtnSendQ button{
+.btnSend button{
   background: rgba(255,255,255,0);
   color:white;
   font-size: 0.9em;
@@ -35,14 +49,27 @@
   cursor: pointer;
 }
 
-.btnSendQ:hover{
-   color:rgba(255,255,255,0.7);
+.btnSend:hover{
+   
   transform: scale(1.1);
+  
+}
+
+.btnSend:disabled,
+.btnSend[disabled]{
+  color: black
+}
+
+.btnSend:enabled,
+.btnSend[enabled]{
+  
+  color: white;
   
 }
 
 
 
+/*
 h2 {
     color: white;
     margin-left: 400px;
@@ -51,10 +78,12 @@ h2 {
 h3 {
     color: white;
 }
+*/
 
 .letter {
     color: white;
     font-weight: 900;
+    margin-bottom: -10px;
 
 }
 
@@ -78,19 +107,19 @@ input {
   margin-top: 0;
   margin-bottom: -10px;
   width: 360px;
+  text-align: left;
 }
 
 .questionInput {
   /* margin-top: 20px; */
   width: 360px;
+  text-align: left;
 }
 
 #theForm{
   display: flex;
   flex-direction: column;
-  margin-left: 400px;
+  margin-left: 730px;
 }
 
-h3 {
-  margin-bottom: -25px;
-}
+
