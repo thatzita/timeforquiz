@@ -16,7 +16,7 @@ class HistoryQuestions extends Component {
       writeQuestion: true,
       backToProfile: true,
       backToQuiz: true,
-      timeLeft: 6,
+      timeLeft: 30,
       isPlaying: false,
       tenQuestions: [],
       backgroundA: "",
@@ -190,7 +190,7 @@ class HistoryQuestions extends Component {
             //     }
             //   }
             // }
-            function hej(){
+            function callback(){
               self.setState({
                   handleChange:true,
                   nickname: self.state.nickname,
@@ -219,7 +219,7 @@ class HistoryQuestions extends Component {
                     ranking: rank.toFixed(2),
                     // place: place,
                   }
-                },hej());
+                },callback());
               }else{
                 // console.log(self.props)
                 let totalCorrect = databaseCorrect + correct;
@@ -239,7 +239,7 @@ class HistoryQuestions extends Component {
                     // place: place,
                   }
 
-                },hej());
+                },callback());
               }
           })
         }
@@ -360,10 +360,75 @@ stopTimer() {
 
 
   writeQuestion = () => {
-    this.setState({writeQuestion: false})
+    if(this.state.wichState){
+      // console.log(this.state.profile)
+
+      this.setState({
+        writeQuestion: false,
+        nickname: this.props.nickname,
+        profile: {
+          nickname: this.props.profile.nickname,
+          photo: this.props.profile.photo,
+          correctAnswers: this.props.profile.correctAnswers,
+          failedAnswers: this.props.profile.failedAnswers,
+          uid: this.props.profile.uid,
+          ranking: this.props.profile.ranking,
+          place: this.props.profile.place,
+        }
+      })
+    }else{
+      // console.log(this.state.profile)
+
+      this.setState({
+        writeQuestion: false,
+        nickname: this.state.nickname,
+        profile: {
+          nickname: this.state.profile.nickname,
+          photo: this.state.profile.photo,
+          correctAnswers: this.state.profile.correctAnswers,
+          failedAnswers: this.state.profile.failedAnswers,
+          uid: this.state.profile.uid,
+          ranking: this.state.profile.ranking,
+          place: this.state.profile.place,
+        }
+      })
+    }
   }
   backToQuiz = () => {
-    this.setState({backToQuiz: false})
+
+        if(this.state.wichState){
+          // console.log(this.state.profile)
+
+          this.setState({
+            backToQuiz: false,
+            nickname: this.props.nickname,
+            profile: {
+              nickname: this.props.profile.nickname,
+              photo: this.props.profile.photo,
+              correctAnswers: this.props.profile.correctAnswers,
+              failedAnswers: this.props.profile.failedAnswers,
+              uid: this.props.profile.uid,
+              ranking: this.props.profile.ranking,
+              place: this.props.profile.place,
+            }
+          })
+        }else{
+          // console.log(this.state.profile)
+
+          this.setState({
+            backToQuiz: false,
+            nickname: this.state.nickname,
+            profile: {
+              nickname: this.state.profile.nickname,
+              photo: this.state.profile.photo,
+              correctAnswers: this.state.profile.correctAnswers,
+              failedAnswers: this.state.profile.failedAnswers,
+              uid: this.state.profile.uid,
+              ranking: this.state.profile.ranking,
+              place: this.state.profile.place,
+            }
+          })
+        }
   }
 
   backToProfile = () => {
@@ -413,17 +478,17 @@ stopTimer() {
 
     if (!this.state.writeQuestion) {
       return (<div>
-        <AddQuestionsHistory profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+        <AddQuestionsHistory profile={this.state.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
 
     if (!this.state.backToQuiz) {
       return (<div>
-        <Quiz profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+        <Quiz profile={this.state.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
     return (<div className="historyQuestion">
-      <div className="buttons">
+      <div className="category">
        <button  onClick={this.writeQuestion} className={"historyCreate " +this.state.displayCreate}>Create question</button>
        <button onClick={this.backToQuiz}  className={"historyCreate " +this.state.displayCreate}>Back to quizzes</button>
     </div>
@@ -478,8 +543,8 @@ stopTimer() {
 
                 <br/>
                 <div className="timeAndCurrentQ">
-                <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
-                <div>Time remaining on current question: { this.state.timeLeft}</div>
+                <div>Question: {this.state.currentQuestion + 1}/10</div>
+                <div>Time remaining: { this.state.timeLeft}</div>
                 </div>
               </div>
             : <div></div>

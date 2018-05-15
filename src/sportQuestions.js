@@ -15,7 +15,7 @@ class SportQuestions extends Component {
       writeQuestion: true,
       backToProfile: true,
       backToQuiz: true,
-      timeLeft: 6,
+      timeLeft: 30,
       isPlaying: false,
       tenQuestions: [],
       backgroundA: "",
@@ -183,7 +183,7 @@ class SportQuestions extends Component {
             //     }
             //   }
             // }
-            function hej(){
+            function callback(){
               self.setState({
                   handleChange:true,
                   nickname: self.state.nickname,
@@ -212,7 +212,7 @@ class SportQuestions extends Component {
                     ranking: rank.toFixed(2),
                     // place: place,
                   }
-                },hej());
+                },callback());
               }else{
                 // console.log(self.props)
                 let totalCorrect = databaseCorrect + correct;
@@ -232,7 +232,7 @@ class SportQuestions extends Component {
                     // place: place,
                   }
 
-                },hej());
+                },callback());
               }
           })
         }
@@ -272,7 +272,7 @@ class SportQuestions extends Component {
     }
     // console.log(val)
 if(this.state.timeLeft === 0){
-         // console.log("hejsan")
+         // console.log("callbacksan")
             this.setState({
           currentQuestion: this.state.currentQuestion + 1,
           backgroundA: "",
@@ -354,9 +354,74 @@ stopTimer() {
 
   writeQuestion = () => {
     this.setState({writeQuestion: false})
+    if(this.state.wichState){
+      // console.log(this.state.profile)
+
+      this.setState({
+        writeQuestion: false,
+        nickname: this.props.nickname,
+        profile: {
+          nickname: this.props.profile.nickname,
+          photo: this.props.profile.photo,
+          correctAnswers: this.props.profile.correctAnswers,
+          failedAnswers: this.props.profile.failedAnswers,
+          uid: this.props.profile.uid,
+          ranking: this.props.profile.ranking,
+          // place: this.props.profile.place,
+        }
+      })
+    }else{
+      // console.log(this.state.profile)
+
+      this.setState({
+        writeQuestion: false,
+        nickname: this.state.nickname,
+        profile: {
+          nickname: this.state.profile.nickname,
+          photo: this.state.profile.photo,
+          correctAnswers: this.state.profile.correctAnswers,
+          failedAnswers: this.state.profile.failedAnswers,
+          uid: this.state.profile.uid,
+          ranking: this.state.profile.ranking,
+          // place: this.state.profile.place,
+        }
+      })
+    }
   }
   backToQuiz = () => {
-    this.setState({backToQuiz: false})
+    if(this.state.wichState){
+      // console.log(this.state.profile)
+
+      this.setState({
+        backToQuiz: false,
+        nickname: this.props.nickname,
+        profile: {
+          nickname: this.props.profile.nickname,
+          photo: this.props.profile.photo,
+          correctAnswers: this.props.profile.correctAnswers,
+          failedAnswers: this.props.profile.failedAnswers,
+          uid: this.props.profile.uid,
+          ranking: this.props.profile.ranking,
+          // place: this.props.profile.place,
+        }
+      })
+    }else{
+      // console.log(this.state.profile)
+
+      this.setState({
+        backToQuiz: false,
+        nickname: this.state.nickname,
+        profile: {
+          nickname: this.state.profile.nickname,
+          photo: this.state.profile.photo,
+          correctAnswers: this.state.profile.correctAnswers,
+          failedAnswers: this.state.profile.failedAnswers,
+          uid: this.state.profile.uid,
+          ranking: this.state.profile.ranking,
+          // place: this.state.profile.place,
+        }
+      })
+    }
   }
 
   backToProfile = () => {
@@ -405,18 +470,21 @@ stopTimer() {
     }
 
     if (!this.state.writeQuestion) {
+      console.log(this.props.profile)
+      console.log(this.state.profile)
+
       return (<div>
-        <AddQuestions profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+        <AddQuestions profile={this.state.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
     if (!this.state.backToQuiz) {
       return (<div>
-        <Quiz profile={this.props.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
+        <Quiz profile={this.state.profile} nickname={this.state.nickname} firebaseKey={this.props.firebaseKey}/>
       </div>)
     }
     return (<div className="sportQuestion">
 
-      <div className="buttons">
+      <div className="category">
        <button  onClick={this.writeQuestion} className={"sportCreate " +this.state.displayCreate  }>Create question</button>
        <button onClick={this.backToQuiz}  className={"sportCreate " +this.state.displayCreate }>Back to quizzes</button>
 
@@ -469,8 +537,8 @@ stopTimer() {
                 <button className="nextbtn" onClick={e => this.clickedButton("next", this.state.tenQuestions[this.state.currentQuestion].correctAnswer, this.resetTimer(), this.startTimer())} disabled={!this.state.disabledBtn}>Next question</button>
                 <br/>
                 <div className="timeAndCurrentQ">
-                <div>Currently On Question: {this.state.currentQuestion + 1}/10</div>
-                <div>Time remaining on current question: { this.state.timeLeft}</div>
+                <div>Question: {this.state.currentQuestion + 1}/10</div>
+                <div>Time remaining: { this.state.timeLeft}</div>
                 </div>
               </div>
             : <div></div>

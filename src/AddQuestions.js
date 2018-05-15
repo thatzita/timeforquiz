@@ -109,6 +109,9 @@ class AddQuestions extends Component {
             correctAnswer.length > 0
 
       if (!this.state.goBack) {
+        console.log(this.props.profile)
+        console.log(this.state.profile)
+
       return (<div>
         <SportQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
@@ -139,7 +142,7 @@ class AddQuestions extends Component {
       <br/>
 
 
-      <button disabled={!enabled} id="btnSend" className="btnSendQ" onClick={this.sendQuestion}>Send Question!</button>
+      <button disabled={!enabled} id="btnSend" className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }

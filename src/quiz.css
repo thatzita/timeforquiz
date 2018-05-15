@@ -21,22 +21,7 @@ justify-content: center;
   width: 55%;
   margin: auto;
 }
-/* .question button {
-    width: 13%;
-    margin: 0 auto;
-    padding: 10px;
-    color: rgba(0,0,0,0.5);
-    cursor: pointer;
-    background: rgba(255,255,255,0);
-    /* box-shadow: 0 0 20px rgba(231, 255, 163, 1); */
-    /* font-size: 1.5em;
-    border-radius: 20px;
-    border: none;
-    border-left: 10px solid rgba(255,255,255,0.5);
-    border-right: 10px solid rgba(255,255,255,0.5);
-    outline: none;
-    margin-top: 20px; */
-/* }  */
+
 
 .profilePosition{
   position: absolute;
@@ -312,11 +297,6 @@ justify-content: center;
 
 .sportCreate, .fictionCreate, .historyCreate button{
   background: rgba(255,255,255,0);
-
-  /* color:rgba(255,255,255,0.7); */
-
-  /* font-size: 0.9em; */
-  /* border: none; */
 }
 
 .buttons{
@@ -325,6 +305,8 @@ justify-content: center;
   border-bottom: 3px solid rgba(255,255,255,0.7);
 
 }
+
+
 
 .answersAll{
   margin:0 auto;
@@ -338,7 +320,28 @@ justify-content: center;
 @media (max-width:1000px){
   .categoryDiv {
     flex-direction: column;
+    top:0px;
 
+  }
+  .show {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      position: relative;
+      top:10px;
+
+  }
+
+  .answersAll{
+    margin:0 auto;
+    position: relative;
+    top:80px;
+    text-align: center;
+    display: block;
+    color:rgba(255,255,255,0.7)
+  }
+  .answersAll h2{
+    font-size: 0.9em;
   }
   .fiction, .history, .sport{
     height:150px;
@@ -363,7 +366,72 @@ justify-content: center;
     margin-bottom: 20px;
   }
 
+
 }
+@media (max-width:1000px){
+
+  .profilePosition{
+      display: none;
+  }
+
+  .categoryh3{
+    margin-top: 30px;
+    font-size: 1.5em;
+  }
+
+  .question{
+    position: relative;
+    top:25px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  }
+  .question h2{
+    width:90% ;
+    margin:auto;
+    /* height: ; */
+    color:rgba(255,255,255,0.5);
+    font-size: 0.8em;
+
+  }
+
+  .question ul{
+    width: 100%;
+    margin: auto;
+  }
+
+  .nextbtn{
+    font-size: 1em;
+    width: 80%;
+    margin:auto;
+    background: rgba(255,255,255,0);
+    border:none;
+    color:rgba(0,0,0,1);
+
+    border-left: 5px solid rgba(255,255,255,0.5);
+    border-right: 5px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+
+  }
+
+  .nextbtn:hover{
+    font-size: 1em;
+    width: 80%;
+    margin:auto;
+    background: rgba(255,255,255,0);
+    border:none;
+    color:rgba(0,0,0,1);
+
+    border-left: 5px solid rgba(255,255,255,0.5);
+    border-right: 5px solid rgba(255,255,255,0.5);
+    cursor: pointer;
+  }
+
+}
+
+
+
 
 /* .historyQuestion > h3 {
     display: inline-block;

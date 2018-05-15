@@ -11,6 +11,13 @@
     color:rgba(255,255,255,0.7);
 }
 
+.category{
+  width: 30%;
+  padding:0px;
+  font-size: 0.8em;
+  text-align: left;
+  border-bottom: 3px solid rgba(255,255,255,0.7)
+}
 .buttons{
   width: 20%;
   padding:0px;
@@ -18,6 +25,8 @@
   text-align: left;
   border-bottom: 3px solid rgba(255,255,255,0.7)
 }
+
+
 
 input {
   font-size: 1.17em;
@@ -37,14 +46,14 @@ input {
   text-align: center;
   color:rgba(255,255,255,0.7);
   text-decoration: underline;
-  font-size: 1.5em;
+  font-size: 1.3em;
 }
 
 .logout{
   border: none;
   background: rgba(255,255,255,0);
   margin-top: 20px;
-  font-size:1.2em;
+  font-size:1em;
   cursor: pointer;
   transition: all .2s ease-in-out;
   color:rgba(255,255,255,0.7);
@@ -52,4 +61,32 @@ input {
 
 .logout:hover{
   transform: scale(1.1);
+}
+
+
+
+@media (max-width:1000px){
+
+    .stats {
+      font-size: 1.2em;
+    }
+
+    .logout{
+
+    }
+
+
+
+}
+
+@media (max-width:900px){
+
+  .category{
+    width:100%;
+  }
+
+  .buttons{
+    width:100%;
+  }
+
 }
