@@ -293,11 +293,18 @@ justify-content: center;
   cursor: pointer;
   transition: all .2s ease-in-out;
     color:rgba(255,255,255,0.7);
+    position: relative;
 }
 
 .sportCreate, .fictionCreate, .historyCreate button{
   background: rgba(255,255,255,0);
 }
+
+.sportCreate:hover, .fictionCreate:hover, .historyCreate:hover{
+
+  top:-5px;
+}
+
 
 .buttons{
   width: 20%;
