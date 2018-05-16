@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import firebase from './firebase.js';
 import HistoryQuestions from './historyQuestions.js';
 import './AddQuestions.css'
-
 class AddQuestionsHistory extends Component {
 
   constructor(props) {
@@ -16,12 +15,9 @@ class AddQuestionsHistory extends Component {
       question: '',
       correctAnswer: '',
       sendMessage: '',
-      divId: '',
-      quest: '',
-
-
-
-     }
+      divId: ''
+    }
+    console.log(this.props.profile)
   }
 
   goBack = () => {
@@ -30,41 +26,51 @@ class AddQuestionsHistory extends Component {
 
   handleChangeQuestion = (e) => {
     this.setState({question: e.target.value})
-    //this.setState({quest: e.target.value})
   }
 
   handleChangeA = (e) => {
     this.setState({a: e.target.value})
-    // this.setState({quest: e.target.value})
   }
 
   handleChangeB = (e) => {
     this.setState({b: e.target.value})
-   // this.setState({quest: e.target.value})
-
   }
 
   handleChangeC = (e) => {
     this.setState({c: e.target.value})
-   // this.setState({quest: e.target.value})
   }
 
   handleChangeD = (e) => {
     this.setState({d: e.target.value})
-   // this.setState({quest: e.target.value})
-
-
   }
 
   correctAnswer = (e) => {
     this.setState({correctAnswer: e.target.value})
-   // this.setState({quest: e.target.value})
   }
 
+  componentDidMount() {
+        let btnSend = document.getElementById("btnSend");
+        btnSend.disabled = true;
+  }
+
+  componentDidUpdate() {
+     let btnSend = document.getElementById("btnSend")
+     console.log(btnSend)
+     if(btnSend === null) {
+       console.log("you will come here")
+
+     }else{
+
+     btnSend.disabled = true;
+         if(this.state.question !== '' && this.state.correctAnswer !== '' &&
+           this.state.a !== '' && this.state.b !== '' && this.state.c !== '' && this.state.d !== '') {
+         btnSend.disabled = false
+       }
+     }
+     }
   sendQuestion = () => {
-
     let self = this;
-
+    let form = document.getElementById("theForm");
     firebase.database().ref('questions/genre/History/').push({
       Question: this.state.question,
       answers: {
@@ -76,85 +82,51 @@ class AddQuestionsHistory extends Component {
       correctAnswer: this.state.correctAnswer
     })
 
+    form.reset();
+
     this.setState({sendMessage: 'Your question have been sent, sir!', divId: 'itHasBeenSent'})
 
     setInterval(function() {
       self.setState({sendMessage: '', divId: ''})
     }, 4000);
 
-   this.resetIt();
-  }
-
-
-
-  resetIt = () => {
     this.setState({
-        question: '',
-        a: '',
-        b: '',
-        c: '',
-        d: '',
-        correctAnswer: ''
-      })
-      this.myFormRef.reset();
-   // console.log(this.state.question)
-
-
+    question: '',
+    a: '',
+    b: '',
+    c: '',
+    d: '',
+    correctAnswer: ''
+  })
   }
-
-
-
 
   render() {
 
-    const profile = this.props.profile;
-
-
-      let { a,b,c,d,question,correctAnswer} = this.state
-      let enabled =
-            a.length > 0 &&
-            b.length > 0 &&
-            c.length > 0 &&
-            d.length > 0 &&
-            question.length > 0 &&
-            correctAnswer.length > 0
-
-
-
-      if (!this.state.goBack) {
+    if (!this.state.goBack) {
       return (<div>
         <HistoryQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
     }
 
     return (<div>
-      <div className="buttons">
-       <button className="btn" onClick={this.goBack} profile={this.props.profile}>Back to history page</button>
-      </div>
-      <h2 className="h3Head">Create your own history question!</h2>
-      <div className="profilePosition">
-        <div className="quizDiv">
-          <div onClick={this.goBack} profile={this.props.profile}>
-            <h3>{this.props.nickname}</h3>
-              <img src={profile.photo + "?width=999"} alt=" "/>
-          </div>
-        </div>
+      <h2>Create your own history Question!</h2>
+      <br/>
 
-        </div>
-        <div className="container">
-
-        <form className="theForm" ref={(el) => this.myFormRef = el} onChange={this.clearIt}>
-          <h3 className="h3Question">What history question do you want to add?</h3>
+      <div>
+        <form id="theForm">
+          <h3>What history question do you want to add?
+          </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
-          <p className="letter">Answer A:</p><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/>
-          <p className="letter">Answer B:</p><input className="answerInput" type="text" onChange={this.handleChangeB}/><input type="radio" className="radioButton" value="b" name="chooseOne" onClick={this.correctAnswer}/>
-          <p className="letter">Answer C:</p><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/>
-          <p className="letter">Answer D:</p><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/>
-          <br/><button disabled={!enabled} id="btnSend" className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
-          <div id={this.state.divId}>{this.state.sendMessage}</div>
+          <br/>Answer A:<label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/>Answer B:<label><input className="answerInput" type="text" onChange={this.handleChangeB}/><input type="radio" className="radioButton" value="b" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/>Answer C:<label><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/></label>
+          <br/>Answer D:<label><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/></label>
         </form>
-
-        </div>
+      </div>
+      <br/>
+      <button id="btnSend" className="btnQ" onClick={this.sendQuestion}>Send Question!</button>
+      <button className="btnQ" onClick={this.goBack} >Back to SportPage</button>
+      <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
 
