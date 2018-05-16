@@ -20,20 +20,6 @@
   margin-top: -20px; */
 }
 
-.h3Question {
-  color: rgba(255, 255, 255, 0.7);
-  /* position: relative;
-  text-align: center; */
-  /* position: relative; */
-  /* margin: 0 auto;
-  text-align: center; */
-  /* top: 40px; */
-  /* margin-top: 20px; */
-  /* text-align: center;
-  font-size: 1.9em;
-  color: rgba(255, 255, 255, 0.7);
-  margin-top: -20px; */
-}
 
 /* .btnQ {
   display: flex;
@@ -91,36 +77,71 @@
 .letter {
   color: rgba(255, 255, 255, 0.7);
   font-weight: 900;
-  margin-bottom: -10px;
+  position: absolute;
 }
 
-.container {
+
+
+.h3Question{
+  text-align: center;
+  margin-top: 40px;
+}
+
+
+.theFormDiv{
+  width:100%;
   display: flex;
-  margin-top: 30px;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
-.theForm {
-  align-content: center;
-  margin-left: 100px;
+.theFormDiv > div{
+  position: relative;
+  margin: 5px;
+  color: rgba(255, 255, 255, 0.7);
+
 }
 
-.questionInput {
-  margin-top: -50px;
-  width: 360px;
+.theFormDiv > div:first-child input{
+  width:370px;
+}
+
+.theFormDiv span, .radioButton{
+  position: absolute;
+}
+
+.theFormDiv input{
   text-align: left;
+  cursor: pointer;
 }
+
+
+.theForm span {
+  top:0;
+  left:0;
+  margin-bottom:5px;
+}
+
+.radioButton{
+  top:0;
+  left:-25px;
+  z-index: 1;
+  background: red;
+  width:20px;
+
+  height: 20px;
+}
+
+.inputClass{
+  position: relative;
+}
+
 
 @media only screen and (max-width: 1000px) {
-  .answerInput {
-    max-width: 280px;
-  }
-  .questionInput {
-    width: 280px;
-  }
-  .h3Question {
-    font-size: 1em;
-    margin-left: -18px;
-  }
+
+
+
   .btnSend {
     margin-left: -5px;
   }
@@ -133,32 +154,4 @@
   .btnSend {
     /* margin-left: 60px; */
   }
-}
-
-input {
-  font-size: 1.17em;
-  -webkit-margin-before: 1em;
-  -webkit-margin-after: 1em;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
-  margin-left: 20px;
-}
-
-.radioButton {
-  margin-left: -83px;
-  margin-top: 15px;
-}
-
-input[type="radio"] {
-  margin-left: -83px;
-  margin-top: 15px;
-  height: 20px;
-}
-
-.answerInput {
-  /* margin-left:20px; */
-  margin-top: 0;
-  margin-bottom: -20px;
-  width: 360px;
-  text-align: left;
 }
