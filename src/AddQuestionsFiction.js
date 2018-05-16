@@ -141,20 +141,23 @@ class AddQuestionsFiction extends Component {
         </div>
 
         </div>
-        <div className="container">
 
         <form className="theForm" ref={(el) => this.myFormRef = el} onChange={this.clearIt}>
-          <h3 className="h3Question">What fiction question do you want to add?</h3>
-          <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
-          <p className="letter">Answer A:</p><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/>
-          <p className="letter">Answer B:</p><input className="answerInput" type="text" onChange={this.handleChangeB}/><input type="radio" className="radioButton" value="b" name="chooseOne" onClick={this.correctAnswer}/>
-          <p className="letter">Answer C:</p><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/>
-          <p className="letter">Answer D:</p><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/>
-          <br/><button disabled={!enabled} id="btnSend" className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
-          <div id={this.state.divId}>{this.state.sendMessage}</div>
+          <div className="theFormDiv">
+
+            <div><input className="questionInput" type="text" onChange={this.handleChangeQuestion}/></div>
+            <div><span>Answer A:</span><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></div>
+            <div><span>Answer B:</span><input className="answerInput" type="text" onChange={this.handleChangeB}/><input type="radio" className="radioButton" value="b" name="chooseOne" onClick={this.correctAnswer}/></div>
+            <div><span>Answer C:</span><input className="answerInput" type="text" onChange={this.handleChangeC}/><input type="radio" className="radioButton" value="c" name="chooseOne" onClick={this.correctAnswer}/></div>
+            <div><span>Answer D:</span><input className="answerInput" type="text" onChange={this.handleChangeD}/><input type="radio" className="radioButton" value="d" name="chooseOne" onClick={this.correctAnswer}/></div>
+            <div><button disabled={!enabled} className="btnSend" onClick={this.sendQuestion}>Send Question!</button></div>
+
+            <div id={this.state.divId}>{this.state.sendMessage}</div>
+
+          </div>
+
         </form>
 
-        </div>
     </div>)
   }
 
