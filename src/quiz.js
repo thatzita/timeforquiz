@@ -4,7 +4,8 @@ import './App.css';
 import ProfileComponent from './ProfileComponent.js';
 import SportQuestions from './sportQuestions.js';
 import FictionQuestions from './FictionQuestions.js';
-import HistoryQuestions from "./historyQuestions.js"
+import HistoryQuestions from "./historyQuestions.js";
+import Highscore from './Highscore.js';
 
 class Quiz extends Component {
   constructor(props) {

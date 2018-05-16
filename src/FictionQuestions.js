@@ -5,12 +5,14 @@ import ProfileComponent from './ProfileComponent.js';
 import Quiz from './quiz.js';
 import "./App.css"
 import "./quiz.css"
+import Highscore from './Highscore.js';
 
 class FictionQuestions extends Component {
   constructor(props) {
     super(props);
     this.state = {
       clicked: true,
+        scoreclicked:false,
       writeQuestion: true,
       backToProfile: true,
       backToQuiz: true,
@@ -51,6 +53,12 @@ class FictionQuestions extends Component {
   //     questionRef.push(theQuestions)
   //   });
   // }
+  highscoreclicked = () => {
+        this.setState({
+            scoreclicked: true,
+        })
+  }
+  
 
   getQuestions = () => {
 
@@ -458,6 +466,8 @@ stopTimer() {
       })
     }
   }
+  
+  
   render() {
     // const isPlaying = this.state.isPlaying;
     // let sportQuestions = [];
@@ -510,9 +520,10 @@ stopTimer() {
         </div>
       <div>
         {
-          (this.state.tenQuestions[this.state.currentQuestion] !== undefined)
+          (this.state.tenQuestions[this.state.currentQuestion] !== undefined && this.state.scoreclicked === false)
             ? <div className="question">
-
+                    
+                  <button onClick={this.highscoreclicked}>Higschore</button>
                 <h2>{this.state.tenQuestions[this.state.currentQuestion].Question}</h2>
                 <ul>
 
@@ -534,6 +545,13 @@ stopTimer() {
               </div>
             : <div></div>
         }
+          {
+              (this.state.scoreclicked)
+                ?
+                  <Highscore />
+                  :
+                    <div></div>
+          }
         {
           (this.state.currentQuestion === 10)
             ? <div className="answersAll">
