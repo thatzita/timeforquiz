@@ -39,7 +39,7 @@
   font-size:1.2em;
   cursor: pointer;
   transition: all .2s ease-in-out;
-  margin-left: 780px;
+  margin-left: 600px;
   margin-top: 20px;
 }
 
@@ -82,7 +82,7 @@
 .theForm {
     display: inline-block;
     margin-top: 40px;
-    margin-left: 700px;
+    margin-left: 500px;
 }
 
 @media only screen and (max-width: 1222px) {

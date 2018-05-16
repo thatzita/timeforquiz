@@ -107,6 +107,7 @@ class AddQuestionsHistory extends Component {
 
   render() {
 
+    const profile = this.props.profile;
 
 
       let { a,b,c,d,question,correctAnswer} = this.state
@@ -121,27 +122,31 @@ class AddQuestionsHistory extends Component {
 
 
       if (!this.state.goBack) {
+        console.log(this.props.profile)
+        console.log(this.state.profile)
+
       return (<div>
         <HistoryQuestions profile={this.props.profile} firebaseKey={this.props.firebaseKey} nickname={this.props.nickname}/>
       </div>)
     }
 
     return (<div>
-      <h2 className="h3Head">Create your own History Question!</h2>
-      <br/>
-         <div className="buttons">
+        <h2 className="h3Head">Create your own history Question!</h2>
+      <div className="buttons">
        <button className="btn" onClick={this.goBack} profile={this.props.profile}>Back to HistoryPage</button>
       </div>
-       <div className="quizDiv">
-            <div onClick={this.backToProfile} profile={this.props.profile}>
-              <h3>{this.state.nickname}</h3>
-                <img className="img" src={this.props.profile.photo + "?width=999"} alt=" "/>
-            </div>
+      <div className="profilePosition">
+        <div className="quizDiv">
+          <div onClick={this.goBack} profile={this.props.profile}>
+            <h3>{this.props.nickname}</h3>
+              <img src={profile.photo + "?width=999"} alt=" "/>
           </div>
-      
+        </div>
+      </div>
+    
 
-         <form className="theForm" ref={(el) => this.myFormRef = el} onChange={this.clearIt}>
-          <h3 className="h3Head">What history question do you want to add?
+        <form className="theForm" ref={(el) => this.myFormRef = el} onChange={this.clearIt}>
+          <h3 className="h3Head">What fiction history do you want to add?
           </h3><br/>
           <input className="questionInput" type="text" onChange={this.handleChangeQuestion}/>
           <br/><p className="letter">Answer A:</p><label><input className="answerInput" type="text" onChange={this.handleChangeA}/><input type="radio" className="radioButton" value="a" name="chooseOne" onClick={this.correctAnswer}/></label>
@@ -153,7 +158,9 @@ class AddQuestionsHistory extends Component {
       <br/>
 
 
-      <button disabled={!enabled} className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
+
+      <button disabled={!enabled} id="btnSend" className="btnSend" onClick={this.sendQuestion}>Send Question!</button>
+
       <div id={this.state.divId}>{this.state.sendMessage}</div>
     </div>)
   }
