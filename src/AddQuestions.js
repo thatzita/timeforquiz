@@ -66,7 +66,6 @@ class AddQuestions extends Component {
 
   sendQuestion = () => {
 
-    let self = this;
 
     firebase.database().ref('questions/genre/sport/').push({
       Question: this.state.question,
